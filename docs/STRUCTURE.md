@@ -6,7 +6,7 @@
 
 ## 🗂 **Cấu Trúc Thư Mục**
 
-```
+```STRUCTURE
 lib/
 ├── src/
 │   ├── models/               # Các class dữ liệu (Appointment, User, Doctor)
@@ -35,6 +35,7 @@ lib/
 ## 📦 **Chi Tiết Từng Thư Mục**
 
 ### **1. `models/`**
+
 - Chứa các class dữ liệu ánh xạ từ API hoặc Local Storage.
 - **Ví dụ:**
   - `appointment.dart`: Định nghĩa thông tin lịch hẹn.
@@ -44,6 +45,7 @@ lib/
 ---
 
 ### **2. `views/`**
+
 - Chứa giao diện người dùng:
   - **`screens/`**: Các màn hình chính (Login, Home, Appointment).
   - **`widgets/`**: Các widget tái sử dụng như button, form, dialog.
@@ -54,6 +56,7 @@ lib/
 ---
 
 ### **3. `viewmodels/`**
+
 - Chứa logic kết nối giữa View (UI) và Model (Dữ liệu).
 - **Ví dụ:**
   - `auth_viewmodel.dart`: Quản lý trạng thái và logic cho đăng nhập/đăng ký.
@@ -62,6 +65,7 @@ lib/
 ---
 
 ### **4. `repositories/`**
+
 - Xử lý dữ liệu từ API và Local Storage.
 - **Ví dụ:**
   - `appointment_repository.dart`: Gọi API để lấy danh sách lịch hẹn.
@@ -70,6 +74,7 @@ lib/
 ---
 
 ### **5. `services/`**
+
 - Kết nối API và Local Storage:
   - `api_service.dart`: Gọi API backend.
   - `local_storage_service.dart`: Quản lý dữ liệu cục bộ bằng SQLite hoặc Hive.
@@ -77,6 +82,7 @@ lib/
 ---
 
 ### **6. `utils/`**
+
 - Chứa các hàm tiện ích, extension dùng chung.
 - **Ví dụ:**
   - `date_utils.dart`: Định dạng ngày giờ.
@@ -85,6 +91,7 @@ lib/
 ---
 
 ### **7. `config/`**
+
 - Chứa các cài đặt chung:
   - `routes.dart`: Quản lý route trong ứng dụng.
   - `theme.dart`: Cài đặt giao diện (màu sắc, font chữ).
@@ -92,9 +99,9 @@ lib/
 ---
 
 ### **8. `common/`**
+
 - Chứa các thành phần dùng chung:
   - `constants.dart`: Các hằng số (API URL, Key).
   - `themes/`: Định nghĩa màu sắc, typography.
 
 ---
-

@@ -56,7 +56,7 @@ class _HomeScreensState extends State<HomeScreens> {
               icon: Icon(Icons.medical_services),
               label: 'Phiếu khám',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Image.asset('assets/images/chatbot.png'),
               label: 'ChatBot',
             ),
