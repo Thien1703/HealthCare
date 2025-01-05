@@ -51,6 +51,7 @@ git checkout -b feature/add-login-screen
 ### 2.2. **Chuyển Đổi Giữa Các Branch**
 
 ```bash
+git fetch --all
 git checkout branch-name
 ```
 
