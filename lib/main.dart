@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:health_care/screens/homeScreens.dart';
+import 'package:health_care/views/screens/home/home_screens.dart';
 
 void main() {
   runApp(const MyApp());

@@ -11,7 +11,7 @@ class AppIcons {
   static const String clock = 'assets/icons/clock_icon.png';
   static const String delete = 'assets/icons/delete_icon.png';
   static const String edit = 'assets/icons/edit_icon.png';
-  static const String examinationForm = 'assets/icons/examination_form_icon.png';
+  static const String phieuKham = 'assets/icons/phieu_kham_icon.png';
   static const String healthBook = 'assets/icons/health_book_icon.png';
   static const String homeHos = 'assets/icons/home_hos_icon.png';
   static const String hospital = 'assets/icons/hospital_icon.png';
