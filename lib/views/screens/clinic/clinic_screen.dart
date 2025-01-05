@@ -3,30 +3,100 @@ import 'package:health_care/models/clinic/clinic.dart';
 import 'package:health_care/views/screens/clinic/clinic_card.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
 
-class ClinicScreen extends StatelessWidget {
+class ClinicScreen extends StatefulWidget {
   const ClinicScreen({super.key});
+
+  @override
+  State<ClinicScreen> createState() => _ClinicScreenState();
+}
+
+class _ClinicScreenState extends State<ClinicScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+  String _selectedType = 'Tất cả'; // Default: Show all
+
+  // Lọc danh sách dựa trên từ khóa tìm kiếm và loại phòng khám
+  List<Clinic> get filteredClinics {
+    return clinics.where((clinic) {
+      final matchesType = _selectedType == 'Tất cả' || clinic.type == _selectedType;
+      final matchesSearch = clinic.name.toLowerCase().contains(_searchQuery.toLowerCase());
+      return matchesType && matchesSearch;
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
       title: "Chọn cơ sở y tế",
-      body: const BodyClinic(),
+      body: Column(
+        children: [
+          // Thanh tìm kiếm
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Tìm cơ sở y tế',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value; // Cập nhật từ khóa tìm kiếm
+                });
+              },
+            ),
+          ),
+          // Thanh lọc loại phòng khám
+          _buildFilterRow(),
+          // Danh sách các phòng khám
+          Expanded(
+            child: filteredClinics.isEmpty
+                ? const Center(child: Text('Không tìm thấy cơ sở y tế phù hợp.'))
+                : ListView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    itemCount: filteredClinics.length,
+                    itemBuilder: (context, index) {
+                      final clinic = filteredClinics[index];
+                      return ClinicCard(clinic: clinic);
+                    },
+                  ),
+          ),
+        ],
+      ),
     );
   }
-}
 
-class BodyClinic extends StatelessWidget {
-  const BodyClinic({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      itemCount: clinics.length,
-      itemBuilder: (context, index) {
-        final clinic = clinics[index];
-        return ClinicCard(clinic: clinic);
-      },
+  // Widget tạo thanh lọc
+  Widget _buildFilterRow() {
+    final List<String> types = ['Tất cả', 'Phòng khám đa khoa', 'Phòng khám chuyên khoa', 'Phòng khám nhi'];
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      child: Row(
+        children: types.map((type) {
+          final isSelected = _selectedType == type;
+          return Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: ChoiceChip(
+              label: Text(type),
+              selected: isSelected,
+              onSelected: (selected) {
+                setState(() {
+                  _selectedType = type; // Cập nhật loại phòng khám
+                });
+              },
+              selectedColor: Colors.green,
+              backgroundColor: Colors.grey.shade200,
+              labelStyle: TextStyle(
+                color: isSelected ? Colors.white : Colors.black,
+              ),
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 }
