@@ -15,3 +15,5 @@ class ClinicDetailScreen extends StatelessWidget {
     );
   }
 }
+
+
