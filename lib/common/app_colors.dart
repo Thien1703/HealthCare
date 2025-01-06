@@ -21,7 +21,7 @@ class AppColors {
   static const Color neutralDark = Color(0xFF616161);
   static const Color neutralGreen = Color(0xFF2E7D32);
   static const Color neutralDarkGreen1 = Color(0xFF1B401C);
-  static const Color neutralDarkGreen2 = Color.fromARGB(127, 40, 96, 43);
+  static const Color neutralDarkGreen2 = Color.fromRGBO(40, 96, 43, 0.498);
   static const Color neutralGreen3 = Color(0xFF368039);
   static const Color neutralGreen4 = Color(0xFF43A047);
   static const Color neutralBlack = Color(0xFF0D200E);
