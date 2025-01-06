@@ -61,13 +61,13 @@ class _SplashScreenState extends State<SplashScreen> {
             //   size: 100.0,
             // ),
             Image.asset(
-              'assets/images/Frame6.png',
+              'assets/images/healthcare.png',
               width: 128,
               height: 128,
             ),
             const SizedBox(height: 20.0),
             const Text(
-              'Your Health Is Our Priority',
+              'HEALTH CARE',
               style: TextStyle(
                 fontSize: 24.0,
                 color: Colors.white,
