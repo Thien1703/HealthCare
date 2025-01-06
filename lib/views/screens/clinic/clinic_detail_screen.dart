@@ -37,6 +37,8 @@ class ClinicDetailScreen extends StatelessWidget {
                           'Một số bác sĩ tiêu biểu tại bệnh viện',
                           top: 30,
                           bottom: 5),
+                      _buildText(
+                          'Bệnh viện Nhân Dân Gia Định hiên sở hữu đội ngũ các y bác sĩ là những chuyên gia đầu ngành, có trình độ chuyên môn cao bao gồm Giáo sư, Tiến sĩ,... Một trong số đó có thể kể đến như:'),
                       _buildDoctors(),
                       _buildSectionTitle('Cơ sở vật chất tại bệnh viện',
                           top: 30, bottom: 5),
@@ -55,13 +57,13 @@ class ClinicDetailScreen extends StatelessWidget {
   Widget _buildAppBar(BuildContext context) {
     return SliverAppBar(
       backgroundColor: AppColors.accent,
-      expandedHeight: 200,
-      // floating: true,
-      // pinned: false,
+      expandedHeight: 210,
+      floating: false,
+      pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         background: Image.asset(clinic.image, fit: BoxFit.cover),
         centerTitle: true,
-        titlePadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        titlePadding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
         title: Text(
           clinic.name,
           style: TextStyle(
@@ -160,7 +162,7 @@ class ClinicDetailScreen extends StatelessWidget {
 
   Widget _buildDoctors() {
     return Padding(
-      padding: EdgeInsets.only(top: 5, left: 15),
+      padding: EdgeInsets.only(top: 10, left: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: clinic.notableDoctors.map((doctor) {

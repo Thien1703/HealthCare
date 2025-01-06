@@ -135,7 +135,7 @@ final List<Clinic> clinics = [
     image: "assets/images/benhvien.jpg",
     type: "Phòng khám chuyên khoa",
     description:
-        "Phòng khám cung cấp dịch vụ tư vấn sức khỏe cho cả gia đình với sự tận tâm.",
+        "Bệnh viện Nhân dân Gia Định là một trong những Bệnh viện Đa khoa loại I trực thuộc Sở Y tế TP.HCM. Với đội ngũ Y, Bác sĩ chuyên môn cao, dày dạn kinh nghiệm, Bệnh viện có đủ các chuyên khoa lớn, nhiều phân khoa sâu, trang bị đầy đủ trang thiết bị y tế nhằm nâng cao chất lượng chẩn đoán, điều trị và chăm sóc bệnh nhân, đáp ứng nhu cầu khám chữa bệnh ngày càng cao của nhân dân.",
     specialties: ["Nhi khoa", "Lão khoa", "Sức khỏe gia đình"],
     notableDoctors: ["BS. Lê Thị C", "BS. Phạm Văn D"],
     facilities:
