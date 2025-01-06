@@ -67,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             const SizedBox(height: 20.0),
             const Text(
-              'HEALTH CARE',
+              'Your Health Is Our Priority',
               style: TextStyle(
                 fontSize: 24.0,
                 color: Colors.white,
