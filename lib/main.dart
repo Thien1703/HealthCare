@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:health_care/views/screens/home/home_screens.dart';
-import 'package:health_care/views/screens/clinic/clinic_detail_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => ClinicDetailScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreens()),
       );
     });
   }

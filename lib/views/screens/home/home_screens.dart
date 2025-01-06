@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
+import 'package:health_care/views/screens/clinic/clinic_screen.dart';
 
 class HomeScreens extends StatefulWidget {
   const HomeScreens({super.key});
@@ -18,7 +19,7 @@ class _HomeScreensState extends State<HomeScreens> {
       case 0:
         return Center(child: Text('ChatBot đang được phát triển'));
       case 1:
-        return Center(child: Text('Đặt khám đang được phát triển'));
+        return ClinicScreen();
       case 2:
         return Center(child: Text('Bản đồ đang được phát triển'));
       case 3:

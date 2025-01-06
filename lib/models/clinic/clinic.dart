@@ -26,6 +26,8 @@ class Clinic {
     required this.facilities,
   });
 
+ 
+
   // Phương thức khởi tạo từ JSON
   factory Clinic.fromJson(Map<String, dynamic> json) {
     return Clinic(
