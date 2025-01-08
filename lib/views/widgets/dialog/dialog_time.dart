@@ -51,7 +51,7 @@ class AppointmentDialog extends StatelessWidget {
       
       children: [
         IconButton(
-          icon: Image.asset('images/Icon.png'), 
+          icon: Image.asset('assets/icons/cancle_icon.png'), 
           iconSize: 48, 
           onPressed: () {
             Navigator.pop(context); // Đóng dialog
