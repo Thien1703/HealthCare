@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final prefs = await SharedPreferences.getInstance();
     final isFirstTime = prefs.getBool('isFirstTime') ?? true;
     Future.delayed(const Duration(seconds: 3), () {
-      
+
       if (isFirstTime) {
         prefs.setBool('isFirstTime', false);
         Navigator.pushReplacement(
@@ -104,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
-              'assets/images/Frame 6.png',
+              'assets/images/Frame.png',
               width: 128,
               height: 128,
             ),
