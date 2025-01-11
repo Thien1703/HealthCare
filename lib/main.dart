@@ -1,9 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:health_care/views/screens/home/home_screens.dart';
+import 'package:health_care/start_screen.dart';
+// import 'package:health_care/views/screens/home/home_screens.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyCqzgAi64GAYpZZ_pkEwriIV4-RFuYEgWM",
+      appId: "1:357055052387:android:3ca405edbbe269ed929656",
+      messagingSenderId: "357055052387",
+      projectId: "health-care-a85f5",
+      storageBucket: "health-care-a85f5.firebasestorage.app",
+    ),
+  );
   runApp(const MyApp());
 }
 
@@ -42,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreens()),
+        MaterialPageRoute(builder: (context) => StartScreen()),
       );
     });
   }
@@ -61,15 +73,15 @@ class _SplashScreenState extends State<SplashScreen> {
             //   size: 100.0,
             // ),
             Image.asset(
-              'assets/images/Frame6.png',
+              'assets/images/healthcare.png',
               width: 128,
               height: 128,
             ),
             const SizedBox(height: 20.0),
             const Text(
-              'Your Health Is Our Priority',
+              'HEALTH CARE',
               style: TextStyle(
-                fontSize: 24.0,
+                fontSize: 32.0,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
