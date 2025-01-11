@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/models/clinic/clinic.dart';
+import 'package:health_care/views/screens/booking/bookingExam_screen.dart';
 
 class ClinicDetailScreen extends StatelessWidget {
   const ClinicDetailScreen({super.key, required this.clinic});
@@ -23,11 +24,14 @@ class ClinicDetailScreen extends StatelessWidget {
                     children: [
                       _buildLocationRow(),
                       _buildSectionTitle('Dịch vụ', top: 20, bottom: 10),
-                      _buildBookingOption('Đặt khám theo chuyên khoa', () {
-                        print('chuyên khoa');
-                      }),
-                      _buildBookingOption('Đặt khám tại khoa', () {
-                        print('Tại khoa');
+                      // _buildBookingOption('Đặt khám theo chuyên khoa', () {
+                      //   print('chuyên khoa');
+                      // }),
+                      _buildBookingOption('Đặt khám tại bênh viện', () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BookingexamScreen()));
                       }),
                       _buildSectionTitle('Giới thiệu', top: 10, bottom: 5),
                       _buildDescription(),
