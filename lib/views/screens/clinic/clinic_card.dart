@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/models/clinic/clinic.dart';
+import 'package:health_care/views/screens/appointment/appointment_screen.dart';
 import 'package:health_care/views/screens/clinic/clinic_detail_screen.dart';
 
 class ClinicCard extends StatelessWidget {
@@ -161,11 +162,13 @@ class _MedicalCardActions extends StatelessWidget {
         OutlinedButton(
           onPressed: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ClinicDetailScreen(
-                          clinic: clinic,
-                        )));
+              context,
+              MaterialPageRoute(
+                builder: (context) => ClinicDetailScreen(
+                  clinic: clinic,
+                ),
+              ),
+            );
           },
           style: OutlinedButton.styleFrom(
             side: const BorderSide(
@@ -190,6 +193,12 @@ class _MedicalCardActions extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AppointmentScreen(),
+              ),
+            );
             // Xử lý logic cho nút "Đặt khám ngay"
           },
           style: ElevatedButton.styleFrom(
