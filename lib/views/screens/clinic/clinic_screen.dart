@@ -18,8 +18,10 @@ class _ClinicScreenState extends State<ClinicScreen> {
   // Lọc danh sách dựa trên từ khóa tìm kiếm và loại phòng khám
   List<Clinic> get filteredClinics {
     return clinics.where((clinic) {
-      final matchesType = _selectedType == 'Tất cả' || clinic.type == _selectedType;
-      final matchesSearch = clinic.name.toLowerCase().contains(_searchQuery.toLowerCase());
+      final matchesType =
+          _selectedType == 'Tất cả' || clinic.type == _selectedType;
+      final matchesSearch =
+          clinic.name.toLowerCase().contains(_searchQuery.toLowerCase());
       return matchesType && matchesSearch;
     }).toList();
   }
@@ -54,9 +56,11 @@ class _ClinicScreenState extends State<ClinicScreen> {
           // Danh sách các phòng khám
           Expanded(
             child: filteredClinics.isEmpty
-                ? const Center(child: Text('Không tìm thấy cơ sở y tế phù hợp.'))
+                ? const Center(
+                    child: Text('Không tìm thấy cơ sở y tế phù hợp.'))
                 : ListView.builder(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
                     itemCount: filteredClinics.length,
                     itemBuilder: (context, index) {
                       final clinic = filteredClinics[index];
@@ -71,7 +75,12 @@ class _ClinicScreenState extends State<ClinicScreen> {
 
   // Widget tạo thanh lọc
   Widget _buildFilterRow() {
-    final List<String> types = ['Tất cả', 'Phòng khám đa khoa', 'Phòng khám chuyên khoa', 'Phòng khám nhi'];
+    final List<String> types = [
+      'Tất cả',
+      'Phòng khám đa khoa',
+      'Phòng khám chuyên khoa',
+      'Phòng khám nhi'
+    ];
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -110,10 +119,12 @@ final List<Clinic> clinics = [
     reviewCount: 120,
     image: "assets/images/benhvien.jpg",
     type: "Phòng khám đa khoa",
-    description: "Phòng khám chuyên cung cấp dịch vụ y tế đa khoa với đội ngũ bác sĩ giàu kinh nghiệm.",
+    description:
+        "Phòng khám chuyên cung cấp dịch vụ y tế đa khoa với đội ngũ bác sĩ giàu kinh nghiệm.",
     specialties: ["Nội tổng quát", "Nhi khoa", "Phụ sản"],
     notableDoctors: ["BS. Nguyễn Văn A", "BS. Trần Thị B"],
-    facilities: "Phòng chờ tiện nghi, thiết bị hiện đại, phòng xét nghiệm đạt chuẩn.",
+    facilities:
+        "Phòng chờ tiện nghi, thiết bị hiện đại, phòng xét nghiệm đạt chuẩn.",
   ),
   Clinic(
     id: 2,
@@ -123,10 +134,12 @@ final List<Clinic> clinics = [
     reviewCount: 200,
     image: "assets/images/benhvien.jpg",
     type: "Phòng khám chuyên khoa",
-    description: "Phòng khám cung cấp dịch vụ tư vấn sức khỏe cho cả gia đình với sự tận tâm.",
+    description:
+        "Bệnh viện Nhân dân Gia Định là một trong những Bệnh viện Đa khoa loại I trực thuộc Sở Y tế TP.HCM. Với đội ngũ Y, Bác sĩ chuyên môn cao, dày dạn kinh nghiệm, Bệnh viện có đủ các chuyên khoa lớn, nhiều phân khoa sâu, trang bị đầy đủ trang thiết bị y tế nhằm nâng cao chất lượng chẩn đoán, điều trị và chăm sóc bệnh nhân, đáp ứng nhu cầu khám chữa bệnh ngày càng cao của nhân dân.",
     specialties: ["Nhi khoa", "Lão khoa", "Sức khỏe gia đình"],
     notableDoctors: ["BS. Lê Thị C", "BS. Phạm Văn D"],
-    facilities: "Hệ thống quản lý hồ sơ sức khỏe điện tử, khu vực đón tiếp thân thiện.",
+    facilities:
+        "Hệ thống quản lý hồ sơ sức khỏe điện tử, khu vực đón tiếp thân thiện.",
   ),
   Clinic(
     id: 3,
@@ -136,9 +149,11 @@ final List<Clinic> clinics = [
     reviewCount: 80,
     image: "assets/images/benhvien.jpg",
     type: "Phòng khám nhi",
-    description: "Nơi chăm sóc sức khỏe tốt nhất cho trẻ nhỏ với các bác sĩ chuyên khoa nhi hàng đầu.",
+    description:
+        "Nơi chăm sóc sức khỏe tốt nhất cho trẻ nhỏ với các bác sĩ chuyên khoa nhi hàng đầu.",
     specialties: ["Nhi khoa", "Dinh dưỡng", "Hô hấp"],
     notableDoctors: ["BS. Nguyễn Văn E", "BS. Trần Thị F"],
-    facilities: "Khu vực chơi dành cho trẻ em, máy móc y tế hiện đại phù hợp trẻ nhỏ.",
+    facilities:
+        "Khu vực chơi dành cho trẻ em, máy móc y tế hiện đại phù hợp trẻ nhỏ.",
   ),
 ];
