@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/models/clinic/clinic.dart';
+import 'package:health_care/views/screens/clinic/clinic_detail_screen.dart';
 
 class ClinicCard extends StatelessWidget {
   final Clinic clinic;
@@ -30,7 +31,9 @@ class ClinicCard extends StatelessWidget {
               ),
             ),
             padding: const EdgeInsets.symmetric(vertical: 15),
-            child: const _MedicalCardActions(),
+            child: _MedicalCardActions(
+              clinic: clinic,
+            ),
           ),
         ],
       ),
@@ -147,16 +150,22 @@ class _MedicalRatingRow extends StatelessWidget {
 }
 
 class _MedicalCardActions extends StatelessWidget {
-  const _MedicalCardActions({super.key});
+  const _MedicalCardActions({Key? key, required this.clinic}) : super(key: key);
+  final Clinic clinic;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         OutlinedButton(
           onPressed: () {
-            // Xử lý logic cho nút "Xem chi tiết"
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ClinicDetailScreen(
+                          clinic: clinic,
+                        )));
           },
           style: OutlinedButton.styleFrom(
             side: const BorderSide(
@@ -189,7 +198,7 @@ class _MedicalCardActions extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             padding: const EdgeInsets.symmetric(
-              horizontal: 40,
+              horizontal: 30,
               vertical: 15,
             ),
           ),
