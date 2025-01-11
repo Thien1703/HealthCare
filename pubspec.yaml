@@ -14,7 +14,6 @@ dependencies:
   cupertino_icons: ^1.0.6
   english_words: ^4.0.0
   provider: ^6.0.0
-  carousel_slider: ^5.0.0
   smooth_page_indicator: ^1.1.0
   firebase_core: ^3.10.0
   google_maps_flutter: ^2.10.0
@@ -22,10 +21,16 @@ dependencies:
   intl:
   qr_flutter: ^4.1.0
   convex_bottom_bar: ^3.2.0
+<<<<<<< HEAD
   intl_phone_field: ^3.2.0
   firebase_auth: ^5.4.0
   cloud_firestore: ^5.6.1
   pin_code_fields: ^8.0.1
+=======
+  shared_preferences: ^2.3.5
+  carousel_slider: ^5.0.0
+ 
+>>>>>>> 7316107f9c33c81edeaf9b9b0bfd48faaf926d61
 
 
 dev_dependencies:

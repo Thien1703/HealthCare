@@ -32,4 +32,6 @@ class AppIcons {
   static const String variant21 = 'assets/icons/variant21_icon.png';
   static const String variant26 = 'assets/icons/variant26_icon.png';
   static const String version = 'assets/icons/version_icon.png';
+  static const String locationGreen = 'assets/icons/locationGreen_icon.png';
+  static const String rightArrow = 'assets/icons/rightArrow_icon.png';
 }

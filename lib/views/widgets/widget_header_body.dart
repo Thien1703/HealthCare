@@ -33,7 +33,7 @@ class WidgetHeaderBody extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned(
-                    bottom: 16.0, 
+                    bottom: 16.0,
                     left: 10,
                     right: 0,
                     child: HeaderRow(
