@@ -8,7 +8,7 @@ const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
+
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -20,6 +20,8 @@ const MyApp({super.key});
 
 
 class AppointmentDialog extends StatelessWidget {
+  const AppointmentDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,16 +45,16 @@ class AppointmentDialog extends StatelessWidget {
 
   Widget _buildAlertDialog(BuildContext context) {
   return AlertDialog(
-    backgroundColor: Colors.white, 
+    backgroundColor: Colors.white,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10.0), 
+      borderRadius: BorderRadius.circular(10.0),
     ),
     title: Row(
-      
+
       children: [
         IconButton(
-          icon: Image.asset('images/Icon.png'), 
-          iconSize: 48, 
+          icon: Image.asset('images/Icon.png'),
+          iconSize: 48,
           onPressed: () {
             Navigator.pop(context); // Đóng dialog
           },
@@ -64,7 +66,7 @@ class AppointmentDialog extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        
+
       ],
     ),
     content: SingleChildScrollView(
@@ -119,7 +121,7 @@ Widget _buildTimeSlots(List<String> timeSlots) {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: Colors.green[50], 
+          color: Colors.green[50],
           borderRadius: BorderRadius.circular(10.0),
           // border: Border.all(color: Colors.green),
         ),
