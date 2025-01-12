@@ -161,11 +161,13 @@ class _MedicalCardActions extends StatelessWidget {
         OutlinedButton(
           onPressed: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ClinicDetailScreen(
-                          clinic: clinic,
-                        )));
+              context,
+              MaterialPageRoute(
+                builder: (context) => ClinicDetailScreen(
+                  clinic: clinic,
+                ),
+              ),
+            );
           },
           style: OutlinedButton.styleFrom(
             side: const BorderSide(
@@ -189,9 +191,8 @@ class _MedicalCardActions extends StatelessWidget {
           ),
         ),
         ElevatedButton(
-          onPressed: () {
+          onPressed: () {},
             // Xử lý logic cho nút "Đặt khám ngay"
-          },
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.accent,
             shape: RoundedRectangleBorder(
