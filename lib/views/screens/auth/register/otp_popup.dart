@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:health_care/views/screens/register/name_screen.dart';
+import 'package:health_care/views/screens/auth/register/name_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPPopup extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/views/screens/welcome/start_screen.dart';
+import 'package:health_care/views/screens/welcome/welcome_screen.dart';
 
 class PasswordScreen extends StatefulWidget {
   const PasswordScreen({super.key});
@@ -181,7 +181,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => StartScreen(),
+                              builder: (context) => WelcomeScreen(),
                             ),
                           );
                         }

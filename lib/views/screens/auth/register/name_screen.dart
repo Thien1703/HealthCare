@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/views/screens/register/password_screen.dart';
+import 'package:health_care/views/screens/auth/register/password_screen.dart';
 
 class NameScreen extends StatefulWidget {
   const NameScreen({super.key});
