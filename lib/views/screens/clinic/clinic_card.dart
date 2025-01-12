@@ -150,7 +150,7 @@ class _MedicalRatingRow extends StatelessWidget {
 }
 
 class _MedicalCardActions extends StatelessWidget {
-  const _MedicalCardActions({super.key, required this.clinic});
+  const _MedicalCardActions({required this.clinic});
   final Clinic clinic;
 
   @override
