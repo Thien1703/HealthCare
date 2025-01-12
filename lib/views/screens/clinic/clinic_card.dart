@@ -44,7 +44,7 @@ class ClinicCard extends StatelessWidget {
 class _MedicalCardHeader extends StatelessWidget {
   final Clinic clinic;
 
-  const _MedicalCardHeader({Key? key, required this.clinic}) : super(key: key);
+  const _MedicalCardHeader({required this.clinic});
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +104,7 @@ class _MedicalCardHeader extends StatelessWidget {
 class _MedicalRatingRow extends StatelessWidget {
   final double rating;
 
-  const _MedicalRatingRow({Key? key, required this.rating}) : super(key: key);
+  const _MedicalRatingRow({required this.rating});
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +150,7 @@ class _MedicalRatingRow extends StatelessWidget {
 }
 
 class _MedicalCardActions extends StatelessWidget {
-  const _MedicalCardActions({Key? key, required this.clinic}) : super(key: key);
+  const _MedicalCardActions({required this.clinic});
   final Clinic clinic;
 
   @override
