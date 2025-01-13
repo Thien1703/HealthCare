@@ -18,6 +18,8 @@ class MyApp extends StatelessWidget {
 }
 
 class ThanhToanScreen extends StatelessWidget {
+  const ThanhToanScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
