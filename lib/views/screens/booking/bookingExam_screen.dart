@@ -46,60 +46,86 @@ class _BookingexamScreen extends State<BookingexamScreen> {
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
       title: _showTitleScreen,
-      body: Column(
-        children: [
-          Container(
-            color: AppColors.accent,
-            padding: EdgeInsets.only(bottom: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: () => navigateToScreen(0, 'Chọn thông tin khám'),
-                  child: Image.asset(
-                    AppIcons.specialty,
-                    color: _isSelected[0] ? AppColors.primary : null,
-                  ),
-                ),
-                InkWell(
-                  onTap: _currentIndex == 0
-                      ? null
-                      : () => navigateToScreen(1, 'Chọn hồ sơ'),
-                  child: Image.asset(
-                    AppIcons.user1,
-                    color: _isSelected[1] ? AppColors.primary : null,
-                  ),
-                ),
-                InkWell(
-                  onTap: _currentIndex <= 1
-                      ? null
-                      : () => navigateToScreen(2, 'Xác nhận thông tin'),
-                  child: Image.asset(
-                    AppIcons.checkmark,
-                    color: _isSelected[2] ? AppColors.primary : null,
-                  ),
-                ),
-                InkWell(
-                  onTap: _currentIndex <= 2
-                      ? null
-                      : () => navigateToScreen(3, 'Thông tin thanh toán'),
-                  child: Image.asset(
-                    AppIcons.payment,
-                    color: _isSelected[3] ? AppColors.primary : null,
-                  ),
-                ),
-              ],
+      headerHeight: 0.2,
+      selectedIcon: Container(
+        color: AppColors.accent,
+        padding: EdgeInsets.only(bottom: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _cusomtItem(
+              onTap: () => navigateToScreen(0, 'Chọn thông tin khám'),
+              border: _isSelected[0]
+                  ? Border.all(color: AppColors.primary, width: 1)
+                  : null,
+              background: _isSelected[0] ? Colors.white : AppColors.accent,
+              image: AppIcons.specialty,
+              color: _isSelected[0] ? AppColors.accent : AppColors.neutralGrey2,
             ),
-          ),
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              color: AppColors.neutralGrey,
-              child: _screens[_currentIndex],
+            _cusomtItem(
+              onTap: _currentIndex == 0
+                  ? null
+                  : () => navigateToScreen(1, 'Chọn hồ sơ'),
+              border: _isSelected[1]
+                  ? Border.all(color: AppColors.primary, width: 1)
+                  : null,
+              background: _isSelected[1] ? Colors.white : AppColors.accent,
+              image: AppIcons.user1,
+              color: _isSelected[1] ? AppColors.accent : AppColors.neutralGrey2,
             ),
-          ),
-        ],
+            _cusomtItem(
+              onTap: _currentIndex <= 1
+                  ? null
+                  : () => navigateToScreen(2, 'Xác nhận thông tin'),
+              border: _isSelected[2]
+                  ? Border.all(color: AppColors.primary, width: 1)
+                  : null,
+              background: _isSelected[2] ? Colors.white : AppColors.accent,
+              image: AppIcons.checkmark,
+              color: _isSelected[2] ? AppColors.accent : AppColors.neutralGrey2,
+            ),
+            _cusomtItem(
+              onTap: _currentIndex < 2
+                  ? null
+                  : () => navigateToScreen(3, 'Thông tin thanh toán'),
+              border: _isSelected[3]
+                  ? Border.all(color: AppColors.primary, width: 1)
+                  : null,
+              background: _isSelected[3] ? Colors.white : AppColors.accent,
+              image: AppIcons.payment,
+              color: _isSelected[3] ? AppColors.accent : AppColors.neutralGrey2,
+            ),
+          ],
+        ),
+      ),
+      body: Container(
+        width: double.infinity,
+        color: AppColors.neutralGrey,
+        child: _screens[_currentIndex],
       ),
     );
   }
+}
+
+Widget _cusomtItem(
+    {required onTap,
+    required border,
+    required image,
+    required color,
+    required background}) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          color: background,
+          border: border,
+          borderRadius: BorderRadius.circular(50)),
+      child: Image.asset(
+        image,
+        width: 25,
+        color: color,
+      ),
+    ),
+  );
 }
