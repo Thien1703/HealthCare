@@ -35,4 +35,6 @@ class AppIcons {
   static const String locationGreen = 'assets/icons/locationGreen_icon.png';
   static const String rightArrow = 'assets/icons/rightArrow_icon.png';
   static const String addProfileWhite = 'assets/icons/addProfile_white.png';
+  static const String exclamationMark = 'assets/icons/exclamationMark_icon.png';
+  static const String checkSucess = 'assets/icons/checkSucess_icon.png';
 }

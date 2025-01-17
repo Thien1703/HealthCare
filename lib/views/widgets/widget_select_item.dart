@@ -1,17 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/common/app_icons.dart';
 import 'dart:math' as math;
 
-class WidgetCustomeselect extends StatelessWidget {
-  const WidgetCustomeselect(
-      {super.key, required this.image, required this.text});
+class SelectItemWidget extends StatelessWidget {
+  const SelectItemWidget({
+    super.key,
+    required this.image,
+    required this.text,
+    this.bottomSheet,
+  });
   final String image;
   final String text;
+  final Widget? bottomSheet;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        if (bottomSheet != null) {
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 350,
+                    child: bottomSheet!,
+                  ),
+                );
+              });
+        }
+      },
       child: Container(
           width: double.infinity,
           height: 55,

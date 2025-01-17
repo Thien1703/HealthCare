@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/models/clinic/clinic.dart';
 import 'package:health_care/views/screens/clinic/clinic_detail_screen.dart';
+import 'package:health_care/views/screens/booking/bookingExam_screen.dart';
 
 class ClinicCard extends StatelessWidget {
   final Clinic clinic;
@@ -49,6 +50,7 @@ class _MedicalCardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -188,25 +190,29 @@ class _MedicalCardActions extends StatelessWidget {
             ),
           ),
         ),
-        ElevatedButton(
-          onPressed: () {
-            // Xử lý logic cho nút "Đặt khám ngay"
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.accent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+        Container(
+          width: 170,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BookingexamScreen()));
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.accent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 30,
+                vertical: 15,
+              ),
             ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 30,
-              vertical: 15,
-            ),
-          ),
-          child: const Text(
-            "Đặt khám ngay",
-            style: TextStyle(
-              color: AppColors.neutralWhite,
-              fontSize: 16,
+            child: const Text(
+              "Đặt khám ngay",
+              style: TextStyle(
+                color: AppColors.neutralWhite,
+                fontSize: 16,
+              ),
             ),
           ),
         ),

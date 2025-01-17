@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 
-
-class WidgetCustomborder extends StatelessWidget {
-  const WidgetCustomborder({
+class HospitalInfoWidget extends StatelessWidget {
+  const HospitalInfoWidget({
     super.key,
     required this.nameHospital,
     required this.addressHospital,

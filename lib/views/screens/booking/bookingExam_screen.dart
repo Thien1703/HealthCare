@@ -1,49 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/views/screens/booking/select_confirm_screen.dart';
-import 'package:health_care/views/screens/booking/select_info_screen.dart';
-import 'package:health_care/views/screens/booking/select_payment_screen.dart';
-import 'package:health_care/views/screens/booking/select_user_screen.dart';
+import 'package:health_care/views/screens/booking/steps/choose_confirm_screen.dart';
+import 'package:health_care/views/screens/booking/steps/choose_exam_info_screen.dart';
+import 'package:health_care/views/screens/booking/steps/choose_payment_screen.dart';
+import 'package:health_care/views/screens/booking/steps/choose_user_profile_screen.dart';
+import 'package:health_care/views/widgets/widget_header_body.dart';
 
 class BookingexamScreen extends StatefulWidget {
   const BookingexamScreen({super.key});
   @override
-  State<BookingexamScreen> createState() {
-    return _BookingexamScreen();
-  }
+  State<BookingexamScreen> createState() => _BookingexamScreen();
 }
 
 class _BookingexamScreen extends State<BookingexamScreen> {
-  Widget _selectedScreen = SelectInfoScreen();
+  int _currentIndex = 0;
   String _showTitleScreen = 'Chọn thông tin khám';
+  late final List<Widget> _screens;
+  late List<bool> _isSelected;
+
+  @override
+  void initState() {
+    super.initState();
+    _isSelected = [true, false, false, false];
+    _screens = [
+      ChooseExamInfoScreen(onNavigateToScreen: navigateToScreen),
+      ChooseUserProfileScreen(onNavigateToScreen: navigateToScreen),
+      ChooseConfirmScreen(onNavigateToScreen: navigateToScreen),
+      ChoosePaymentScreen(),
+    ];
+  }
+
+  void navigateToScreen(int index, String title) {
+    setState(() {
+      _currentIndex = index;
+      _showTitleScreen = title;
+
+      for (int i = 0; i < _isSelected.length; i++) {
+        _isSelected[i] = i == index;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.accent,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back),
-          color: AppColors.neutralWhite,
-          iconSize: 25,
-        ),
-        centerTitle: true,
-        title: Column(
-          children: [
-            Text(
-              _showTitleScreen,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primary,
-              ),
-            ),
-          ],
-        ),
-      ),
+    return WidgetHeaderBody(
+      title: _showTitleScreen,
       body: Column(
         children: [
           Container(
@@ -53,40 +55,38 @@ class _BookingexamScreen extends State<BookingexamScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 InkWell(
-                  onTap: () {
-                    setState(() {
-                      _selectedScreen = SelectInfoScreen();
-                      _showTitleScreen = 'Chọn thông tin khám';
-                    });
-                  },
-                  child: Image.asset(AppIcons.specialty),
+                  onTap: () => navigateToScreen(0, 'Chọn thông tin khám'),
+                  child: Image.asset(
+                    AppIcons.specialty,
+                    color: _isSelected[0] ? AppColors.primary : null,
+                  ),
                 ),
                 InkWell(
-                  onTap: () {
-                    setState(() {
-                      _selectedScreen = SelectUserScreen();
-                      _showTitleScreen = 'Chọn hồ sơ';
-                    });
-                  },
-                  child: Image.asset(AppIcons.user1),
+                  onTap: _currentIndex == 0
+                      ? null
+                      : () => navigateToScreen(1, 'Chọn hồ sơ'),
+                  child: Image.asset(
+                    AppIcons.user1,
+                    color: _isSelected[1] ? AppColors.primary : null,
+                  ),
                 ),
                 InkWell(
-                  onTap: () {
-                    setState(() {
-                      _selectedScreen = SelectConfirmScreen();
-                      _showTitleScreen = 'Xác nhận thông tin';
-                    });
-                  },
-                  child: Image.asset(AppIcons.checkmark),
+                  onTap: _currentIndex <= 1
+                      ? null
+                      : () => navigateToScreen(2, 'Xác nhận thông tin'),
+                  child: Image.asset(
+                    AppIcons.checkmark,
+                    color: _isSelected[2] ? AppColors.primary : null,
+                  ),
                 ),
                 InkWell(
-                  onTap: () {
-                    setState(() {
-                      _selectedScreen = SelectPaymentScreen();
-                      _showTitleScreen = 'Thông tin thanh toán';
-                    });
-                  },
-                  child: Image.asset(AppIcons.payment),
+                  onTap: _currentIndex <= 2
+                      ? null
+                      : () => navigateToScreen(3, 'Thông tin thanh toán'),
+                  child: Image.asset(
+                    AppIcons.payment,
+                    color: _isSelected[3] ? AppColors.primary : null,
+                  ),
                 ),
               ],
             ),
@@ -95,7 +95,7 @@ class _BookingexamScreen extends State<BookingexamScreen> {
             child: Container(
               width: double.infinity,
               color: AppColors.neutralGrey,
-              child: _selectedScreen,
+              child: _screens[_currentIndex],
             ),
           ),
         ],

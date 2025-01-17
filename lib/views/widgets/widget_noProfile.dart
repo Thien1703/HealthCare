@@ -3,23 +3,19 @@ import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/views/screens/booking/create_project_screen.dart';
 
-class SelectUserScreen extends StatefulWidget {
-  const SelectUserScreen({super.key});
-  @override
-  State<SelectUserScreen> createState() {
-    return _SelectUserScreen();
-  }
-}
-
-class _SelectUserScreen extends State<SelectUserScreen> {
+class WidgetNoprofile extends StatelessWidget {
+  const WidgetNoprofile({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      margin: EdgeInsets.symmetric(horizontal: 40),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/images/img_profile.png'),
+          Image.asset(
+            'assets/images/img_profile.png',
+            width: 200,
+          ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 15),
             child: Text(

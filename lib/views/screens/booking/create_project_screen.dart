@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/views/widgets/widget_customHeader.dart';
+import 'package:health_care/views/widgets/widget_header_body.dart';
 import 'package:health_care/views/widgets/widget_selectGender.dart';
 
 class CreateProject extends StatefulWidget {
@@ -39,75 +39,77 @@ class _CreateProject extends State<CreateProject> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: WidgetCustomheader(
+      body: WidgetHeaderBody(
         title: 'Tạo hồ sơ mới',
-        isEnabled: true,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _customTitleCreateProject(titleProject: 'Họ và tên'),
-            _customTextFromFiled(
-                controller: _nameController,
-                width: double.infinity,
-                labelText: 'Nhập họ và tên'),
-            _customTitleCreateProject(titleProject: 'Số diện thoại'),
-            _customTextFromFiled(
-                controller: _phoneController,
-                width: double.infinity,
-                labelText: '09xxxxxxxx'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _customTitleCreateProject(titleProject: 'Ngày sinh'),
-                    _customTextFromFiled(
-                        controller: _dateBirthController,
-                        width: 160,
-                        labelText: 'Ngày/ Tháng/ Năm')
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _customTitleCreateProject(titleProject: 'Giới tính'),
-                    WidgetSelectgender(),
-                  ],
-                )
-              ],
-            ),
-            _customTitleCreateProject(titleProject: 'Tỉnh / TP'),
-            _customTextFromFiled(
-                controller: _positionqController,
-                width: double.infinity,
-                labelText: 'Chọn tỉnh thành'),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(top: 30),
-              child: OutlinedButton(
-                onPressed: isButtonCreate ? () {} : null,
-                style: OutlinedButton.styleFrom(
-                    side: BorderSide(
-                        color: isButtonCreate
-                            ? AppColors.accent
-                            : AppColors.grey4),
-                    backgroundColor:
-                        isButtonCreate ? AppColors.accent : AppColors.grey4,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 30)),
-                child: Text(
-                  'Tạo hồ sơ mới',
-                  style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primary),
-                ),
+        body: Container(
+          margin: EdgeInsets.symmetric(horizontal: 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _customTitleCreateProject(titleProject: 'Họ và tên'),
+              _customTextFromFiled(
+                  controller: _nameController,
+                  width: double.infinity,
+                  labelText: 'Nhập họ và tên'),
+              _customTitleCreateProject(titleProject: 'Số diện thoại'),
+              _customTextFromFiled(
+                  controller: _phoneController,
+                  width: double.infinity,
+                  labelText: '09xxxxxxxx'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _customTitleCreateProject(titleProject: 'Ngày sinh'),
+                      _customTextFromFiled(
+                          controller: _dateBirthController,
+                          width: 160,
+                          labelText: 'Ngày/ Tháng/ Năm')
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _customTitleCreateProject(titleProject: 'Giới tính'),
+                      WidgetSelectgender(),
+                    ],
+                  )
+                ],
               ),
-            )
-          ],
+              _customTitleCreateProject(titleProject: 'Tỉnh / TP'),
+              _customTextFromFiled(
+                  controller: _positionqController,
+                  width: double.infinity,
+                  labelText: 'Chọn tỉnh thành'),
+              Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(top: 30),
+                child: OutlinedButton(
+                  onPressed: isButtonCreate ? () {} : null,
+                  style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                          color: isButtonCreate
+                              ? AppColors.accent
+                              : AppColors.grey4),
+                      backgroundColor:
+                          isButtonCreate ? AppColors.accent : AppColors.grey4,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 30)),
+                  child: Text(
+                    'Tạo hồ sơ mới',
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
