@@ -37,7 +37,7 @@ class _BookingexamScreen extends State<BookingexamScreen> {
       _showTitleScreen = title;
 
       for (int i = 0; i < _isSelected.length; i++) {
-        _isSelected[i] = i == index;
+        _isSelected[i] = i <= index;
       }
     });
   }
@@ -51,7 +51,7 @@ class _BookingexamScreen extends State<BookingexamScreen> {
         color: AppColors.accent,
         padding: EdgeInsets.only(bottom: 10),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _cusomtItem(
               onTap: () => navigateToScreen(0, 'Chọn thông tin khám'),
@@ -62,6 +62,7 @@ class _BookingexamScreen extends State<BookingexamScreen> {
               image: AppIcons.specialty,
               color: _isSelected[0] ? AppColors.accent : AppColors.neutralGrey2,
             ),
+            _customLineBold(),
             _cusomtItem(
               onTap: _currentIndex == 0
                   ? null
@@ -73,6 +74,7 @@ class _BookingexamScreen extends State<BookingexamScreen> {
               image: AppIcons.user1,
               color: _isSelected[1] ? AppColors.accent : AppColors.neutralGrey2,
             ),
+            _customLineBold(),
             _cusomtItem(
               onTap: _currentIndex <= 1
                   ? null
@@ -84,6 +86,7 @@ class _BookingexamScreen extends State<BookingexamScreen> {
               image: AppIcons.checkmark,
               color: _isSelected[2] ? AppColors.accent : AppColors.neutralGrey2,
             ),
+            _customLineBold(),
             _cusomtItem(
               onTap: _currentIndex < 2
                   ? null
@@ -127,5 +130,13 @@ Widget _cusomtItem(
         color: color,
       ),
     ),
+  );
+}
+
+Widget _customLineBold() {
+  return Container(
+    width: 50,
+    decoration:
+        BoxDecoration(border: Border.all(color: Colors.white, width: 1)),
   );
 }

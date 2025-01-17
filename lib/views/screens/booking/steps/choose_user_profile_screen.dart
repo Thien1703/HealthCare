@@ -20,8 +20,7 @@ class ChooseUserProfileScreen extends StatefulWidget {
 class _ChooseUserProfileScreen extends State<ChooseUserProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Container(
+    return Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: ListView(
         children: [
@@ -33,13 +32,10 @@ class _ChooseUserProfileScreen extends State<ChooseUserProfileScreen> {
             },
             child: WidgetUserprofileCard(),
           ),
-          WidgetUserprofileCard(),
-          WidgetUserprofileCard(),
-          WidgetUserprofileCard(),
           SizedBox(height: 20),
         ],
       ),
-    ));
+    );
   }
 }
 
