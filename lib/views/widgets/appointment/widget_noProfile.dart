@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
-import 'package:health_care/views/screens/booking/create_project_screen.dart';
+import 'package:health_care/views/screens/appointment/create_profile_booking.dart';
 
 class WidgetNoprofile extends StatelessWidget {
   const WidgetNoprofile({super.key});
@@ -37,7 +37,7 @@ class WidgetNoprofile extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(10)))),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CreateProject()));
+                      MaterialPageRoute(builder: (context) => CreateProfileBooking()));
                 },
                 child: Row(
                   children: [

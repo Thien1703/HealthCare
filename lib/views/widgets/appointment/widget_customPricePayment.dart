@@ -16,7 +16,6 @@ class WidgetCustompricepayment extends StatelessWidget {
     );
   }
 }
-
 Widget _customRowTitleWithPrice({
   required String title,
   required String price,

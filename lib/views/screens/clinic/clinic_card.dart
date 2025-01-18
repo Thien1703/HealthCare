@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/models/clinic/clinic.dart';
+import 'package:health_care/views/screens/appointment/appointment_screen.dart';
 import 'package:health_care/views/screens/clinic/clinic_detail_screen.dart';
-import 'package:health_care/views/screens/booking/bookingExam_screen.dart';
 
 class ClinicCard extends StatelessWidget {
   final Clinic clinic;
@@ -195,7 +195,7 @@ class _MedicalCardActions extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => BookingexamScreen()));
+                  MaterialPageRoute(builder: (context) => AppointmentScreen()));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.accent,

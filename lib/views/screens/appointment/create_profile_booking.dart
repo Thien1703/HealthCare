@@ -3,15 +3,15 @@ import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
 import 'package:health_care/views/widgets/widget_selectGender.dart';
 
-class CreateProject extends StatefulWidget {
-  const CreateProject({super.key});
+class CreateProfileBooking extends StatefulWidget {
+  const CreateProfileBooking({super.key});
   @override
-  State<CreateProject> createState() {
-    return _CreateProject();
+  State<CreateProfileBooking> createState() {
+    return _CreateProfileBooking();
   }
 }
 
-class _CreateProject extends State<CreateProject> {
+class _CreateProfileBooking extends State<CreateProfileBooking> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _dateBirthController = TextEditingController();
