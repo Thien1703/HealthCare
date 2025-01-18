@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/models/clinic/clinic.dart';
-import 'package:health_care/views/screens/appointment/appointment_screen.dart';
 import 'package:health_care/views/screens/clinic/clinic_detail_screen.dart';
 
 class ClinicCard extends StatelessWidget {
@@ -45,12 +44,11 @@ class ClinicCard extends StatelessWidget {
 class _MedicalCardHeader extends StatelessWidget {
   final Clinic clinic;
 
-  const _MedicalCardHeader({Key? key, required this.clinic}) : super(key: key);
+  const _MedicalCardHeader({required this.clinic});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -106,7 +104,7 @@ class _MedicalCardHeader extends StatelessWidget {
 class _MedicalRatingRow extends StatelessWidget {
   final double rating;
 
-  const _MedicalRatingRow({Key? key, required this.rating}) : super(key: key);
+  const _MedicalRatingRow({required this.rating});
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +150,7 @@ class _MedicalRatingRow extends StatelessWidget {
 }
 
 class _MedicalCardActions extends StatelessWidget {
-  const _MedicalCardActions({Key? key, required this.clinic}) : super(key: key);
+  const _MedicalCardActions({required this.clinic});
   final Clinic clinic;
 
   @override
@@ -163,11 +161,13 @@ class _MedicalCardActions extends StatelessWidget {
         OutlinedButton(
           onPressed: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ClinicDetailScreen(
-                          clinic: clinic,
-                        )));
+              context,
+              MaterialPageRoute(
+                builder: (context) => ClinicDetailScreen(
+                  clinic: clinic,
+                ),
+              ),
+            );
           },
           style: OutlinedButton.styleFrom(
             side: const BorderSide(
@@ -190,29 +190,24 @@ class _MedicalCardActions extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          width: 170,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AppointmentScreen()));
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.accent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 30,
-                vertical: 15,
-              ),
+        ElevatedButton(
+          onPressed: () {},
+            // Xử lý logic cho nút "Đặt khám ngay"
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.accent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
-            child: const Text(
-              "Đặt khám ngay",
-              style: TextStyle(
-                color: AppColors.neutralWhite,
-                fontSize: 16,
-              ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 30,
+              vertical: 15,
+            ),
+          ),
+          child: const Text(
+            "Đặt khám ngay",
+            style: TextStyle(
+              color: AppColors.neutralWhite,
+              fontSize: 16,
             ),
           ),
         ),
