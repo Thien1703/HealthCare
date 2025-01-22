@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart'; // Import thư viện mã QR
+// Import thư viện mã QR
 
 void main() {
   runApp(const MyApp());

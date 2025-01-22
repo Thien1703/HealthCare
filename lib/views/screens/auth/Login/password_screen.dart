@@ -34,133 +34,140 @@ class _PasswordScreenState extends State<PasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: AppColors.primary,
+      resizeToAvoidBottomInset: false, // Cố định layout khi bàn phím xuất hiện
       body: SafeArea(
         child: Stack(
           children: [
-            // Logo ở trên cùng
+            // Logo nằm ở trên cùng
             Positioned(
-              top: 80,
+              top: screenHeight * 0.1,
               left: 0,
               right: 0,
               child: Center(
                 child: Image.asset(
                   'assets/images/healthcaregreen.png',
-                  height: 90,
+                  height: screenHeight * 0.12,
                 ),
               ),
             ),
 
-            // Nội dung chính
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.person,
-                        size: 50,
-                        color: AppColors.neutralDarkGreen1,
-                      ),
+            // Nội dung chính ở giữa
+            Positioned.fill(
+              top: screenHeight * 0.25,
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: screenWidth * 0.1,
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.person,
+                      size: screenWidth * 0.15,
+                      color: AppColors.neutralDarkGreen1,
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'HỮU THIỆN',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.neutralDarkGreen1,
-                      ),
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
+                  Text(
+                    'HỮU THIỆN',
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.neutralDarkGreen1,
                     ),
-                    const SizedBox(height: 5),
-                    Text(
-                      '+84901492845',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.secondary1,
-                      ),
+                  ),
+                  SizedBox(height: screenHeight * 0.005),
+                  Text(
+                    '+84901492845',
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.04,
+                      color: AppColors.secondary1,
                     ),
-                    const SizedBox(height: 30),
+                  ),
+                  SizedBox(height: screenHeight * 0.04),
 
-                    // Nhập Mật khẩu
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Nhập mật khẩu',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: AppColors.neutralDarkGreen1,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    TextField(
-                      controller: passwordController,
-                      obscureText: !isPasswordVisible,
-                      decoration: InputDecoration(
-                        hintText: 'Nhập mật khẩu tối thiểu 6 kí tự',
-                        hintStyle: const TextStyle(
-                          color: AppColors.neutralGreen4,
-                          fontSize: 14,
-                        ),
-                        contentPadding:
-                            const EdgeInsets.symmetric(vertical: 15),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            isPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              isPasswordVisible = !isPasswordVisible;
-                            });
-                          },
-                        ),
-                        border: const UnderlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Thêm 2 nút "Quên mật khẩu" và "Thoát tài khoản"
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // Nhập mật khẩu
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            'Quên mật khẩu',
-                            style: TextStyle(
-                              color: AppColors.neutralDarkGreen2,
-                              fontSize: 14,
-                            ),
+                        Text(
+                          'Nhập mật khẩu',
+                          style: TextStyle(
+                            fontSize: screenWidth * 0.045,
+                            color: AppColors.neutralDarkGreen1,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            'Thoát tài khoản',
-                            style: TextStyle(
-                              color: AppColors.neutralDarkGreen2,
-                              fontSize: 14,
+                        SizedBox(height: screenHeight * 0.01),
+                        TextField(
+                          controller: passwordController,
+                          obscureText: !isPasswordVisible,
+                          decoration: InputDecoration(
+                            hintText: 'Nhập mật khẩu tối thiểu 6 kí tự',
+                            hintStyle: TextStyle(
+                              color: AppColors.neutralGreen4,
+                              fontSize: screenWidth * 0.035,
                             ),
+                            contentPadding: EdgeInsets.symmetric(
+                              vertical: screenHeight * 0.015,
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                isPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  isPasswordVisible = !isPasswordVisible;
+                                });
+                              },
+                            ),
+                            border: const UnderlineInputBorder(),
                           ),
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+
+                        // Các nút "Quên mật khẩu" và "Thoát tài khoản"
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {},
+                              child: Text(
+                                'Quên mật khẩu',
+                                style: TextStyle(
+                                  color: AppColors.neutralDarkGreen2,
+                                  fontSize: screenWidth * 0.035,
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {},
+                              child: Text(
+                                'Thoát tài khoản',
+                                style: TextStyle(
+                                  color: AppColors.neutralDarkGreen2,
+                                  fontSize: screenWidth * 0.035,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
 
             // Nút "TIẾP TỤC" ở cuối
             Positioned(
-              bottom: 40,
+              bottom: screenHeight * 0.05,
               left: 0,
               right: 0,
               child: Center(
@@ -175,22 +182,22 @@ class _PasswordScreenState extends State<PasswordScreen> {
                             ),
                           );
                         }
-                      : null, // Vô hiệu hóa nút nếu không hợp lệ
+                      : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: isButtonEnabled
                         ? AppColors.accent // Màu xanh nếu hợp lệ
                         : AppColors.grey4, // Màu xám nếu không hợp lệ
-                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    minimumSize: const Size(238, 51), // Kích thước nút
+                    minimumSize: Size(screenWidth * 0.6, screenHeight * 0.07),
                   ),
-                  child: const Text(
+                  child: Text(
                     'TIẾP TỤC',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: screenWidth * 0.045,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
