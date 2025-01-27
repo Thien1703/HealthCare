@@ -37,129 +37,132 @@ class _NameScreenState extends State<NameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final size = MediaQuery.of(context).size;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: AppColors.primary,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            // Logo
-            Positioned(
-              top: 80,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Image.asset(
-                  'assets/images/healthcaregreen.png',
-                  height: 90,
-                ),
-              ),
-            ),
-
-            // Text and TextFields
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Vui lòng nhập họ và tên của bạn',
-                      style: TextStyle(
-                        color: AppColors.neutralDarkGreen1,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'Sử dụng họ và tên đầy đủ để đảm bảo thông tin chính xác',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: AppColors.neutralGreen4,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    TextField(
-                      controller: _lastNameController,
-                      decoration: InputDecoration(
-                        labelText: 'Họ',
-                        labelStyle: TextStyle(color: AppColors.neutralGreen4),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColors.neutralGreen4),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColors.neutralDarkGreen1),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    TextField(
-                      controller: _firstNameController,
-                      decoration: InputDecoration(
-                        labelText: 'Tên',
-                        labelStyle: TextStyle(color: AppColors.neutralGreen4),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColors.neutralGreen4),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColors.neutralDarkGreen1),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            // Button
-            Positioned(
-              bottom: 40,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: ElevatedButton(
-                  onPressed: _isButtonEnabled
-                      ? () {
-                          // Handle button action here
-                          // print('Họ: ${_lastNameController.text}');
-                          // print('Tên: ${_firstNameController.text}');
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PasswordScreen(),
-                            ),
-                          );
-                        }
-                      : null,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _isButtonEnabled
-                        ? AppColors.neutralGreen4
-                        : AppColors.grey4,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    minimumSize: Size(238, 51),
+      resizeToAvoidBottomInset: true,
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Container(
+              height: screenHeight,
+              width: screenWidth,
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: screenHeight * 0.1),
+                  Image.asset(
+                    'assets/images/healthcaregreen.png',
+                    height: screenHeight * 0.12, // Responsive logo
                   ),
-                  child: const Text(
-                    'TIẾP TỤC',
+                  SizedBox(height: screenHeight * 0.05),
+
+                  // Tiêu đề và mô tả
+                  Text(
+                    'Vui lòng nhập họ và tên của bạn',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                      color: AppColors.neutralDarkGreen1,
+                      fontSize: screenWidth * 0.05,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                ),
+                  SizedBox(height: screenHeight * 0.02),
+                  Text(
+                    'Sử dụng họ và tên đầy đủ để đảm bảo thông tin chính xác',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppColors.neutralGreen4,
+                      fontSize: screenWidth * 0.04,
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.05),
+
+                  // Input họ
+                  TextField(
+                    controller: _lastNameController,
+                    decoration: InputDecoration(
+                      labelText: 'Họ',
+                      labelStyle: TextStyle(
+                        color: AppColors.neutralGreen4,
+                        fontSize: screenWidth * 0.04,
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColors.neutralGreen4),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColors.neutralDarkGreen1),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.03),
+
+                  // Input tên
+                  TextField(
+                    controller: _firstNameController,
+                    decoration: InputDecoration(
+                      labelText: 'Tên',
+                      labelStyle: TextStyle(
+                        color: AppColors.neutralGreen4,
+                        fontSize: screenWidth * 0.04,
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColors.neutralGreen4),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColors.neutralDarkGreen1),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.1),
+
+                  // Nút tiếp tục
+                  ElevatedButton(
+                    onPressed: _isButtonEnabled
+                        ? () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PasswordScreen(),
+                              ),
+                            );
+                          }
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _isButtonEnabled
+                          ? AppColors.neutralGreen4
+                          : AppColors.grey4,
+                      padding: EdgeInsets.symmetric(
+                          vertical: screenHeight * 0.02),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      minimumSize: Size(
+                        screenWidth * 0.7,
+                        screenHeight * 0.07,
+                      ),
+                    ),
+                    child: Text(
+                      'TIẾP TỤC',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.045,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
