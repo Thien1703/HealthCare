@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
+import 'package:health_care/views/screens/auth/login/forgotPassword_screen.dart';
 import 'package:health_care/views/screens/home/home_screens.dart';
 
 class PasswordScreen extends StatefulWidget {
@@ -91,7 +92,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
 
                   // Nhập mật khẩu
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -137,7 +139,15 @@ class _PasswordScreenState extends State<PasswordScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ForgotPasswordScreen(),
+                                  ),
+                                );
+                              },
                               child: Text(
                                 'Quên mật khẩu',
                                 style: TextStyle(
@@ -187,7 +197,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
                     backgroundColor: isButtonEnabled
                         ? AppColors.accent // Màu xanh nếu hợp lệ
                         : AppColors.grey4, // Màu xám nếu không hợp lệ
-                    padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                    padding:
+                        EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
