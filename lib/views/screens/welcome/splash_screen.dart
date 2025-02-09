@@ -34,13 +34,13 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
-              'assets/images/Frame.png',
-              width: 128,
-              height: 128,
+              'assets/images/healthcare.png',
+              width: 148,
+              height: 148,
             ),
             const SizedBox(height: 20.0),
             const Text(
-              'Your Health Is Our Priority',
+              'HEALTH CARE',
               style: TextStyle(
                 fontSize: 24.0,
                 color: Colors.white,

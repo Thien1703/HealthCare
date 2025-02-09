@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/views/screens/welcome/welcome_screen.dart';
 
-class PasswordScreen extends StatefulWidget {
-  const PasswordScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<PasswordScreen> createState() => _PasswordScreenState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _PasswordScreenState extends State<PasswordScreen> {
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-  bool isPasswordVisible = false;
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+  bool isNewPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
   bool isButtonEnabled = false;
-
-  void checkPassword() {
+    void checkPassword() {
     setState(() {
-      isButtonEnabled = passwordController.text.length >= 6 &&
-          confirmPasswordController.text == passwordController.text;
+      isButtonEnabled = newPasswordController.text.length >= 6 &&
+          confirmPasswordController.text == newPasswordController.text;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -84,7 +80,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Mật khẩu',
+                      'Tạo mật khẩu mới',
                       style: TextStyle(
                         fontSize: screenWidth * 0.045,
                         color: AppColors.neutralDarkGreen1,
@@ -93,8 +89,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
                   ),
                   SizedBox(height: screenHeight * 0.01),
                   TextField(
-                    controller: passwordController,
-                    obscureText: !isPasswordVisible,
+                    controller: newPasswordController,
+                    obscureText: !isNewPasswordVisible,
                     onChanged: (_) => checkPassword(),
                     decoration: InputDecoration(
                       hintText: 'Nhập mật khẩu tối thiểu 6 kí tự',
@@ -106,13 +102,13 @@ class _PasswordScreenState extends State<PasswordScreen> {
                           vertical: screenHeight * 0.015),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          isPasswordVisible
+                          isNewPasswordVisible
                               ? Icons.visibility
                               : Icons.visibility_off,
                         ),
                         onPressed: () {
                           setState(() {
-                            isPasswordVisible = !isPasswordVisible;
+                            isNewPasswordVisible = !isNewPasswordVisible;
                           });
                         },
                       ),
@@ -168,12 +164,12 @@ class _PasswordScreenState extends State<PasswordScreen> {
                     onPressed: isButtonEnabled
                         ? () {
                             print("Mật khẩu hợp lệ");
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => WelcomeScreen(),
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => WelcomeScreen(),
+                            //   ),
+                            // );
                           }
                         : null,
                     style: ElevatedButton.styleFrom(
