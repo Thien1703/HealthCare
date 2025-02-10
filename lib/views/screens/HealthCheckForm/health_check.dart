@@ -116,7 +116,7 @@ class _HealthCheckFormState extends State<HealthCheckForm> {
           "department": "Đông Y",
           "status": "Chưa thanh toán",
         },
-        
+
       ];
 
       setState(() {
@@ -340,7 +340,7 @@ class DetailScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
+                  color: Colors.grey,
                   spreadRadius: 2,
                   blurRadius: 6,
                   offset: const Offset(0, 3),
@@ -453,7 +453,7 @@ class DetailScreen extends StatelessWidget {
                     'Chụp màn hình để lưu giữ',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Color(0xFFFFA500), 
+                      color: Color(0xFFFFA500),
                     ),
                   ),
                 ),

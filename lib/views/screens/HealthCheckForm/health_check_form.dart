@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const HealthCheckFrom(),
+      home: const HealthCheckForm(),
       routes: {
         '/chi-tiet-phieu-kham': (context) => const DetailScreen(),
       },
@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HealthCheckFrom extends StatelessWidget {
-  const HealthCheckFrom({super.key});
+class HealthCheckForm extends StatelessWidget {
+  const HealthCheckForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +103,7 @@ class HealthCheckFrom extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.green,
                                 fontSize: 17,
-                                
+
                               ),
                             ),
                             const SizedBox(width: 8),
@@ -125,7 +125,7 @@ class HealthCheckFrom extends StatelessWidget {
                       color: Color.fromARGB(255, 56, 146, 59),
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
-                      
+
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -164,7 +164,7 @@ class HealthCheckFrom extends StatelessWidget {
                       Text('Đông Y',
                       style: TextStyle(
                         color: Color.fromARGB(255, 123, 145, 125),
-                          
+
                           fontSize: 14,
                         ),),
                     ],
