@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
 // XÓA HỒ SƠ
 
 class DeletefileScreen extends StatelessWidget {
+  const DeletefileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,9 +128,9 @@ class DeletefileScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         Navigator.pop(context); // Đóng bottom sheet
-                        
+
                          _showSnackbar(context, "Thông báo \n Hồ sơ đã xóa thành công!");
-                        
+
                       },
                       child: Text(
                         'Xóa',
@@ -139,7 +141,7 @@ class DeletefileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ],  
+                  ],
                 ),
               ],
             ),
