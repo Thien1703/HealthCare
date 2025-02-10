@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
 
-class ThamkhamScreen extends StatefulWidget {
-  const ThamkhamScreen({super.key});
+class ExaminationScreen extends StatefulWidget {
+  const ExaminationScreen({super.key});
 
   @override
-  State<ThamkhamScreen> createState() => _ThamkhamScreen();
+  State<ExaminationScreen> createState() => _ExaminationScreen();
 }
 
-class _ThamkhamScreen extends State<ThamkhamScreen> {
+class _ExaminationScreen extends State<ExaminationScreen> {
   final List<String> _statuses = [
     'Đã thanh toán',
     'Chưa thanh toán',

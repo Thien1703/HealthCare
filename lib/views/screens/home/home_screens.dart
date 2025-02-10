@@ -3,7 +3,7 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/views/screens/clinic/clinic_screen.dart';
-import 'package:health_care/views/screens/thamKham/thamKham_screen.dart';
+import 'package:health_care/views/screens/examination/examination_screen.dart';
 
 class HomeScreens extends StatefulWidget {
   const HomeScreens({super.key});
@@ -24,7 +24,7 @@ class _HomeScreensState extends State<HomeScreens> {
       case 2:
         return Center(child: Text('Bản đồ đang được phát triển'));
       case 3:
-        return ThamkhamScreen();
+        return ExaminationScreen();
       case 4:
         return Center(child: Text('Tài khoản đang được phát triển'));
       default:
