@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
+import 'package:health_care/views/screens/examination/paid_screen.dart';
+import 'package:health_care/views/screens/examination/unpaid_screen.dart';
+import 'package:health_care/views/screens/examination/completed_screen.dart';
+import 'package:health_care/views/screens/examination/cancel_screen.dart';
 
 class ExaminationScreen extends StatefulWidget {
   const ExaminationScreen({super.key});
 
   @override
-  State<ExaminationScreen> createState() => _ExaminationScreen();
+  State<ExaminationScreen> createState() => _ExaminationScreenState();
 }
 
-class _ExaminationScreen extends State<ExaminationScreen> {
+class _ExaminationScreenState extends State<ExaminationScreen> {
   final List<String> _statuses = [
     'Đã thanh toán',
     'Chưa thanh toán',
@@ -17,15 +21,30 @@ class _ExaminationScreen extends State<ExaminationScreen> {
     'Đã hủy'
   ];
   String _selectedStatus = 'Đã thanh toán';
+
+  Widget _getScreen(String status) {
+    switch (status) {
+      case 'Đã thanh toán':
+        return PaidScreen();
+      case 'Chưa thanh toán':
+        return UnPaidScreen();
+      case 'Đã khám':
+        return CompletedScreen();
+      case 'Đã hủy':
+        return CancelScreen();
+      default:
+        return PaidScreen();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
       title: 'Thông tin phiếu khám',
-      body: ListView(
-        padding: EdgeInsets.zero,
+      body: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 15),
+            padding: const EdgeInsets.symmetric(vertical: 15),
             color: Colors.white,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -44,6 +63,15 @@ class _ExaminationScreen extends State<ExaminationScreen> {
               ),
             ),
           ),
+          Expanded(
+            child: Container(
+              color: AppColors.grey,
+              width: double.infinity,
+              child: ListView(
+                children: [_getScreen(_selectedStatus)],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -58,8 +86,8 @@ Widget _customTitleThamKham({
   return InkWell(
     onTap: onTap,
     child: Container(
-      margin: EdgeInsets.only(left: 15, right: 5),
-      padding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+      margin: const EdgeInsets.only(left: 15, right: 5),
+      padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
         color: isSelected ? AppColors.accent : AppColors.grey5,
