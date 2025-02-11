@@ -4,7 +4,6 @@ import 'package:health_care/views/screens/welcome/welcome_screen.dart';
 
 class PasswordScreen extends StatefulWidget {
   const PasswordScreen({super.key});
-
   @override
   State<PasswordScreen> createState() => _PasswordScreenState();
 }
@@ -16,7 +15,6 @@ class _PasswordScreenState extends State<PasswordScreen> {
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
   bool isButtonEnabled = false;
-
   void checkPassword() {
     setState(() {
       isButtonEnabled = passwordController.text.length >= 6 &&
@@ -71,13 +69,14 @@ class _PasswordScreenState extends State<PasswordScreen> {
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.01),
-                  Text(
-                    '+84901492845',
-                    style: TextStyle(
-                      fontSize: screenWidth * 0.04,
-                      color: AppColors.secondary1,
-                    ),
-                  ),
+                  // Hiển thị số điện thoại
+                  // Text(
+                  //   phoneNumber,
+                  //   style: TextStyle(
+                  //     fontSize: MediaQuery.of(context).size.width * 0.04,
+                  //     color: AppColors.secondary1,
+                  //   ),
+                  // ),
                   SizedBox(height: screenHeight * 0.04),
 
                   // Mật khẩu
@@ -102,8 +101,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         color: AppColors.neutralGreen4,
                         fontSize: screenWidth * 0.04,
                       ),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: screenHeight * 0.015),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: screenHeight * 0.015),
                       suffixIcon: IconButton(
                         icon: Icon(
                           isPasswordVisible
@@ -143,8 +142,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         color: AppColors.neutralGreen4,
                         fontSize: screenWidth * 0.04,
                       ),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: screenHeight * 0.015),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: screenHeight * 0.015),
                       suffixIcon: IconButton(
                         icon: Icon(
                           isConfirmPasswordVisible
@@ -177,9 +176,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
                           }
                         : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: isButtonEnabled
-                          ? AppColors.accent
-                          : AppColors.grey4,
+                      backgroundColor:
+                          isButtonEnabled ? AppColors.accent : AppColors.grey4,
                       padding: EdgeInsets.symmetric(
                         vertical: screenHeight * 0.02,
                       ),
