@@ -4,7 +4,6 @@ import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/views/screens/HealthCheckForm/health_check.dart';
 import 'package:health_care/views/screens/clinic/clinic_screen.dart';
-import 'package:health_care/views/screens/thamKham/thamKham_screen.dart';
 
 class HomeScreens extends StatefulWidget {
   const HomeScreens({super.key});

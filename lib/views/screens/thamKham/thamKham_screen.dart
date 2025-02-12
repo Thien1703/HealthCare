@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
-
 class ThamkhamScreen extends StatefulWidget {
   const ThamkhamScreen({super.key});
 
