@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_care/views/widgets/widget_examination/widgetCardItem.dart';
 
 class PaidScreen extends StatefulWidget {
   const PaidScreen({super.key});
@@ -11,7 +12,14 @@ class _PaidScreen extends State<PaidScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Đã thanh toán'),
+        WidgetCarditem(),
+        WidgetCarditem(),
+        WidgetCarditem(),
+        WidgetCarditem(),
+        WidgetCarditem(),
+        WidgetCarditem(),
+        WidgetCarditem(),
+        WidgetCarditem(),
       ],
     );
   }

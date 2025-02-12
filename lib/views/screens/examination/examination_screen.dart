@@ -68,6 +68,7 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
               color: AppColors.grey,
               width: double.infinity,
               child: ListView(
+                // padding: EdgeInsets.zero,
                 children: [_getScreen(_selectedStatus)],
               ),
             ),
