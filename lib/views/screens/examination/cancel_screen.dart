@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_care/views/widgets/widget_examination/WidgetCardItem.dart';
 
 class CancelScreen extends StatefulWidget {
   const CancelScreen({super.key});
@@ -11,7 +12,7 @@ class _CancelScreen extends State<CancelScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Đã hủy'),
+        WidgetCardItem(),
       ],
     );
   }
