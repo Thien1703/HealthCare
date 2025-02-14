@@ -196,9 +196,7 @@ class _MedicalCardActions extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AppointmentScreen(
-
-                ),
+                builder: (context) => AppointmentScreen(),
               ),
             );
           },
@@ -208,7 +206,7 @@ class _MedicalCardActions extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             padding: const EdgeInsets.symmetric(
-              horizontal: 30,
+              horizontal: 15,
               vertical: 15,
             ),
           ),
