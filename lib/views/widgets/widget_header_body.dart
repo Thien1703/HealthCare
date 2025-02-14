@@ -11,12 +11,12 @@ class WidgetHeaderBody extends StatelessWidget {
 
   const WidgetHeaderBody({
     super.key,
+    required this.iconBack,
     required this.title,
     required this.body,
     this.headerHeight = 0.13,
     this.onBackPressed,
     this.selectedIcon,
-    required this.iconBack,
   });
 
   @override

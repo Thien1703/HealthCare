@@ -41,7 +41,7 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
       iconBack: false,
-      title: 'Thông tin phiếu khám',
+      title: 'Danh sách phiếu khám',
       body: Column(
         children: [
           Container(

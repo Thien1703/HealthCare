@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/views/screens/examination/paidDetail_screen.dart';
+import 'package:health_care/views/screens/examination/unpaidDetail_screen.dart';
+import 'package:health_care/views/screens/examination/completedDetail_scteen.dart';
 
 class WidgetCardItem extends StatelessWidget {
   final int states;
@@ -78,25 +80,40 @@ class WidgetCardItem extends StatelessWidget {
                           fontWeight: FontWeight.w500)),
                 ],
               ),
-              InkWell(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PaidDetailScreen())),
-                child: Row(
-                  children: [
-                    Text('Xem chi tiết',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.accent)),
-                    Icon(
-                      Icons.keyboard_arrow_right_outlined,
-                      color: AppColors.accent,
-                    )
-                  ],
-                ),
-              )
+              if (states != 4)
+                InkWell(
+                  onTap: () {
+                    if (states == 1) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PaidDetailScreen()));
+                    } else if (states == 2) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UnPaidDetailScreen()));
+                    } else if (states == 3) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CompletedDetailScteen()));
+                    }
+                  },
+                  child: Row(
+                    children: [
+                      Text('Xem chi tiết',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.accent)),
+                      Icon(
+                        Icons.keyboard_arrow_right_outlined,
+                        color: AppColors.accent,
+                      )
+                    ],
+                  ),
+                )
             ],
           ),
           _customDashedLine(),
@@ -129,13 +146,29 @@ class WidgetCardItem extends StatelessWidget {
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: AppColors.neutralGrey2)),
-              Text('Đông Y)',
+              Text('Đông Y',
                   style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: AppColors.neutralDarkGreen2)),
             ],
           ),
+          if (states == 3)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Ngày tái khám',
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.neutralGrey2)),
+                Text('08:00 12/1/2025',
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.accent)),
+              ],
+            ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
