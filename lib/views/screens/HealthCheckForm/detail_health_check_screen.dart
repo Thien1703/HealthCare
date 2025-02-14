@@ -6,7 +6,6 @@ class DetailHealthCheckScreen extends StatelessWidget {
   final HealthCheck healthCheck;
   const DetailHealthCheckScreen({super.key, required this.healthCheck});
 
-
   @override
   Widget build(BuildContext context) {
     String qrdata =
