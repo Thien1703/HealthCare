@@ -3,13 +3,14 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/views/screens/clinic/clinic_screen.dart';
+import 'package:health_care/views/screens/profile/profile_screen.dart';
 import 'package:health_care/views/screens/examination/examination_screen.dart';
 
 class HomeScreens extends StatefulWidget {
   const HomeScreens({super.key});
 
   @override
-  _HomeScreensState createState() => _HomeScreensState();
+  State<HomeScreens> createState() => _HomeScreensState();
 }
 
 class _HomeScreensState extends State<HomeScreens> {
@@ -26,7 +27,7 @@ class _HomeScreensState extends State<HomeScreens> {
       case 3:
         return ExaminationScreen();
       case 4:
-        return Center(child: Text('Tài khoản đang được phát triển'));
+        return ProfileScreen();
       default:
         return Center(child: Text('Tính năng đang được phát triển'));
     }
