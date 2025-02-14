@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/views/screens/examination/paidDetail_screen.dart';
-import 'package:health_care/views/screens/examination/unpaidDetail_screen.dart';
-import 'package:health_care/views/screens/examination/completedDetail_scteen.dart';
+import 'package:health_care/views/screens/examination/paid/paidDetail_screen.dart';
+import 'package:health_care/views/screens/examination/unPaid/unpaidDetail_screen.dart';
+import 'package:health_care/views/screens/examination/completed/completedDetail_scteen.dart';
 
 class WidgetCardItem extends StatelessWidget {
   final int states;

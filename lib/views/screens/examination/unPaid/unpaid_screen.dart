@@ -15,6 +15,9 @@ class _UnPaidScreen extends State<UnPaidScreen> {
         WidgetCardItem(
           states: 2,
         ),
+        WidgetCardItem(
+          states: 2,
+        ),
       ],
     );
   }

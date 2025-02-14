@@ -15,6 +15,12 @@ class _CompletedScreen extends State<CompletedScreen> {
         WidgetCardItem(
           states: 3,
         ),
+        WidgetCardItem(
+          states: 3,
+        ),
+        WidgetCardItem(
+          states: 3,
+        ),
       ],
     );
   }

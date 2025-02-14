@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
-import 'package:health_care/views/screens/examination/paid_screen.dart';
-import 'package:health_care/views/screens/examination/unpaid_screen.dart';
-import 'package:health_care/views/screens/examination/completed_screen.dart';
-import 'package:health_care/views/screens/examination/cancel_screen.dart';
+import 'package:health_care/views/screens/examination/paid/paid_screen.dart';
+import 'package:health_care/views/screens/examination/unPaid/unpaid_screen.dart';
+import 'package:health_care/views/screens/examination/completed/completed_screen.dart';
+import 'package:health_care/views/screens/examination/cancel/cancel_screen.dart';
 
 class ExaminationScreen extends StatefulWidget {
   const ExaminationScreen({super.key});
