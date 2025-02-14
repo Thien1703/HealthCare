@@ -71,7 +71,7 @@ class _HomeScreensState extends State<HomeScreens> {
                     ? AppColors.accent
                     : AppColors.neutralDarkGreen2,
               ),
-              title: 'Phiếu khám',
+              title: 'Khám',
             ),
             TabItem(
               icon: ImageIcon(
