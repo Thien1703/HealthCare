@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_care/views/widgets/widget_examination/widgetCardItem.dart';
 
 class UnPaidScreen extends StatefulWidget {
   const UnPaidScreen({super.key});
@@ -11,7 +12,9 @@ class _UnPaidScreen extends State<UnPaidScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Chưa thanh toán'),
+        WidgetCardItem(
+          states: 2,
+        ),
       ],
     );
   }

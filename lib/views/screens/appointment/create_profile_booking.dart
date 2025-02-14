@@ -40,6 +40,7 @@ class _CreateProfileBooking extends State<CreateProfileBooking> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: WidgetHeaderBody(
+        iconBack: true,
         title: 'Tạo hồ sơ mới',
         body: Container(
           margin: EdgeInsets.symmetric(horizontal: 25),

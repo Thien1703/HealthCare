@@ -14,6 +14,7 @@ class _PaidDetailScreen extends State<PaidDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
+        iconBack: true,
         title: 'Thông tin phiếu khám',
         body: Container(
           color: AppColors.grey,

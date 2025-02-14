@@ -40,6 +40,7 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
   @override
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
+      iconBack: false,
       title: 'Thông tin phiếu khám',
       body: Column(
         children: [

@@ -1,9 +1,44 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/views/screens/examination/paidDetail_screen.dart';
 
 class WidgetCardItem extends StatelessWidget {
-  const WidgetCardItem({super.key});
+  final int states;
+
+  const WidgetCardItem({super.key, required this.states});
+
+  String _getStatusText(int states) {
+    switch (states) {
+      case 1:
+        return 'Đã thanh toán';
+      case 2:
+        return 'Chưa thanh toán';
+      case 3:
+        return 'Đã khám';
+      case 4:
+        return 'Đã hủy';
+      default:
+        return 'Không xác định';
+    }
+  }
+
+  Color _getStatusColor(int states) {
+    switch (states) {
+      case 1:
+        return AppColors.accent;
+      case 2:
+        return Colors.red;
+      case 3:
+        return Colors.blue;
+      case 4:
+        return Colors.red;
+      default:
+        return AppColors.accent;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -111,11 +146,11 @@ class WidgetCardItem extends StatelessWidget {
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: AppColors.neutralGrey2)),
-              Text('Đã thanh toán',
+              Text(_getStatusText(states),
                   style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.accent)),
+                      color: _getStatusColor(states)))
             ],
           ),
         ],
@@ -141,7 +176,7 @@ Widget _customDashedLine() {
 Widget _textLabel({required String label}) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 5),
-    child: Text('Dịch vụ:',
+    child: Text(label,
         style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w500,

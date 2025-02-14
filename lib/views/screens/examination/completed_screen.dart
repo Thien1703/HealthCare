@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_care/views/widgets/widget_examination/widgetCardItem.dart';
 
 class CompletedScreen extends StatefulWidget {
   const CompletedScreen({super.key});
@@ -11,7 +12,9 @@ class _CompletedScreen extends State<CompletedScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Đã khám'),
+        WidgetCardItem(
+          states: 3,
+        ),
       ],
     );
   }
