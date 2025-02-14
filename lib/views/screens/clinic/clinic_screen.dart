@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:health_care/models/clinic/clinic.dart';
 import 'package:health_care/views/screens/clinic/clinic_card.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
