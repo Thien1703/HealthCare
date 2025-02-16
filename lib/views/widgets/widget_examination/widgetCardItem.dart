@@ -1,46 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/views/screens/examination/paid/paidDetail_screen.dart';
-import 'package:health_care/views/screens/examination/unPaid/unpaidDetail_screen.dart';
-import 'package:health_care/views/screens/examination/completed/completedDetail_scteen.dart';
+import 'package:health_care/views/screens/examination/paidDetail_screen.dart';
+import 'package:health_care/views/screens/examination/unpaidDetail_screen.dart';
+import 'package:health_care/views/screens/examination/completedDetail_scteen.dart';
+import 'package:health_care/models/clinic/examination.dart';
 
 class WidgetCardItem extends StatelessWidget {
-  final int states;
-
-  const WidgetCardItem({super.key, required this.states});
-
-  String _getStatusText(int states) {
-    switch (states) {
-      case 1:
-        return 'Đã thanh toán';
-      case 2:
-        return 'Chưa thanh toán';
-      case 3:
-        return 'Đã khám';
-      case 4:
-        return 'Đã hủy';
-      default:
-        return 'Không xác định';
-    }
-  }
-
-  Color _getStatusColor(int states) {
-    switch (states) {
-      case 1:
-        return AppColors.accent;
-      case 2:
-        return Colors.red;
-      case 3:
-        return Colors.blue;
-      case 4:
-        return Colors.red;
-      default:
-        return AppColors.accent;
-    }
-  }
+  final Examination examination;
+  const WidgetCardItem({super.key, required this.examination});
 
   @override
   Widget build(BuildContext context) {
+    String getStatusText(int status) {
+      switch (status) {
+        case 1:
+          return 'Đã thanh toán';
+        case 2:
+          return 'Chưa thanh toán';
+        case 3:
+          return 'Đã khám';
+        case 4:
+          return 'Đã hủy';
+        default:
+          return 'Không xác định';
+      }
+    }
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -66,34 +51,34 @@ class WidgetCardItem extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                               color: AppColors.neutralGrey3)),
                       SizedBox(width: 20),
-                      Text('4F450TY',
+                      Text(examination.maDatLich,
                           style: TextStyle(
                               fontSize: 14,
                               color: AppColors.neutralDarkGreen1,
                               fontWeight: FontWeight.w500)),
                     ],
                   ),
-                  Text('NGUYỄN HỮU THIỆN',
+                  Text(examination.nameUser,
                       style: TextStyle(
                           fontSize: 15,
                           color: AppColors.neutralDarkGreen1,
                           fontWeight: FontWeight.w500)),
                 ],
               ),
-              if (states != 4)
+              if (examination.status != 4)
                 InkWell(
                   onTap: () {
-                    if (states == 1) {
+                    if (examination.status == 1) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => PaidDetailScreen()));
-                    } else if (states == 2) {
+                    } else if (examination.status == 2) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => UnPaidDetailScreen()));
-                    } else if (states == 3) {
+                    } else if (examination.status == 3) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -117,7 +102,7 @@ class WidgetCardItem extends StatelessWidget {
             ],
           ),
           _customDashedLine(),
-          Text('BỆNH VIỆN NHÂN DÂN GIA ĐỊNH',
+          Text(examination.nameHospital,
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
@@ -128,7 +113,7 @@ class WidgetCardItem extends StatelessWidget {
               _textLabel(label: 'Dịch vụ'),
               SizedBox(width: 50),
               Expanded(
-                child: Text('Khám Dịch Vụ Khu Vip(Tầng 2 - Phòng 201)',
+                child: Text(examination.service,
                     textAlign: TextAlign.right,
                     softWrap: true,
                     style: TextStyle(
@@ -146,14 +131,14 @@ class WidgetCardItem extends StatelessWidget {
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: AppColors.neutralGrey2)),
-              Text('Đông Y',
+              Text(examination.chuyenKhoa,
                   style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: AppColors.neutralDarkGreen2)),
             ],
           ),
-          if (states == 3)
+          if (examination.status == 3)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -162,7 +147,7 @@ class WidgetCardItem extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                         color: AppColors.neutralGrey2)),
-                Text('08:00 12/1/2025',
+                Text('khong',
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -177,11 +162,11 @@ class WidgetCardItem extends StatelessWidget {
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: AppColors.neutralGrey2)),
-              Text(_getStatusText(states),
+              Text(getStatusText(examination.status),
                   style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: _getStatusColor(states)))
+                      color: Colors.black))
             ],
           ),
         ],
