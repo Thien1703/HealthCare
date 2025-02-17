@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
 import 'package:health_care/models/clinic/examination.dart';
@@ -22,6 +19,8 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
       nameHospital: 'BỆNH VIỆN NHÂN DÂN GIA ĐỊNH',
       service: 'Khám Dịch Vụ Khu Vip(Tầng 2 - Phòng 201)',
       chuyenKhoa: 'Đông Y',
+      time: '03/01/2025 (08:00 - 09:00)',
+      address: 'Bệnh viện Nhân dân Gia Định',
       status: 1,
     ),
     Examination(
@@ -30,6 +29,8 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
       nameHospital: 'BỆNH VIỆN NHÂN DÂN GIA ĐỊNHA',
       service: 'Khám Dịch Vụ Khu Vip(Tầng 2 - Phòng 201A)',
       chuyenKhoa: 'Đông YA',
+      time: '03/01/2025 (08:00 - 09:00)',
+      address: 'Bệnh viện Nhân dân Gia Định',
       status: 2,
     ),
     Examination(
@@ -38,6 +39,8 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
       nameHospital: 'BỆNH VIỆN NHÂN DÂN GIA ĐỊNHB',
       service: 'Khám Dịch Vụ Khu Vip(Tầng 2 - Phòng 201B)',
       chuyenKhoa: 'Đông YB',
+      time: '03/01/2025 (08:00 - 09:00)',
+      address: 'Bệnh viện Nhân dân Gia Định',
       status: 3,
     ),
     Examination(
@@ -46,6 +49,8 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
       nameHospital: 'BỆNH VIỆN NHÂN DÂN GIA ĐỊNHC',
       service: 'Khám Dịch Vụ Khu Vip(Tầng 2 - Phòng 201C)',
       chuyenKhoa: 'Đông YC',
+      time: '03/01/2025 (08:00 - 09:00)',
+      address: 'Bệnh viện Nhân dân Gia Định',
       status: 4,
     ),
   ];

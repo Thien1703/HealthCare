@@ -4,6 +4,8 @@ class Examination {
   final String nameHospital;
   final String service;
   final String chuyenKhoa;
+  final String time;
+  final String address;
   final int status;
 
   Examination({
@@ -12,6 +14,8 @@ class Examination {
     required this.nameHospital,
     required this.service,
     required this.chuyenKhoa,
+    required this.time,
+    required this.address,
     required this.status,
   });
 }

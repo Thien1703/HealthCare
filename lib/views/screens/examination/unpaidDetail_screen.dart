@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:health_care/common/app_colors.dart';
+import 'package:health_care/common/app_icons.dart';
 import 'dart:async';
 import 'package:health_care/views/widgets/widget_header_body.dart';
 
@@ -48,15 +50,15 @@ class _UnPaidDetailScreen extends State<UnPaidDetailScreen> {
         iconBack: true,
         title: 'Thông tin phiếu khám',
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.red.shade50,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: Colors.red),
                 ),
                 child: Row(
@@ -68,14 +70,14 @@ class _UnPaidDetailScreen extends State<UnPaidDetailScreen> {
                         'Thanh toán bằng VIETQR không thành công',
                         style: TextStyle(
                           color: Colors.red,
-                          fontSize: 16,
+                          fontSize: 14,
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 25),
               Container(
                 padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -107,7 +109,7 @@ class _UnPaidDetailScreen extends State<UnPaidDetailScreen> {
                     ),
                     SizedBox(height: 16),
                     Image.asset(
-                      'assets/images/Credit_card.png',
+                      AppIcons.creditCard,
                       height: 80,
                       width: 80,
                     ),
@@ -159,7 +161,9 @@ class _UnPaidDetailScreen extends State<UnPaidDetailScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 60),
+                    SizedBox(height: 15),
+                    _customDashedLine(),
+                    SizedBox(height: 15 ),
                     RichText(
                       textAlign: TextAlign.start,
                       text: TextSpan(
@@ -198,7 +202,7 @@ class _UnPaidDetailScreen extends State<UnPaidDetailScreen> {
                         color: Colors.black54,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 30),
                     ElevatedButton(
                       onPressed: () {
                         // Xử lý khi nhấn nút
@@ -223,4 +227,18 @@ class _UnPaidDetailScreen extends State<UnPaidDetailScreen> {
           ),
         ));
   }
+}
+
+Widget _customDashedLine() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: List.generate(23, (index) {
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: 15),
+        width: 7,
+        height: 1.5,
+        color: AppColors.grey4,
+      );
+    }),
+  );
 }

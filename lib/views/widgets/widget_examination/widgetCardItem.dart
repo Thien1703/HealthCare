@@ -72,7 +72,7 @@ class WidgetCardItem extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PaidDetailScreen()));
+                              builder: (context) => PaidDetailScreen(examination: examination,)));
                     } else if (examination.status == 2) {
                       Navigator.push(
                           context,
@@ -147,7 +147,7 @@ class WidgetCardItem extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                         color: AppColors.neutralGrey2)),
-                Text('khong',
+                Text('4235',
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
