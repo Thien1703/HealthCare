@@ -32,7 +32,7 @@ class WidgetHeaderBody extends StatelessWidget {
         color: AppColors.accent,
         child: SafeArea(
             child: Column(children: [
-          SizedBox(height: 20),
+          SizedBox(height: 15),
           HeaderRow(
             iconBack: iconBack,
             title: title,
