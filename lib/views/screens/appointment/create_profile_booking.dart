@@ -48,12 +48,12 @@ class _CreateProfileBooking extends State<CreateProfileBooking> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _customTitleCreateProject(titleProject: 'Họ và tên'),
-              _customTextFromFiled(
+              _customTextFromField(
                   controller: _nameController,
                   width: double.infinity,
                   labelText: 'Nhập họ và tên'),
               _customTitleCreateProject(titleProject: 'Số diện thoại'),
-              _customTextFromFiled(
+              _customTextFromField(
                   controller: _phoneController,
                   width: double.infinity,
                   labelText: '09xxxxxxxx'),
@@ -64,10 +64,12 @@ class _CreateProfileBooking extends State<CreateProfileBooking> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _customTitleCreateProject(titleProject: 'Ngày sinh'),
-                      _customTextFromFiled(
-                          controller: _dateBirthController,
-                          width: 160,
-                          labelText: 'Ngày/ Tháng/ Năm')
+                      Container(
+                        child: _customTextFromField(
+                            controller: _dateBirthController,
+                            width: 160,
+                            labelText: 'Ngày/ Tháng/ Năm'),
+                      )
                     ],
                   ),
                   Column(
@@ -80,7 +82,7 @@ class _CreateProfileBooking extends State<CreateProfileBooking> {
                 ],
               ),
               _customTitleCreateProject(titleProject: 'Tỉnh / TP'),
-              _customTextFromFiled(
+              _customTextFromField(
                   controller: _positionqController,
                   width: double.infinity,
                   labelText: 'Chọn tỉnh thành'),
@@ -131,7 +133,7 @@ Widget _customTitleCreateProject({required String titleProject}) {
   );
 }
 
-Widget _customTextFromFiled(
+Widget _customTextFromField(
     {required controller, required double width, required String labelText}) {
   return Container(
     width: width,

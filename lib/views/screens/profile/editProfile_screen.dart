@@ -7,7 +7,7 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
-      iconBack: false,
+      iconBack: true,
       title: "Chỉnh sửa thông tin",
       body: Padding(
         padding: const EdgeInsets.all(16.0),

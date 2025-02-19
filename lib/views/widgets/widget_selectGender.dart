@@ -48,6 +48,7 @@ class _WidgetSelectgender extends State<WidgetSelectgender> {
             });
       },
       child: Container(
+        
         width: 160,
         height: 43,
         decoration: BoxDecoration(
@@ -55,7 +56,7 @@ class _WidgetSelectgender extends State<WidgetSelectgender> {
             border: Border.all(color: AppColors.neutralGrey2, width: 1),
             borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(selectedGender),
             Icon(Icons.keyboard_arrow_right_sharp)

@@ -4,7 +4,7 @@ class AppIcons {
   static const String back = 'assets/icons/back_icon.png';
   static const String calendar = 'assets/icons/calendar_icon.png';
   static const String call = 'assets/icons/call_icon.png';
-  static const String cancel = 'assets/icons/cancle_icon.png';
+  static const String cancel = 'assets/icons/cancel_icon.png';
   static const String chat = 'assets/icons/chat_icon.png';
   static const String chatbot = 'assets/icons/chatbot_icon.png';
   static const String checkmark = 'assets/icons/checkmark_icon.png';
