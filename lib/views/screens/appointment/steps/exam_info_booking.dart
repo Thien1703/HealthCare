@@ -6,6 +6,8 @@ import 'package:health_care/views/widgets/widget_select_item.dart';
 import 'package:health_care/views/widgets/appointment/widget_customButton.dart';
 import 'package:health_care/views/widgets/bottomSheet/select_specialty_widget.dart';
 import 'package:health_care/views/widgets/bottomSheet/select_service_widget.dart';
+import 'package:health_care/views/widgets/bottomSheet/select_day_widget.dart';
+import 'package:health_care/views/widgets/bottomSheet/select_time_widget.dart';
 
 class ExamInfoBooking extends StatefulWidget {
   const ExamInfoBooking({
@@ -51,6 +53,7 @@ class _ExamInfoBooking extends State<ExamInfoBooking> {
     );
   }
 }
+
 class HospitalInfo extends StatelessWidget {
   const HospitalInfo({super.key});
 
@@ -117,6 +120,7 @@ class DateSelector extends StatelessWidget {
     return const SelectItemWidget(
       image: AppIcons.calendar,
       text: 'Chọn ngày khám',
+      bottomSheet: SelectDayWidget(),
     );
   }
 }
@@ -129,6 +133,7 @@ class TimeSelector extends StatelessWidget {
     return const SelectItemWidget(
       image: AppIcons.clock,
       text: 'Chọn giờ khám',
+      bottomSheet: SelectTimeWidget(),
     );
   }
 }

@@ -25,7 +25,7 @@ class SelectItemWidget extends StatelessWidget {
                   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 350,
+                    height: 450,
                     child: bottomSheet!,
                   ),
                 );
