@@ -20,7 +20,7 @@ class InforProfileScreen extends StatelessWidget {
           Container(
             width: double.infinity,
             height: headerHeight,
-            color: Colors.green,
+            color: AppColors.accent,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Padding(
               padding: const EdgeInsets.only(top: 12.0),
