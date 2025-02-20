@@ -29,6 +29,7 @@ class _ClinicScreenState extends State<ClinicScreen> {
   @override
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
+      iconBack: false,
       title: "Chọn cơ sở y tế",
       body: Column(
         children: [

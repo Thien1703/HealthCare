@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
+import 'package:health_care/views/screens/auth/auth_service.dart';
 import 'package:health_care/views/screens/auth/login/password_screen.dart';
+import 'package:health_care/views/screens/home/home_screens.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isPhoneValid = false; // Biến kiểm tra trạng thái số điện thoại
+  String? _firebaseError;
 
   void updatePhoneNumber(String number, bool valid) {
     setState(() {
@@ -49,7 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                     child: Column(
                       children: [
                         Text(
@@ -127,7 +130,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      try {
+                        final user = await AuthService().loginWithGoogle();
+                        if (user != null) {
+                          // Navigate to Home Screen on success
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreens()),
+                          );
+                        }
+                      } catch (e) {
+                        setState(() {
+                          _firebaseError = e.toString();
+                        });
+                      }
+                    },
                     icon: Image.asset(
                       'assets/images/google.png',
                       height: screenHeight * 0.05,
@@ -164,9 +183,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       : null,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isPhoneValid
-                        ? AppColors.accent
-                        : AppColors.grey4,
+                    backgroundColor:
+                        isPhoneValid ? AppColors.accent : AppColors.grey4,
                     padding: EdgeInsets.symmetric(
                       vertical: screenHeight * 0.02,
                     ),

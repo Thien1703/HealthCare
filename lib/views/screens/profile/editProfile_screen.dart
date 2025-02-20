@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
 
 class EditProfileScreen extends StatelessWidget {
@@ -8,6 +7,7 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
+      iconBack: true,
       title: "Chỉnh sửa thông tin",
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -20,7 +20,8 @@ class EditProfileScreen extends StatelessWidget {
             const SizedBox(height: 10),
             _buildTextField("Mật khẩu mới", "Nhập mật khẩu", isPassword: true),
             const SizedBox(height: 10),
-            _buildTextField("Nhập lại mật khẩu", "Nhập lại mật khẩu", isPassword: true),
+            _buildTextField("Nhập lại mật khẩu", "Nhập lại mật khẩu",
+                isPassword: true),
             const SizedBox(height: 10),
             _buildTextField("Email", "Nhập email"),
             const SizedBox(height: 20),
@@ -40,7 +41,8 @@ class EditProfileScreen extends StatelessWidget {
           obscureText: isPassword,
           decoration: InputDecoration(
             hintText: hint,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
           ),
         ),
       ],
@@ -51,7 +53,8 @@ class EditProfileScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Số điện thoại", style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text("Số điện thoại",
+            style: TextStyle(fontWeight: FontWeight.bold)),
         TextField(
           keyboardType: TextInputType.phone,
           decoration: InputDecoration(
@@ -67,7 +70,8 @@ class EditProfileScreen extends StatelessWidget {
               ),
             ),
             hintText: "0901492845",
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
           ),
         ),
       ],
@@ -81,7 +85,8 @@ class EditProfileScreen extends StatelessWidget {
         onPressed: () {},
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.grey.shade400,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         ),
         child: const Text("Cập nhật", style: TextStyle(color: Colors.white)),
       ),

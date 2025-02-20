@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:health_care/views/screens/auth/auth_service.dart';
+import 'package:health_care/views/screens/auth/login/login_screen.dart';
+import 'package:health_care/views/screens/medical_examination_record/medical_record.dart';
 import 'package:health_care/views/screens/profile/inforProfile_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -45,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
                       CircleAvatar(
                         radius: 50,
                         backgroundImage: AssetImage(
-                            'assets/profile.jpg'), // Thay ảnh đại diện
+                            'assets/images/avt.png'), // Thay ảnh đại diện
                       ),
                       const SizedBox(height: 10),
                       const Text(
@@ -58,7 +62,15 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          // Gọi hàm signOut của AuthService
+                          await AuthService().signOut();
+                          // Sau khi đăng xuất thành công, chuyển hướng về LoginScreen
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen()),
+                          );
+                        },
                         style: OutlinedButton.styleFrom(
                           foregroundColor: Colors.white,
                           side: const BorderSide(color: Colors.white),
@@ -85,7 +97,7 @@ class ProfileScreen extends StatelessWidget {
                   () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => const InforProfileScreen()),
+                          builder: (context) => const MedicalRecord()),
                     );
                   },
                 ),

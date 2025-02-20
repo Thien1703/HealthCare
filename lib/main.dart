@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:health_care/views/screens/welcome/splash_screen.dart';
+import 'package:vietnam_provinces/vietnam_provinces.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await VietnamProvinces.initialize();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyCqzgAi64GAYpZZ_pkEwriIV4-RFuYEgWM",
