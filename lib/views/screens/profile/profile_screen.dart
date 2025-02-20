@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:health_care/views/screens/auth/auth_service.dart';
 import 'package:health_care/views/screens/auth/login/login_screen.dart';
 import 'package:health_care/views/screens/medical_examination_record/medical_record.dart';
