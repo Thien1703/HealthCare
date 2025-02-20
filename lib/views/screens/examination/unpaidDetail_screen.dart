@@ -3,6 +3,7 @@ import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
 import 'dart:async';
 import 'package:health_care/views/widgets/widget_header_body.dart';
+import 'package:health_care/views/widgets/widget_lineBold.dart';
 
 class UnPaidDetailScreen extends StatefulWidget {
   const UnPaidDetailScreen({super.key});
@@ -162,8 +163,8 @@ class _UnPaidDetailScreen extends State<UnPaidDetailScreen> {
                       ),
                     ),
                     SizedBox(height: 15),
-                    _customDashedLine(),
-                    SizedBox(height: 15 ),
+                    WidgetLineBold(),
+                    SizedBox(height: 15),
                     RichText(
                       textAlign: TextAlign.start,
                       text: TextSpan(

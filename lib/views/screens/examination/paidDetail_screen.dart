@@ -3,6 +3,7 @@ import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:health_care/models/clinic/examination.dart';
+import 'package:health_care/views/widgets/bottomSheet/select_day_widget.dart';
 
 class PaidDetailScreen extends StatefulWidget {
   final Examination examination;
@@ -138,7 +139,22 @@ Widget _customeButton(BuildContext context) {
           backgroundColor: AppColors.accent,
           padding: EdgeInsets.symmetric(horizontal: 35),
         ),
-        onPressed: () {},
+        onPressed: () {
+          // SelectTimeWidget();
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  color: Colors.white,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: SizedBox(
+                      child: SelectDayWidget(),
+                    ),
+                  ),
+                );
+              });
+        },
         child: Text(
           'Đổi lịch',
           style: TextStyle(

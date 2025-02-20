@@ -69,7 +69,7 @@ Widget _customelable({required String lable, required bool value}) {
       Text(
         lable,
         style: TextStyle(
-            fontSize: 14,
+            fontSize: 17,
             fontWeight: FontWeight.w700,
             color: AppColors.neutralBlack),
       ),

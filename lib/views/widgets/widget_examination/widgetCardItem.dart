@@ -4,6 +4,7 @@ import 'package:health_care/views/screens/examination/paidDetail_screen.dart';
 import 'package:health_care/views/screens/examination/unpaidDetail_screen.dart';
 import 'package:health_care/views/screens/examination/completedDetail_scteen.dart';
 import 'package:health_care/models/clinic/examination.dart';
+import 'package:health_care/views/widgets/widget_lineBold.dart';
 
 class WidgetCardItem extends StatelessWidget {
   final Examination examination;
@@ -72,7 +73,9 @@ class WidgetCardItem extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PaidDetailScreen(examination: examination,)));
+                              builder: (context) => PaidDetailScreen(
+                                    examination: examination,
+                                  )));
                     } else if (examination.status == 2) {
                       Navigator.push(
                           context,
@@ -101,7 +104,7 @@ class WidgetCardItem extends StatelessWidget {
                 )
             ],
           ),
-          _customDashedLine(),
+          WidgetLineBold(),
           Text(examination.nameHospital,
               style: TextStyle(
                   fontSize: 15,
