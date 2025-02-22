@@ -29,4 +29,5 @@ class AppColors {
   static const Color neutralYellow = Color(0xFFFEC400);
   static const Color grey5 = Color(0xFFE8E8E8);
   static const Color grey = Color(0xFFF0F4F0);
+  static const Color blue30 = Color.fromARGB(255, 210, 233, 249);
 }

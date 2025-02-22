@@ -22,11 +22,13 @@ class SelectItemWidget extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 350,
-                    child: bottomSheet!,
+                  color: Colors.white,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: bottomSheet!,
+                    ),
                   ),
                 );
               });
