@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'dart:math' as math;
 
-import 'package:health_care/common/app_icons.dart';
-
 class WidgetInfoPatient extends StatefulWidget {
   const WidgetInfoPatient({
     super.key,
