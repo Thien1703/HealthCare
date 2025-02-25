@@ -3,7 +3,7 @@ import 'package:health_care/services/local_storage_service.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.3.100:8080/api/v1/auth';
+  static const String baseUrl = 'http://192.168.1.5:8080/api/v1/auth';
 
   // Đăng nhập
   static Future<String?> login(String phoneNumber, String password) async {
