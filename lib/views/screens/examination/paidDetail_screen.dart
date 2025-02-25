@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:health_care/models/clinic/examination.dart';
+import 'package:health_care/views/widgets/bottomSheet/select_day_widget.dart';
 
 class PaidDetailScreen extends StatefulWidget {
-  const PaidDetailScreen({super.key});
+  final Examination examination;
+  const PaidDetailScreen({super.key, required this.examination});
   @override
   State<PaidDetailScreen> createState() => _PaidDetailScreen();
 }
@@ -29,14 +32,17 @@ class _PaidDetailScreen extends State<PaidDetailScreen> {
             child: Column(
               children: [
                 SizedBox(height: 30),
-                _customRowlabelandvalue(label: 'Mã dịch vụ:', value: '4F450TY'),
-                _customRowlabelandvalue(label: 'Chuyên khoa:', value: 'Đông Y'),
                 _customRowlabelandvalue(
-                    label: 'Dịch vụ:', value: 'Khám Dịch Vụ Khu Vip'),
+                    label: 'Mã dịch vụ:', value: widget.examination.maDatLich),
                 _customRowlabelandvalue(
-                    label: 'Thời gian:', value: '03/01/2025 (08:00 - 09:00)'),
+                    label: 'Chuyên khoa:',
+                    value: widget.examination.chuyenKhoa),
                 _customRowlabelandvalue(
-                    label: 'Địa điểm:', value: 'Bệnh viện Nhân dân Gia Định'),
+                    label: 'Dịch vụ:', value: widget.examination.service),
+                _customRowlabelandvalue(
+                    label: 'Thời gian:', value: widget.examination.time),
+                _customRowlabelandvalue(
+                    label: 'Địa điểm:', value: widget.examination.address),
                 _customQrList(data),
                 _customeButton(context),
               ],
@@ -133,7 +139,22 @@ Widget _customeButton(BuildContext context) {
           backgroundColor: AppColors.accent,
           padding: EdgeInsets.symmetric(horizontal: 35),
         ),
-        onPressed: () {},
+        onPressed: () {
+          // SelectTimeWidget();
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  color: Colors.white,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: SizedBox(
+                      child: SelectDayWidget(),
+                    ),
+                  ),
+                );
+              });
+        },
         child: Text(
           'Đổi lịch',
           style: TextStyle(

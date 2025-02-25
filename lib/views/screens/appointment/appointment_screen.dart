@@ -115,7 +115,7 @@ class StepIndicator extends StatelessWidget {
           ),
           StepLine(),
           StepItem(
-            onTap: currentIndex < 2
+            onTap: currentIndex <= 2
                 ? null
                 : () => onNavigateToScreen(3, 'Thông tin thanh toán'),
             border: isSelected[3]

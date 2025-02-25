@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/views/widgets/appointment/widget_hospital_info_card.dart';
-import 'package:health_care/views/widgets/widget_select_item.dart';
 import 'package:health_care/views/widgets/widget_selectCheckbox.dart';
 import 'package:health_care/views/widgets/appointment/widget_customPricePayment.dart';
 import 'package:health_care/views/widgets/appointment/widget_customButton.dart';
+import 'package:health_care/views/widgets/widget_lineBold.dart';
+import 'package:health_care/views/widgets/appointment/widget_infoPatient.dart';
 
 class ConfirmBooking extends StatefulWidget {
   const ConfirmBooking({
@@ -30,10 +31,13 @@ class _ConfirmBooking extends State<ConfirmBooking> {
               children: const [
                 HospitalInfoWidget(
                   nameHospital: 'Bệnh viện nhân dân Gia Định',
-                  addressHospital: 'Số 1 Nơ Trang Long, Phường 7, Quận Bình Thạnh, TpHCM',
+                  addressHospital:
+                      'Số 1 Nơ Trang Long, Phường 7, Quận Bình Thạnh, TpHCM',
                 ),
                 SectionTitle(title: 'Thông tin bệnh nhân'),
-                PatientInfo(),
+                Expanded(
+                  child: PatientInfo(),
+                ),
                 SectionTitle(title: 'Thông tin đặt khám'),
                 BookingInformation(
                   text1: 'Đông Y',
@@ -41,6 +45,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                   text3: '03/01/2025 (08:00 - 09:00)',
                   text4: '127,000đ',
                 ),
+                WidgetLineBold(),
                 AdditionalServicesTitle(),
                 WidgetSelectcheckbox(),
                 CancellationNotice(),
@@ -84,7 +89,7 @@ class PatientInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SelectItemWidget(
+    return const WidgetInfoPatient(
       image: AppIcons.user1,
       text: 'Nguyễn Hữu Thiện ',
     );
@@ -119,7 +124,8 @@ class BookingInformation extends StatelessWidget {
           BookingInfoRow(image: AppIcons.specialty, text: text1),
           BookingInfoRow(image: AppIcons.service2, text: text2),
           BookingInfoRow(image: AppIcons.calendar, text: text3),
-          BookingInfoRow(image: AppIcons.payment, text: text4, isTextBlack: true),
+          BookingInfoRow(
+              image: AppIcons.payment, text: text4, isTextBlack: true),
         ],
       ),
     );
@@ -201,7 +207,8 @@ class CancellationNotice extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(AppIcons.calendar, width: 20),
+          Icon(Icons.priority_high_rounded,
+              color: Color.fromARGB(255, 216, 93, 84)),
           const SizedBox(width: 10),
           const Expanded(
             child: Text(
@@ -237,11 +244,11 @@ class BottomBar extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15), 
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: const WidgetCustompricepayment(),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10), 
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: WidgetCustombutton(
               onTap: onContinue,
               text: 'Tiếp tục',

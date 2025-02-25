@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
-import 'package:health_care/views/screens/examination/paid/paid_screen.dart';
-import 'package:health_care/views/screens/examination/unPaid/unpaid_screen.dart';
-import 'package:health_care/views/screens/examination/completed/completed_screen.dart';
-import 'package:health_care/views/screens/examination/cancel/cancel_screen.dart';
+import 'package:health_care/models/clinic/examination.dart';
+import 'package:health_care/views/widgets/widget_examination/widgetCardItem.dart';
 
 class ExaminationScreen extends StatefulWidget {
   const ExaminationScreen({super.key});
@@ -14,6 +12,49 @@ class ExaminationScreen extends StatefulWidget {
 }
 
 class _ExaminationScreenState extends State<ExaminationScreen> {
+  List<Examination> mockExaminatios = [
+    Examination(
+      maDatLich: '4F450TY',
+      nameUser: 'Nguyễn Hữu Thiện',
+      nameHospital: 'BỆNH VIỆN NHÂN DÂN GIA ĐỊNH',
+      service: 'Khám Dịch Vụ Khu Vip(Tầng 2 - Phòng 201)',
+      chuyenKhoa: 'Đông Y',
+      time: '03/01/2025 (08:00 - 09:00)',
+      address: 'Bệnh viện Nhân dân Gia Định',
+      status: 1,
+    ),
+    Examination(
+      maDatLich: '4F450TYA',
+      nameUser: 'Nguyễn Hữu ThiệnA',
+      nameHospital: 'BỆNH VIỆN NHÂN DÂN GIA ĐỊNHA',
+      service: 'Khám Dịch Vụ Khu Vip(Tầng 2 - Phòng 201A)',
+      chuyenKhoa: 'Đông YA',
+      time: '03/01/2025 (08:00 - 09:00)',
+      address: 'Bệnh viện Nhân dân Gia Định',
+      status: 2,
+    ),
+    Examination(
+      maDatLich: '4F450TYB',
+      nameUser: 'Nguyễn Hữu ThiệnB',
+      nameHospital: 'BỆNH VIỆN NHÂN DÂN GIA ĐỊNHB',
+      service: 'Khám Dịch Vụ Khu Vip(Tầng 2 - Phòng 201B)',
+      chuyenKhoa: 'Đông YB',
+      time: '03/01/2025 (08:00 - 09:00)',
+      address: 'Bệnh viện Nhân dân Gia Định',
+      status: 3,
+    ),
+    Examination(
+      maDatLich: '4F450TYC',
+      nameUser: 'Nguyễn Hữu ThiệnC',
+      nameHospital: 'BỆNH VIỆN NHÂN DÂN GIA ĐỊNHC',
+      service: 'Khám Dịch Vụ Khu Vip(Tầng 2 - Phòng 201C)',
+      chuyenKhoa: 'Đông YC',
+      time: '03/01/2025 (08:00 - 09:00)',
+      address: 'Bệnh viện Nhân dân Gia Định',
+      status: 4,
+    ),
+  ];
+
   final List<String> _statuses = [
     'Đã thanh toán',
     'Chưa thanh toán',
@@ -22,23 +63,22 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
   ];
   String _selectedStatus = 'Đã thanh toán';
 
-  Widget _getScreen(String status) {
-    switch (status) {
-      case 'Đã thanh toán':
-        return PaidScreen();
-      case 'Chưa thanh toán':
-        return UnPaidScreen();
-      case 'Đã khám':
-        return CompletedScreen();
-      case 'Đã hủy':
-        return CancelScreen();
-      default:
-        return PaidScreen();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    List<Examination> filterExamination = mockExaminatios.where((examination) {
+      switch (_selectedStatus) {
+        case 'Đã thanh toán':
+          return examination.status == 1;
+        case 'Chưa thanh toán':
+          return examination.status == 2;
+        case 'Đã khám':
+          return examination.status == 3;
+        case 'Đã hủy':
+          return examination.status == 4;
+        default:
+          return false;
+      }
+    }).toList();
     return WidgetHeaderBody(
       iconBack: false,
       title: 'Danh sách phiếu khám',
@@ -65,15 +105,20 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
             ),
           ),
           Expanded(
-            child: Container(
-              color: AppColors.grey,
-              width: double.infinity,
-              child: ListView(
-                // padding: EdgeInsets.zero,
-                children: [_getScreen(_selectedStatus)],
-              ),
-            ),
-          ),
+              child: filterExamination.isEmpty
+                  ? Center(
+                      child: Text(
+                        'Không có phiếu khám nào',
+                        style: TextStyle(fontSize: 16, color: AppColors.grey),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: filterExamination.length,
+                      itemBuilder: (context, index) {
+                        return WidgetCardItem(
+                            examination: filterExamination[index]);
+                      },
+                    )),
         ],
       ),
     );

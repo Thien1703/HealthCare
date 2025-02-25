@@ -8,21 +8,21 @@ class ServiceSelection extends StatelessWidget {
   Widget build(BuildContext context) {
     return HeaderBottomSheet(
         title: 'Chọn dịch vụ',
-        body: Container(
-            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: Expanded(
+        body: Expanded(
+            child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: ListView(
-              children: [
-                _customItemService(
-                    titleService: 'Khám Dịch Vụ Khu Vip',
-                    calendar: 'Thứ 2, 3, 4, 5, 6',
-                    price: '127.000đ'),
-                _customItemService(
-                    titleService: 'Khám Thường',
-                    calendar: 'Thứ 2, 3, 4, 5, 6',
-                    price: '42.000đ')
-              ],
-            ))));
+                  children: [
+                    _customItemService(
+                        titleService: 'Khám Dịch Vụ Khu Vip',
+                        calendar: 'Thứ 2, 3, 4, 5, 6',
+                        price: '127.000đ'),
+                    _customItemService(
+                        titleService: 'Khám Thường',
+                        calendar: 'Thứ 2, 3, 4, 5, 6',
+                        price: '42.000đ')
+                  ],
+                ))));
   }
 }
 
