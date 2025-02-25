@@ -3,7 +3,7 @@ import 'package:health_care/services/local_storage_service.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.3.100:8080/api/v1/auth';
+  static const String baseUrl = 'http://192.168.1.11:8080/api/v1/auth';
 
   // Đăng nhập
   static Future<String?> login(String phoneNumber, String password) async {
@@ -29,7 +29,8 @@ class ApiService {
   }
 
   // Đăng ký tài khoản mới
-  static Future<String?> register(String fullName, String phoneNumber, String password) async {
+  static Future<String?> register(
+      String fullName, String phoneNumber, String password) async {
     final url = Uri.parse('$baseUrl/register');
     final response = await http.post(
       url,
@@ -77,7 +78,8 @@ class ApiService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       if (data['status'] == 0) {
-        await LocalStorageService.deleteToken(); // Xóa token sau khi logout thành công
+        await LocalStorageService
+            .deleteToken(); // Xóa token sau khi logout thành công
         return null; // Logout thành công
       } else {
         return data['message'];
