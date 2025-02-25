@@ -71,28 +71,31 @@ class InforProfileScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   _buildInfoRow('Họ và tên', 'NGUYỄN HỮU THIỆN'),
-                  _buildInfoRow('Số điện thoại', '0901492845'),
-                  _buildInfoRow('Mật khẩu', '**********'),
+                  _buildInfoRow('Ngày sinh', '01/07/2003'),
+                  _buildInfoRow('Giới tính', 'Nam'),
+                  _buildInfoRow('Mã bảo hiểm y tế', 'Chưa cập nhật'),
+                  _buildInfoRow('Mã định danh/CCCD', 'Chưa cập nhật'),
                   _buildInfoRow('Email', 'Chưa cập nhật'),
+                  _buildInfoRow('Địa chỉ', 'Thành phố Hồ Chí Minh'),
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Mở bản đồ hoặc tính năng khác
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            backgroundColor: Colors.green,
-                            foregroundColor: Colors.white,
-                          ),
-                          child: const Text('Bản đồ'),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
+                      // Expanded(
+                      //   child: ElevatedButton(
+                      //     onPressed: () {
+                      //       // Mở bản đồ hoặc tính năng khác
+                      //     },
+                      //     style: ElevatedButton.styleFrom(
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(12),
+                      //       ),
+                      //       backgroundColor: Colors.green,
+                      //       foregroundColor: Colors.white,
+                      //     ),
+                      //     child: const Text('Bản đồ'),
+                      //   ),
+                      // ),
+                      // const SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {

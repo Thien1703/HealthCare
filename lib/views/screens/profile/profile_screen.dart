@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:health_care/views/screens/auth/auth_service.dart';
-import 'package:health_care/views/screens/auth/login/login_screen.dart';
 import 'package:health_care/views/screens/medical_examination_record/medical_record.dart';
 import 'package:health_care/views/screens/profile/inforProfile_screen.dart';
+import 'package:provider/provider.dart';
+import '../../../viewmodels/auth_viewmodel.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -62,13 +62,10 @@ class ProfileScreen extends StatelessWidget {
                       const SizedBox(height: 5),
                       OutlinedButton(
                         onPressed: () async {
-                          // Gọi hàm signOut của AuthService
-                          await AuthService().signOut();
-                          // Sau khi đăng xuất thành công, chuyển hướng về LoginScreen
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (context) => const LoginScreen()),
-                          );
+                          final authViewModel = Provider.of<AuthViewModel>(
+                              context,
+                              listen: false);
+                          await authViewModel.signOut(context);
                         },
                         style: OutlinedButton.styleFrom(
                           foregroundColor: Colors.white,

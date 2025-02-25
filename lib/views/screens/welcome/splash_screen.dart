@@ -1,6 +1,9 @@
 //Test
 import 'package:flutter/material.dart';
 import 'package:health_care/views/screens/welcome/welcome_screen.dart';
+import '../../../services/local_storage_service.dart';
+import '../auth/login/login_screen.dart';
+import '../home/home_screens.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,13 +17,37 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     _checkFirstTime();
+    _checkLoginStatus();
   }
 
+  // Future<void> _checkFirstTime() async {
+  //   Future.delayed(const Duration(seconds: 3), () {
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => WelcomeScreen()),
+  //     );
+  //   });
+  // }
   Future<void> _checkFirstTime() async {
-    Future.delayed(const Duration(seconds: 3), () {
+    await Future.delayed(const Duration(seconds: 3));
+    if (!mounted) return; // Kiểm tra nếu widget đã bị hủy
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => WelcomeScreen()),
+    );
+  }
+
+  // Kiểm tra trạng thái đăng nhập
+  Future<void> _checkLoginStatus() async {
+    bool isLoggedIn = await LocalStorageService.isLoggedIn();
+
+    // Nếu đã đăng nhập → chuyển sang Home, nếu chưa → về Login
+    Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => WelcomeScreen()),
+        MaterialPageRoute(
+            builder: (context) =>
+                isLoggedIn ? const HomeScreens() : const LoginScreen()),
       );
     });
   }

@@ -218,8 +218,9 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/views/screens/home/home_screens.dart';
-import 'package:health_care/views/screens/auth/api_service.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../viewmodels/auth_viewmodel.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -235,45 +236,62 @@ class _LoginScreenState extends State<LoginScreen> {
   String? _errorMessage;
   bool _isLoading = false;
 
-  void handleLogin() async {
-    String phoneNumber = phoneController.text.trim();
-    String password = passwordController.text.trim();
+  // void handleLogin() async {
+  //   String phoneNumber = phoneController.text.trim();
+  //   String password = passwordController.text.trim();
 
-    if (phoneNumber.isEmpty || password.isEmpty) {
-      setState(() {
-        _errorMessage = "Vui lòng nhập đầy đủ số điện thoại và mật khẩu";
-      });
-      return;
-    }
+  //   if (phoneNumber.isEmpty || password.isEmpty) {
+  //     setState(() {
+  //       _errorMessage = "Vui lòng nhập đầy đủ số điện thoại và mật khẩu";
+  //     });
+  //     return;
+  //   }
+
+  //   setState(() {
+  //     _errorMessage = null;
+  //     _isLoading = true;
+  //   });
+
+  //   try {
+  //     String? loginError = await ApiService.login(phoneNumber, password);
+  //     if (loginError == null) {
+  //       // Đăng nhập thành công, chuyển sang HomeScreens
+  //       Navigator.pushReplacement(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => const HomeScreens()),
+  //       );
+  //     } else {
+  //       // Hiển thị lỗi
+  //       setState(() {
+  //         _errorMessage = loginError;
+  //       });
+  //     }
+  //   } catch (e) {
+  //     setState(() {
+  //       _errorMessage = "Lỗi kết nối, vui lòng thử lại!";
+  //     });
+  //   } finally {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
+
+  void handleLogin() async {
+    if (!mounted) return; // Kiểm tra nếu Widget đã bị unmount
 
     setState(() {
-      _errorMessage = null;
       _isLoading = true;
     });
 
-    try {
-      String? loginError = await ApiService.login(phoneNumber, password);
-      if (loginError == null) {
-        // Đăng nhập thành công, chuyển sang HomeScreens
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreens()),
-        );
-      } else {
-        // Hiển thị lỗi
-        setState(() {
-          _errorMessage = loginError;
-        });
-      }
-    } catch (e) {
-      setState(() {
-        _errorMessage = "Lỗi kết nối, vui lòng thử lại!";
-      });
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+    await Provider.of<AuthViewModel>(context, listen: false).login(
+        context, phoneController.text.trim(), passwordController.text.trim());
+
+    if (!mounted) return; // Kiểm tra lại trước khi cập nhật UI
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -303,7 +321,8 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                     child: Column(
                       children: [
                         Text(
@@ -375,6 +394,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: ElevatedButton(
                   onPressed: _isLoading ? null : handleLogin,
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.accent,
                     padding: EdgeInsets.symmetric(
                       vertical: screenHeight * 0.02,
                     ),
@@ -408,7 +428,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Center(
                   child: Text(
                     _errorMessage!,
-                    style: TextStyle(color: Colors.red, fontSize: screenWidth * 0.04),
+                    style: TextStyle(
+                        color: Colors.red, fontSize: screenWidth * 0.04),
                   ),
                 ),
               ),
