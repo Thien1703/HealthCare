@@ -1,49 +1,51 @@
-import 'package:health_care/models/clinic/clinic.dart';
-import 'package:health_care/services/clinic_service.dart';
 import 'package:flutter/material.dart';
+import 'package:health_care/models/clinic/clinic.dart';  
+import 'package:health_care/services/clinic_service.dart';  
 
 class ClinicViewModel extends ChangeNotifier {
   bool isLoading = false;
   List<Clinic> clinics = [];
   String errorMessage = '';
   String searchQuery = '';
-  String selectedType = 'Tất cả'; // Lọc theo loại phòng khám
 
-  // Lấy danh sách phòng khám
+  
   Future<void> fetchClinics() async {
     isLoading = true;
     errorMessage = '';
-    notifyListeners();  // Cập nhật trạng thái
+    notifyListeners();  
 
     try {
-      clinics = await ClinicService().getClinics(); // Lấy dữ liệu từ API
+      clinics = await ClinicService().getClinics();  
     } catch (e) {
       errorMessage = 'Không thể tải phòng khám. Vui lòng thử lại sau.';
       print("Error: $e");
     } finally {
       isLoading = false;
-      notifyListeners();  // Cập nhật lại UI khi dữ liệu đã hoàn tất
+      notifyListeners();  
     }
   }
 
-  // Lọc danh sách phòng khám theo từ khóa tìm kiếm 
+  
   List<Clinic> get filteredClinics {
+    if (searchQuery.isEmpty) {
+      return clinics;  
+    }
+
     return clinics.where((clinic) {
-   
-      final matchesSearch = clinic.name.toLowerCase().contains(searchQuery.toLowerCase());
-      return  matchesSearch;
+      final query = searchQuery.toLowerCase();
+
+     
+      final matchesName = clinic.name.toLowerCase().contains(query);
+      final matchesAddress = clinic.address.toLowerCase().contains(query);
+      final matchesDescription = clinic.description.toLowerCase().contains(query);
+
+      return matchesName || matchesAddress || matchesDescription;  
     }).toList();
   }
 
-  // Cập nhật từ khóa tìm kiếm
+  
   void updateSearchQuery(String query) {
     searchQuery = query;
-    notifyListeners();
-  }
-
-  
-  void updateSelectedType(String type) {
-    selectedType = type;
-    notifyListeners();
+    notifyListeners(); 
   }
 }
