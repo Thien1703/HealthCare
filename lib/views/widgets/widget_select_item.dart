@@ -8,16 +8,20 @@ class SelectItemWidget extends StatelessWidget {
     required this.image,
     required this.text,
     this.bottomSheet,
+    this.onTap,
   });
   final String image;
   final String text;
   final Widget? bottomSheet;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (bottomSheet != null) {
+        if (onTap != null) {
+          onTap!();
+        } else if (bottomSheet != null) {
           showModalBottomSheet(
               context: context,
               builder: (BuildContext context) {
@@ -41,8 +45,7 @@ class SelectItemWidget extends StatelessWidget {
           margin: EdgeInsets.only(top: 5),
           decoration: BoxDecoration(
               color: Colors.white,
-              border: Border.all(
-                  color: const Color.fromARGB(255, 161, 161, 161), width: 1),
+              border: Border.all(color: Colors.black, width: 1),
               borderRadius: BorderRadius.all(
                 Radius.circular(15),
               )),
