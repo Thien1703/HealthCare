@@ -12,17 +12,15 @@ class ClinicCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 2,
       margin: const EdgeInsets.all(10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Header
+          
           _MedicalCardHeader(clinic: clinic),
-          // Actions
+          
           Container(
             decoration: const BoxDecoration(
               color: AppColors.primary,
@@ -32,9 +30,7 @@ class ClinicCard extends StatelessWidget {
               ),
             ),
             padding: const EdgeInsets.symmetric(vertical: 15),
-            child: _MedicalCardActions(
-              clinic: clinic,
-            ),
+            child: _MedicalCardActions(clinic: clinic),
           ),
         ],
       ),
@@ -63,13 +59,30 @@ class _MedicalCardHeader extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: Image.asset(
-              clinic.image,
-              width: 48,
-              height: 39,
-              fit: BoxFit.cover,
+            child: Image.network(
+              clinic.image, // Đảm bảo 'clinic.image' chứa URL hợp lệ
+              width: 42, // Điều chỉnh kích thước nhỏ hơn
+              height: 42, // Điều chỉnh kích thước nhỏ hơn
+              fit: BoxFit.cover, // Đảm bảo ảnh phủ đầy khu vực
+              loadingBuilder: (context, child, loadingProgress) {
+                // Nếu ảnh chưa tải xong, có thể hiển thị hình ảnh loading
+                if (loadingProgress == null) {
+                  return child;
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value:
+                          loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  (loadingProgress.expectedTotalBytes ?? 1)
+                              : null,
+                    ),
+                  );
+                }
+              },
             ),
           ),
+
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -110,12 +123,14 @@ class _MedicalRatingRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int fullStars = rating.floor();
-    bool hasHalfStar = (rating - fullStars) > 0;
+    bool hasHalfStar =
+        (rating - fullStars) >=
+        0.5; 
 
     return Row(
       children: [
         Text(
-          rating.toStringAsFixed(1),
+          rating.toStringAsFixed(1), 
           style: const TextStyle(
             fontSize: 14,
             color: AppColors.neutralYellow,
@@ -123,6 +138,7 @@ class _MedicalRatingRow extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 5),
+        
         Row(
           children: List.generate(
             fullStars,
@@ -133,12 +149,10 @@ class _MedicalRatingRow extends StatelessWidget {
             ),
           ),
         ),
+        // Generate half star if applicable
         if (hasHalfStar)
-          const Icon(
-            Icons.star_half,
-            size: 16,
-            color: AppColors.neutralYellow,
-          ),
+          const Icon(Icons.star_half, size: 16, color: AppColors.neutralYellow),
+        // Generate empty stars to fill up to 5 stars
         for (int i = 0; i < (5 - fullStars - (hasHalfStar ? 1 : 0)); i++)
           const Icon(
             Icons.star_border,
@@ -164,40 +178,27 @@ class _MedicalCardActions extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ClinicDetailScreen(
-                  clinic: clinic,
-                ),
+                builder: (context) => ClinicDetailScreen(clinic: clinic),
               ),
             );
           },
           style: OutlinedButton.styleFrom(
-            side: const BorderSide(
-              color: AppColors.accent,
-              width: 2,
-            ),
+            side: const BorderSide(color: AppColors.accent, width: 2),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 30,
-              vertical: 15,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
           ),
           child: const Text(
             'Xem chi tiết',
-            style: TextStyle(
-              color: AppColors.accent,
-              fontSize: 16,
-            ),
+            style: TextStyle(color: AppColors.accent, fontSize: 16),
           ),
         ),
         ElevatedButton(
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => AppointmentScreen(),
-              ),
+              MaterialPageRoute(builder: (context) => AppointmentScreen()),
             );
           },
           style: ElevatedButton.styleFrom(
@@ -205,17 +206,11 @@ class _MedicalCardActions extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 15,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           ),
           child: const Text(
             "Đặt khám ngay",
-            style: TextStyle(
-              color: AppColors.neutralWhite,
-              fontSize: 16,
-            ),
+            style: TextStyle(color: AppColors.neutralWhite, fontSize: 16),
           ),
         ),
       ],
