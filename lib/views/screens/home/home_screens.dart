@@ -5,6 +5,7 @@ import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/views/screens/clinic/clinic_screen.dart';
 import 'package:health_care/views/screens/profile/profile_screen.dart';
 import 'package:health_care/views/screens/examination/examination_screen.dart';
+import 'package:health_care/views/screens/home/screens/homePage.dart';
 
 class HomeScreens extends StatefulWidget {
   const HomeScreens({super.key});
@@ -14,12 +15,12 @@ class HomeScreens extends StatefulWidget {
 }
 
 class _HomeScreensState extends State<HomeScreens> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
 
   Widget _getBody() {
     switch (_selectedIndex) {
       case 0:
-        return Center(child: Text('ChatBot đang được phát triển'));
+        return HomePage();
       case 1:
         return ClinicScreen();
       case 2:
@@ -41,12 +42,12 @@ class _HomeScreensState extends State<HomeScreens> {
           items: [
             TabItem(
               icon: ImageIcon(
-                AssetImage(AppIcons.chatbot),
+                AssetImage(AppIcons.homeIcon),
                 color: _selectedIndex == 0
                     ? AppColors.accent
                     : AppColors.neutralDarkGreen2,
               ),
-              title: 'ChatBot',
+              title: 'Trang chủ',
             ),
             TabItem(
               icon: ImageIcon(
