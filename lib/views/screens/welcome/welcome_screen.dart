@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/views/screens/auth/Login/login_screen.dart';
+import 'package:health_care/views/screens/auth/login/login_screen.dart';
 import 'package:health_care/views/screens/auth/register/register_screen.dart';
 
 final List<Map<String, String>> items = [
@@ -70,7 +70,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(

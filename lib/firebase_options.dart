@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'health-care-a85f5.firebasestorage.app',
     measurementId: 'G-YLN0Q9D0BF',
   );
+
 }

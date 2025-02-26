@@ -4,7 +4,7 @@ class AppIcons {
   static const String back = 'assets/icons/back_icon.png';
   static const String calendar = 'assets/icons/calendar_icon.png';
   static const String call = 'assets/icons/call_icon.png';
-  static const String cancel = 'assets/icons/cancle_icon.png';
+  static const String cancel = 'assets/icons/cancel_icon.png';
   static const String chat = 'assets/icons/chat_icon.png';
   static const String chatbot = 'assets/icons/chatbot_icon.png';
   static const String checkmark = 'assets/icons/checkmark_icon.png';
@@ -34,4 +34,6 @@ class AppIcons {
   static const String version = 'assets/icons/version_icon.png';
   static const String locationGreen = 'assets/icons/locationGreen_icon.png';
   static const String rightArrow = 'assets/icons/rightArrow_icon.png';
+  static const String creditCard = 'assets/icons/icon_payment.png';
+  static const String notiBlue = 'assets/icons/notification_blue.png';
 }

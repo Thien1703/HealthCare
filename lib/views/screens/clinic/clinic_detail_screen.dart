@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/models/clinic/clinic.dart';
+import 'package:health_care/views/screens/appointment/appointment_screen.dart';
 
 class ClinicDetailScreen extends StatelessWidget {
   const ClinicDetailScreen({super.key, required this.clinic});
@@ -23,11 +24,11 @@ class ClinicDetailScreen extends StatelessWidget {
                     children: [
                       _buildLocationRow(),
                       _buildSectionTitle('Dịch vụ', top: 20, bottom: 10),
-                      _buildBookingOption('Đặt khám theo chuyên khoa', () {
-                        print('chuyên khoa');
-                      }),
-                      _buildBookingOption('Đặt khám tại khoa', () {
-                        print('Tại khoa');
+                      _buildBookingOption('Đặt khám tại bệnh viện', () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AppointmentScreen()));
                       }),
                       _buildSectionTitle('Giới thiệu', top: 10, bottom: 5),
                       _buildDescription(),
@@ -39,7 +40,7 @@ class ClinicDetailScreen extends StatelessWidget {
                           bottom: 5),
                       _buildText(
                           'Bệnh viện Nhân Dân Gia Định hiên sở hữu đội ngũ các y bác sĩ là những chuyên gia đầu ngành, có trình độ chuyên môn cao bao gồm Giáo sư, Tiến sĩ,... Một trong số đó có thể kể đến như:'),
-                      _buildDoctors(),
+                      // _buildDoctors(),
                       _buildSectionTitle('Cơ sở vật chất tại bệnh viện',
                           top: 30, bottom: 5),
                       _buildText(clinic.facilities),
@@ -61,7 +62,7 @@ class ClinicDetailScreen extends StatelessWidget {
       floating: false,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
-        background: Image.asset(clinic.image, fit: BoxFit.cover),
+        background: Image.network(clinic.image, fit: BoxFit.cover),
         centerTitle: true,
         titlePadding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
         title: Text(
@@ -140,43 +141,43 @@ class ClinicDetailScreen extends StatelessWidget {
           padding: EdgeInsets.only(left: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: List.generate(clinic.specialties.length, (index) {
-              return Row(
-                children: [
-                  Text(
-                    '${index + 1}. ',
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: AppColors.neutralGrey3,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Expanded(child: _buildText(clinic.specialties[index])),
-                ],
-              );
-            }),
+            // children: List.generate(clinic.specialties.length, (index) {
+            //   return Row(
+            //     children: [
+            //       Text(
+            //         '${index + 1}. ',
+            //         style: TextStyle(
+            //             fontSize: 14,
+            //             color: AppColors.neutralGrey3,
+            //             fontWeight: FontWeight.bold),
+            //       ),
+            //       Expanded(child: _buildText(clinic.specialties[index])),
+            //     ],
+            //   );
+            // }),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildDoctors() {
-    return Padding(
-      padding: EdgeInsets.only(top: 10, left: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: clinic.notableDoctors.map((doctor) {
-          return Row(
-            children: [
-              Icon(Icons.circle, size: 8, color: AppColors.neutralGrey3),
-              SizedBox(width: 8),
-              _buildText(doctor),
-            ],
-          );
-        }).toList(),
-      ),
-    );
-  }
+  // Widget _buildDoctors() {
+  //   return Padding(
+  //     padding: EdgeInsets.only(top: 10, left: 20),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: clinic.notableDoctors.map((doctor) {
+  //         return Row(
+  //           children: [
+  //             Icon(Icons.circle, size: 8, color: AppColors.neutralGrey3),
+  //             SizedBox(width: 8),
+  //             _buildText(doctor),
+  //           ],
+  //         );
+  //       }).toList(),
+  //     ),
+  //   );
+  // }
 
   Widget _buildBookingOption(String titleBooking, ontap) {
     return Padding(
