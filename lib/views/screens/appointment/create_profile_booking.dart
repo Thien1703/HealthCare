@@ -76,7 +76,7 @@ class _CreateProfileBooking extends State<CreateProfileBooking> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _customTitleCreateProject(titleProject: 'Giới tính'),
-                      WidgetSelectgender(),
+                      // WidgetSelectgender(),
                     ],
                   )
                 ],

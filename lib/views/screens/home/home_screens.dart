@@ -1,8 +1,112 @@
+// import 'package:flutter/material.dart';
+// import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+// import 'package:health_care/common/app_colors.dart';
+// import 'package:health_care/common/app_icons.dart';
+// import 'package:health_care/views/screens/clinic/clinic_screen.dart';
+// import 'package:health_care/views/screens/profile/profile_screen.dart';
+// import 'package:health_care/views/screens/examination/examination_screen.dart';
+
+// class HomeScreens extends StatefulWidget {
+//   const HomeScreens({super.key});
+
+//   @override
+//   State<HomeScreens> createState() => _HomeScreensState();
+// }
+
+// class _HomeScreensState extends State<HomeScreens> {
+//   int _selectedIndex = 2;
+
+//   Widget _getBody() {
+//     switch (_selectedIndex) {
+//       case 0:
+//         return Center(child: Text('ChatBot đang được phát triển'));
+//       case 1:
+//         return ClinicScreen();
+//       case 2:
+//         return Center(child: Text('Bản đồ đang được phát triển'));
+//       case 3:
+//         return ExaminationScreen();
+//       case 4:
+//         return ProfileScreen();
+//       default:
+//         return Center(child: Text('Tính năng đang được phát triển'));
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         body: _getBody(),
+//         bottomNavigationBar: ConvexAppBar(
+//           items: [
+//             TabItem(
+//               icon: ImageIcon(
+//                 AssetImage(AppIcons.chatbot),
+//                 color: _selectedIndex == 0
+//                     ? AppColors.accent
+//                     : AppColors.neutralDarkGreen2,
+//               ),
+//               title: 'ChatBot',
+//             ),
+//             TabItem(
+//               icon: ImageIcon(
+//                 AssetImage(AppIcons.healthBook),
+//                 color: _selectedIndex == 1
+//                     ? AppColors.accent
+//                     : AppColors.neutralDarkGreen2,
+//               ),
+//               title: 'Đặt khám',
+//             ),
+//             TabItem(
+//               icon: ImageIcon(
+//                 AssetImage(AppIcons.map),
+//                 color: _selectedIndex == 2
+//                     ? AppColors.accent
+//                     : AppColors.neutralDarkGreen2,
+//               ),
+//               title: 'Bản đồ',
+//             ),
+//             TabItem(
+//               icon: ImageIcon(
+//                 AssetImage(AppIcons.phieuKham),
+//                 color: _selectedIndex == 3
+//                     ? AppColors.accent
+//                     : AppColors.neutralDarkGreen2,
+//               ),
+//               title: 'Khám',
+//             ),
+//             TabItem(
+//               icon: ImageIcon(
+//                 AssetImage(AppIcons.person),
+//                 color: _selectedIndex == 4
+//                     ? AppColors.accent
+//                     : AppColors.neutralDarkGreen2,
+//               ),
+//               title: 'Tài khoản',
+//             ),
+//           ],
+//           style: TabStyle.react,
+//           backgroundColor: AppColors.primary,
+//           activeColor: AppColors.accent,
+//           color: AppColors.neutralDarkGreen2,
+//           initialActiveIndex: _selectedIndex,
+//           onTap: (index) {
+//             setState(() {
+//               _selectedIndex = index;
+//             });
+//           },
+//         ));
+//   }
+// }
+
 import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
+// ignore: unused_import
 import 'package:health_care/views/screens/clinic/clinic_screen.dart';
+import 'package:health_care/views/screens/home/homePage.dart';
+import 'package:health_care/views/screens/map/searchMap.dart';
 import 'package:health_care/views/screens/profile/profile_screen.dart';
 import 'package:health_care/views/screens/examination/examination_screen.dart';
 
@@ -14,16 +118,16 @@ class HomeScreens extends StatefulWidget {
 }
 
 class _HomeScreensState extends State<HomeScreens> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
 
   Widget _getBody() {
     switch (_selectedIndex) {
       case 0:
-        return Center(child: Text('ChatBot đang được phát triển'));
+        return HomePage();
       case 1:
         return ClinicScreen();
       case 2:
-        return Center(child: Text('Bản đồ đang được phát triển'));
+        return SearchScreen();
       case 3:
         return ExaminationScreen();
       case 4:
@@ -41,12 +145,12 @@ class _HomeScreensState extends State<HomeScreens> {
           items: [
             TabItem(
               icon: ImageIcon(
-                AssetImage(AppIcons.chatbot),
+                AssetImage(AppIcons.homeHos),
                 color: _selectedIndex == 0
                     ? AppColors.accent
                     : AppColors.neutralDarkGreen2,
               ),
-              title: 'ChatBot',
+              title: 'Trang Chủ',
             ),
             TabItem(
               icon: ImageIcon(
