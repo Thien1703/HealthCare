@@ -3,11 +3,11 @@ import 'package:health_care/services/local_storage_service.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'http://172.16.107.170:8080/api/v1/auth';
+  static const String baseUrl = 'http://192.168.1.9:8080/api/v1';
 
   // Đăng nhập
   static Future<String?> login(String phoneNumber, String password) async {
-    final url = Uri.parse('$baseUrl/login');
+    final url = Uri.parse('$baseUrl/auth/login');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -31,7 +31,7 @@ class ApiService {
   // Đăng ký tài khoản mới
   static Future<String?> register(
       String fullName, String phoneNumber, String password) async {
-    final url = Uri.parse('$baseUrl/register');
+    final url = Uri.parse('$baseUrl/auth/register');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -61,7 +61,7 @@ class ApiService {
 
   // Đăng xuất
   static Future<String?> logout() async {
-    final url = Uri.parse('$baseUrl/logout');
+    final url = Uri.parse('$baseUrl/auth/logout');
 
     // Lấy token từ local storage
     String? token = await LocalStorageService.getToken();
@@ -87,5 +87,8 @@ class ApiService {
     } else {
       return "Lỗi máy chủ, vui lòng thử lại!";
     }
+  }
+  static Future<String?>getAllSpecialty() async{
+    final url=Uri.parse('$baseUrl/specialty/get-all'); 
   }
 }
