@@ -96,10 +96,10 @@ class SpecialtySelector extends StatelessWidget {
     return SelectItemWidget(
       image: AppIcons.specialty,
       text: 'Chọn chuyên khoa',
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SpecialtyScreen()),
-      ),
+      // onTap: () => Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => SpecialtyScreen()),
+      // ),
     );
   }
 }

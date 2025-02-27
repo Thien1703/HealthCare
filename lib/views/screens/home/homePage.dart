@@ -1,83 +1,187 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/common/app_icons.dart';
+import 'package:health_care/viewmodels/api_service.dart';
+import 'package:health_care/models/specialty.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+  @override
+  State<HomePage> createState() => _HomePage();
+}
+
+class _HomePage extends State<HomePage> {
+  List<Specialty>? specialties;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSpecialties();
+  }
+
+  void fetchSpecialties() async {
+    List<Specialty>? data = await ApiService.getAllSpecialty();
+    setState(() {
+      specialties = data;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              const Color.fromARGB(255, 186, 219, 188),
-              Colors.white,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+      body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.only(top: 10, right: 20, left: 20),
-          child: ListView(
-            children: [
-              Row(
-                children: [
-                  Image.asset(
-                    'assets/images/healthcaregreen.png',
-                    width: 70,
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      'Chào mừng đến với phòng khám FPT',
-                      softWrap: true,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                AppColors.accent,
+                Colors.white,
+                AppColors.accent,
+                Colors.white,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 35),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 25,
+                      child: Image.asset(
+                        'assets/images/healthcaregreen.png',
+                        width: 70,
                       ),
                     ),
-                  )
-                ],
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Tìm kiếm chuyên khoa/dịch vụ'),
-                    Icon(Icons.search)
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        'Chào mừng đến với phòng khám FPT',
+                        softWrap: true,
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 70),
                   ],
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 1),
-                  borderRadius: BorderRadius.circular(10),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text('Tìm kiếm chuyên khoa/dịch vụ',
+                          style: TextStyle(color: Colors.black54)),
+                      Icon(Icons.search, color: AppColors.accent),
+                    ],
+                  ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Xem bản đồ'),
-                    Text('Chat AI'),
-                    Text('Đo chỉ số BMI'),
-                  ],
+
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildFeatureButton('Xem bản đồ', Icons.map),
+                      _buildFeatureButton('Chat AI', Icons.chat),
+                      _buildFeatureButton('Đo BMI', Icons.fitness_center),
+                    ],
+                  ),
                 ),
-              ),
-              Text('Chuyên khoa')
-            ],
+
+                // Tiêu đề Chuyên khoa
+                Text(
+                  'Chuyên khoa',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.accent,
+                  ),
+                ),
+
+                // Danh sách chuyên khoa
+                specialties != null
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: specialties!.length,
+                        itemBuilder: (context, index) {
+                          final specialty = specialties![index];
+                          return Card(
+                            elevation: 3,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: ListTile(
+                              contentPadding: const EdgeInsets.all(10),
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(specialty.image,
+                                    width: 50, height: 50, fit: BoxFit.cover),
+                              ),
+                              title: Text(
+                                specialty.name,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.blue.shade800,
+                                ),
+                              ),
+                              subtitle: Text(
+                                specialty.description,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  // Widget cho các nút chức năng chính
+  Widget _buildFeatureButton(String text, IconData icon) {
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: 25,
+          backgroundColor: const Color.fromARGB(255, 178, 232, 181),
+          child: Icon(icon, color: AppColors.accent),
+        ),
+        const SizedBox(height: 5),
+        Text(
+          text,
+          style: TextStyle(fontSize: 12, color: AppColors.accent),
+        ),
+      ],
     );
   }
 }

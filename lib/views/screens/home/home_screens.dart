@@ -88,7 +88,7 @@ class _HomeScreensState extends State<HomeScreens> {
             ),
           ],
           style: TabStyle.react,
-          backgroundColor: AppColors.primary,
+          backgroundColor: Colors.white,
           activeColor: AppColors.accent,
           color: AppColors.neutralDarkGreen2,
           initialActiveIndex: _selectedIndex,

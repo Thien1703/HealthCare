@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:health_care/services/local_storage_service.dart';
+import 'package:health_care/models/specialty.dart';
+import 'package:health_care/models/clinic.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.1.9:8080/api/v1';
+  static const String baseUrl = 'http://192.168.1.8:8080/api/v1';
 
   // Đăng nhập
   static Future<String?> login(String phoneNumber, String password) async {
@@ -88,7 +90,70 @@ class ApiService {
       return "Lỗi máy chủ, vui lòng thử lại!";
     }
   }
-  static Future<String?>getAllSpecialty() async{
-    final url=Uri.parse('$baseUrl/specialty/get-all'); 
+
+  static Future<List<Specialty>?> getAllSpecialty() async {
+    final url = Uri.parse('$baseUrl/specialty/get-all');
+
+    // Lấy và kiểm tra token
+    String? token = await LocalStorageService.getToken();
+    if (token == null) {
+      return null;
+    }
+    // Gửi giá trị token lên server đợi phản hồi
+    final response = await http.post(
+      url,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    print('Giá trị status của API: ${response.statusCode}');
+    print('Giá trị API trả về body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        List<Specialty> specialties = (data['data'] as List)
+            .map((item) => Specialty.fromJson(item))
+            .toList();
+        return specialties;
+      } else {
+        print(' Lỗi từ API: ${data['message']}');
+      }
+    } else {
+      print(' API lỗi: ${response.statusCode}');
+    }
+
+    return null;
+  }
+
+  static Future<List<Clinic>> getAllClinic() async {
+    final url = Uri.parse('${baseUrl}/clinic/get-all');
+    String? token = await LocalStorageService.getToken();
+    if (token == null) {
+      return [];
+    }
+    final response = await http.post(
+      url,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    print('Giá trị status của API: ${response.statusCode}');
+    print('Giá trị API trả về body: ${response.body}');
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        List<Clinic> clinices = (data['data'] as List)
+            .map((item) => Clinic.fromJson(item))
+            .toList();
+        return clinices;
+      } else {
+        print(' Lỗi từ API: ${data['message']}');
+      }
+    } else {
+      print(' API lỗi: ${response.statusCode}');
+    }
+    return [];
   }
 }
