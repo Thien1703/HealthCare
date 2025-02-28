@@ -40,7 +40,16 @@ class HealthCheckForm extends StatefulWidget {
 
 class _HealthCheckFormState extends State<HealthCheckForm> {
   List<HealthCheck> healthChecks = [];
+  List<HealthCheck> filteredHealthChecks = [];
   bool isLoading = true;
+  String selectedStatus = 'Tất cả';
+  final List<String> statuses = [
+    'Tất cả',
+    'Đã thanh toán',
+    'Chưa thanh toán',
+    'Đã khám',
+    'Đã hủy'
+  ];
 
   @override
   void initState() {
@@ -114,6 +123,19 @@ class _HealthCheckFormState extends State<HealthCheckForm> {
         SnackBar(content: Text('Error fetching data: $e')),
       );
     }
+  }
+
+  void filterByStatus(String status) {
+    setState(() {
+      selectedStatus = status;
+      if (status == 'Tất cả') {
+        filteredHealthChecks = List.from(healthChecks);
+      } else {
+        filteredHealthChecks = healthChecks
+            .where((element) => element.status == status)
+            .toList();
+      }
+    });
   }
 
   @override
@@ -192,7 +214,8 @@ class _HealthCheckFormState extends State<HealthCheckForm> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        DetailHealthCheckScreen(healthCheck: healthCheck),
+                                        DetailHealthCheckScreen(
+                                            healthCheck: healthCheck),
                                   ),
                                 );
                               },

@@ -139,7 +139,7 @@ class ApiService {
 
   // Đăng xuất
   static Future<String?> logout() async {
-    final url = Uri.parse('$baseUrl/logout');
+    final url = Uri.parse('$baseUrl/auth/logout');
 
     // Lấy token từ local storage
     String? token = await LocalStorageService.getToken();
