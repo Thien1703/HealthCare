@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Clinic {
+  final int id;
   final String name;
   final String image;
   final String description;
@@ -12,6 +13,7 @@ class Clinic {
   final double longitude;
 
   Clinic({
+    required this.id,
     required this.name,
     required this.image,
     required this.description,
@@ -26,6 +28,7 @@ class Clinic {
   // Chuyển từ JSON sang Object
   factory Clinic.fromJson(Map<String, dynamic> json) {
     return Clinic(
+      id: json['id'],
       name: utf8.decode(json['name'].toString().codeUnits), // Sửa lỗi
       image: json['image'] ?? '',
       description:
@@ -43,6 +46,7 @@ class Clinic {
   // Chuyển từ Object sang JSON
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'image': image,
       'description': description,

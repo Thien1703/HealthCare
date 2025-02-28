@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/viewmodels/api_service.dart';
 import 'package:health_care/models/specialty.dart';
+import 'package:health_care/views/screens/home/service_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -126,30 +126,43 @@ class _HomePage extends State<HomePage> {
                         itemCount: specialties!.length,
                         itemBuilder: (context, index) {
                           final specialty = specialties![index];
-                          return Card(
-                            elevation: 3,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: ListTile(
-                              contentPadding: const EdgeInsets.all(10),
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.network(specialty.image,
-                                    width: 50, height: 50, fit: BoxFit.cover),
-                              ),
-                              title: Text(
-                                specialty.name,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.blue.shade800,
+                          return InkWell(
+                            onTap: () {
+                              print(specialty.id);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ServiceScreen(
+                                    specialtyId: specialty.id,
+                                  ),
                                 ),
+                              );
+                            },
+                            child: Card(
+                              elevation: 3,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              subtitle: Text(
-                                specialty.description,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black54,
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(10),
+                                leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(specialty.image,
+                                      width: 50, height: 50, fit: BoxFit.cover),
+                                ),
+                                title: Text(
+                                  specialty.name,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blue.shade800,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  specialty.description,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black54,
+                                  ),
                                 ),
                               ),
                             ),

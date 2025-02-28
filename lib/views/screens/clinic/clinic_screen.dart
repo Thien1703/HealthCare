@@ -30,7 +30,7 @@ class _ClinicScreenState extends State<ClinicScreen> {
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
         iconBack: false,
-        title: "Đặt khám giữ chổ",
+        title: "Đặt khám",
         body: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -55,39 +55,77 @@ class _ClinicScreenState extends State<ClinicScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 10), // Thêm khoảng cách
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.location_on_outlined),
+                      Text('Tìm gần đây'),
+                    ],
+                  ),
+                ),
                 clinics != null
                     ? ListView.builder(
+                        padding: EdgeInsets.only(top: 10),
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: clinics!.length,
                         itemBuilder: (context, index) {
                           final clinic = clinics![index];
-                          return Card(
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10),
-                                child: Row(
-                                  children: [
-                                    Image.network(
-                                      clinic.image,
-                                      width: 100,
-                                    ),
-                                    SizedBox(width: 10),
-                                    Column(
-                                      children: [
-                                        Text(
-                                          clinic.name,
-                                        ),
-                                        Text(clinic.address)
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                          return InkWell(
+                            onTap: () {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text('ID phòng khám: ${clinic.id}'),
+                                duration: Duration(seconds: 2),
                               ));
+                            }, 
+                            child: Card(
+                                margin: EdgeInsets.symmetric(vertical: 10),
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 30, horizontal: 10),
+                                  child: Row(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          clinic.image,
+                                          width: 110,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              clinic.name,
+                                            ),
+                                            Text(
+                                              clinic.address,
+                                              softWrap: true,
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )),
+                          );
                         },
                       )
                     : Center(

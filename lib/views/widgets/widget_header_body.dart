@@ -42,7 +42,11 @@ class WidgetHeaderBody extends StatelessWidget {
           Container(child: selectedIcon)
         ])),
       ),
-      Expanded(child: body)
+      Expanded(
+          child: Container(
+        color: Colors.white,
+        child: body,
+      ))
     ]));
   }
 }
