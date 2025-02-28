@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:health_care/models/clinic/clinic.dart';
-import 'package:health_care/views/screens/clinic/clinic_card.dart';
+import 'package:health_care/common/app_colors.dart';
+import 'package:health_care/models/clinic.dart';
+import 'package:health_care/viewmodels/api_service.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
 
 class ClinicScreen extends StatefulWidget {
@@ -11,149 +12,128 @@ class ClinicScreen extends StatefulWidget {
 }
 
 class _ClinicScreenState extends State<ClinicScreen> {
-  final TextEditingController _searchController = TextEditingController();
-  String _searchQuery = '';
-  String _selectedType = 'Tất cả'; // Default: Show all
+  List<Clinic>? clinics;
+  @override
+  void initState() {
+    super.initState();
+    fetchClinics();
+  }
 
-  // Lọc danh sách dựa trên từ khóa tìm kiếm và loại phòng khám
-  List<Clinic> get filteredClinics {
-    return clinics.where((clinic) {
-      final matchesType =
-          _selectedType == 'Tất cả' || clinic.type == _selectedType;
-      final matchesSearch =
-          clinic.name.toLowerCase().contains(_searchQuery.toLowerCase());
-      return matchesType && matchesSearch;
-    }).toList();
+  void fetchClinics() async {
+    List<Clinic>? data = await ApiService.getAllClinic();
+    setState(() {
+      clinics = data;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
-      title: "Chọn cơ sở y tế",
-      body: Column(
-        children: [
-          // Thanh tìm kiếm
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Tìm cơ sở y tế',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _searchQuery = value; // Cập nhật từ khóa tìm kiếm
-                });
-              },
-            ),
-          ),
-          // Thanh lọc loại phòng khám
-          _buildFilterRow(),
-          // Danh sách các phòng khám
-          Expanded(
-            child: filteredClinics.isEmpty
-                ? const Center(
-                    child: Text('Không tìm thấy cơ sở y tế phù hợp.'))
-                : ListView.builder(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 15),
-                    itemCount: filteredClinics.length,
-                    itemBuilder: (context, index) {
-                      final clinic = filteredClinics[index];
-                      return ClinicCard(clinic: clinic);
-                    },
+        iconBack: false,
+        title: "Đặt khám",
+        body: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            child: Column(
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: AppColors.accent,
+                        width: 1.5,
+                      )),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text('Tìm kiếm chuyên khoa/dịch vụ',
+                          style: TextStyle(color: Colors.black54)),
+                      Icon(Icons.search, color: AppColors.accent),
+                    ],
                   ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Widget tạo thanh lọc
-  Widget _buildFilterRow() {
-    final List<String> types = [
-      'Tất cả',
-      'Phòng khám đa khoa',
-      'Phòng khám chuyên khoa',
-      'Phòng khám nhi'
-    ];
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      child: Row(
-        children: types.map((type) {
-          final isSelected = _selectedType == type;
-          return Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: ChoiceChip(
-              label: Text(type),
-              selected: isSelected,
-              onSelected: (selected) {
-                setState(() {
-                  _selectedType = type; // Cập nhật loại phòng khám
-                });
-              },
-              selectedColor: Colors.green,
-              backgroundColor: Colors.grey.shade200,
-              labelStyle: TextStyle(
-                color: isSelected ? Colors.white : Colors.black,
-              ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.location_on_outlined),
+                      Text('Tìm gần đây'),
+                    ],
+                  ),
+                ),
+                clinics != null
+                    ? ListView.builder(
+                        padding: EdgeInsets.only(top: 10),
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: clinics!.length,
+                        itemBuilder: (context, index) {
+                          final clinic = clinics![index];
+                          return InkWell(
+                            onTap: () {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text('ID phòng khám: ${clinic.id}'),
+                                duration: Duration(seconds: 2),
+                              ));
+                            }, 
+                            child: Card(
+                                margin: EdgeInsets.symmetric(vertical: 10),
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 30, horizontal: 10),
+                                  child: Row(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          clinic.image,
+                                          width: 110,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              clinic.name,
+                                            ),
+                                            Text(
+                                              clinic.address,
+                                              softWrap: true,
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )),
+                          );
+                        },
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      )
+              ],
             ),
-          );
-        }).toList(),
-      ),
-    );
+          ),
+        ));
   }
 }
-
-final List<Clinic> clinics = [
-  Clinic(
-    id: 1,
-    name: "Phòng Khám Đa Khoa Bình An",
-    address: "123 Đường Lý Thái Tổ, Quận 10, TP.HCM",
-    rating: 4.5,
-    reviewCount: 120,
-    image: "assets/images/benhvien.jpg",
-    type: "Phòng khám đa khoa",
-    description:
-        "Phòng khám chuyên cung cấp dịch vụ y tế đa khoa với đội ngũ bác sĩ giàu kinh nghiệm.",
-    specialties: ["Nội tổng quát", "Nhi khoa", "Phụ sản"],
-    notableDoctors: ["BS. Nguyễn Văn A", "BS. Trần Thị B"],
-    facilities:
-        "Phòng chờ tiện nghi, thiết bị hiện đại, phòng xét nghiệm đạt chuẩn.",
-  ),
-  Clinic(
-    id: 2,
-    name: "Phòng Khám Sức Khỏe Gia Đình",
-    address: "456 Đường Nguyễn Trãi, Quận 5, TP.HCM",
-    rating: 4.8,
-    reviewCount: 200,
-    image: "assets/images/benhvien.jpg",
-    type: "Phòng khám chuyên khoa",
-    description:
-        "Bệnh viện Nhân dân Gia Định là một trong những Bệnh viện Đa khoa loại I trực thuộc Sở Y tế TP.HCM. Với đội ngũ Y, Bác sĩ chuyên môn cao, dày dạn kinh nghiệm, Bệnh viện có đủ các chuyên khoa lớn, nhiều phân khoa sâu, trang bị đầy đủ trang thiết bị y tế nhằm nâng cao chất lượng chẩn đoán, điều trị và chăm sóc bệnh nhân, đáp ứng nhu cầu khám chữa bệnh ngày càng cao của nhân dân.",
-    specialties: ["Nhi khoa", "Lão khoa", "Sức khỏe gia đình"],
-    notableDoctors: ["BS. Lê Thị C", "BS. Phạm Văn D"],
-    facilities:
-        "Hệ thống quản lý hồ sơ sức khỏe điện tử, khu vực đón tiếp thân thiện.",
-  ),
-  Clinic(
-    id: 3,
-    name: "Phòng Khám Nhi Đồng Việt",
-    address: "789 Đường Trần Hưng Đạo, Quận 1, TP.HCM",
-    rating: 4.2,
-    reviewCount: 80,
-    image: "assets/images/benhvien.jpg",
-    type: "Phòng khám nhi",
-    description:
-        "Nơi chăm sóc sức khỏe tốt nhất cho trẻ nhỏ với các bác sĩ chuyên khoa nhi hàng đầu.",
-    specialties: ["Nhi khoa", "Dinh dưỡng", "Hô hấp"],
-    notableDoctors: ["BS. Nguyễn Văn E", "BS. Trần Thị F"],
-    facilities:
-        "Khu vực chơi dành cho trẻ em, máy móc y tế hiện đại phù hợp trẻ nhỏ.",
-  ),
-];

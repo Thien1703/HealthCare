@@ -19,6 +19,7 @@ class _ThamkhamScreen extends State<ThamkhamScreen> {
   @override
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
+      iconBack: true,
       title: 'Thông tin phiếu khám',
       body: ListView(
         padding: EdgeInsets.zero,

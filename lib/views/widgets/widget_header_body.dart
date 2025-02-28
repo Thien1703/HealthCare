@@ -7,12 +7,14 @@ class WidgetHeaderBody extends StatelessWidget {
   final double headerHeight;
   final VoidCallback? onBackPressed;
   final Widget? selectedIcon;
+  final bool iconBack;
 
   const WidgetHeaderBody({
     super.key,
+    required this.iconBack,
     required this.title,
     required this.body,
-    this.headerHeight = 0.13,
+    this.headerHeight = 0.12,
     this.onBackPressed,
     this.selectedIcon,
   });
@@ -30,8 +32,9 @@ class WidgetHeaderBody extends StatelessWidget {
         color: AppColors.accent,
         child: SafeArea(
             child: Column(children: [
-          SizedBox(height: 20),
+          SizedBox(height: 15),
           HeaderRow(
+            iconBack: iconBack,
             title: title,
             onBackPressed: onBackPressed,
           ),
@@ -39,7 +42,11 @@ class WidgetHeaderBody extends StatelessWidget {
           Container(child: selectedIcon)
         ])),
       ),
-      Expanded(child: body)
+      Expanded(
+          child: Container(
+        color: Colors.white,
+        child: body,
+      ))
     ]));
   }
 }
@@ -47,32 +54,40 @@ class WidgetHeaderBody extends StatelessWidget {
 class HeaderRow extends StatelessWidget {
   final String title;
   final VoidCallback? onBackPressed;
+  final bool iconBack;
 
-  const HeaderRow({
-    super.key,
-    required this.title,
-    this.onBackPressed,
-  });
+  const HeaderRow(
+      {super.key,
+      required this.title,
+      this.onBackPressed,
+      required this.iconBack});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Stack(
       children: [
-        IconButton(
-            icon: Icon(Icons.arrow_back,
-                color: AppColors.neutralWhite, size: 22.0),
-            onPressed: onBackPressed ?? () => Navigator.of(context).pop()),
-        Expanded(
-          child: Center(
-              child: Text(
-            title,
-            style: const TextStyle(
-                color: AppColors.neutralWhite,
-                fontSize: 22,
-                fontWeight: FontWeight.bold),
-          )),
-        ),
-        const SizedBox(width: 48) // Tạo khoảng trống tương ứng với IconButton
+        if (iconBack == true)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: IconButton(
+              icon: Icon(Icons.arrow_back,
+                  color: AppColors.neutralWhite, size: 22),
+              onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
+            ),
+          ),
+        Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              title,
+              style: const TextStyle(
+                  color: AppColors.neutralWhite,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        )
       ],
     );
   }

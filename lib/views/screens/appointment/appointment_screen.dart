@@ -43,6 +43,7 @@ class _AppointmentScreen extends State<AppointmentScreen> {
   @override
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
+      iconBack: true,
       title: _showTitleScreen,
       headerHeight: 0.2,
       selectedIcon: StepIndicator(
@@ -114,7 +115,7 @@ class StepIndicator extends StatelessWidget {
           ),
           StepLine(),
           StepItem(
-            onTap: currentIndex < 2
+            onTap: currentIndex <= 2
                 ? null
                 : () => onNavigateToScreen(3, 'Thông tin thanh toán'),
             border: isSelected[3]
@@ -166,6 +167,7 @@ class StepItem extends StatelessWidget {
     );
   }
 }
+
 class StepLine extends StatelessWidget {
   const StepLine({super.key});
 

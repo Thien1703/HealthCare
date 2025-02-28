@@ -45,7 +45,6 @@ class HeaderBottomSheet extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 10),
         Expanded(
           child: body,
         ),
