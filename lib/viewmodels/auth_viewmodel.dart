@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:health_care/views/screens/welcome/splash_screen.dart';
+import 'package:health_care/views/screens/auth/login/login_screen.dart';
 import '../services/local_storage_service.dart';
 import '../views/screens/home/home_screens.dart';
 import 'api_service.dart';
 
 class AuthViewModel with ChangeNotifier {
   /// Đăng nhập
-  Future<void> login(BuildContext context, String phone, String password) async {
+  Future<void> login(
+      BuildContext context, String phone, String password) async {
     String? errorMessage = await ApiService.login(phone, password);
 
     if (!context.mounted) return; // 🔹 Kiểm tra State còn tồn tại không
 
     if (errorMessage == null) {
+      // Hiển thị thông báo thành công
+      Fluttertoast.showToast(
+        msg: "Đăng nhập thành công!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+      );
       // Lấy token đã lưu
       String? token = await LocalStorageService.getToken();
       print("Token đã lưu sau khi đăng nhập: $token");
@@ -34,12 +43,22 @@ class AuthViewModel with ChangeNotifier {
   }
 
   /// Đăng ký
-  Future<void> register(BuildContext context, String fullName, String phoneNumber, String password) async {
-    String? errorMessage = await ApiService.register(fullName, phoneNumber, password);
+  Future<void> register(BuildContext context, String fullName,
+      String phoneNumber, String password) async {
+    String? errorMessage =
+        await ApiService.register(fullName, phoneNumber, password);
 
     if (!context.mounted) return; // 🔹 Kiểm tra State còn tồn tại không
 
     if (errorMessage == null) {
+      // Hiển thị thông báo đăng ký thành công
+      Fluttertoast.showToast(
+        msg: "Đăng ký thành công!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+      );
       // Lấy token đã lưu
       String? token = await LocalStorageService.getToken();
       print("Token đã lưu sau khi đăng ký: $token");
@@ -59,6 +78,59 @@ class AuthViewModel with ChangeNotifier {
       );
     }
   }
+
+  // /// Cập nhật hồ sơ
+  // Future<void> updateProfile(
+  //     BuildContext context, Map<String, dynamic> profileData) async {
+  //   // 🔹 Lấy userId từ local storage
+  //   int? userId = await LocalStorageService.getUserId();
+
+  //   // 🔹 Nếu chưa có, gọi API lấy userId
+  //   if (userId == null) {
+  //     userId = await ApiService.getMyUserId();
+  //     if (userId != null) {
+  //       await LocalStorageService.saveUserId(userId); // Lưu lại để dùng sau
+  //     }
+  //   }
+
+  //   // 🔹 Nếu vẫn không có userId, báo lỗi
+  //   if (userId == null) {
+  //     Fluttertoast.showToast(
+  //       msg: "Lỗi: Không thể xác định ID người dùng.",
+  //       toastLength: Toast.LENGTH_LONG,
+  //       gravity: ToastGravity.BOTTOM,
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //     );
+  //     return;
+  //   }
+
+  //   // 🔹 Đảm bảo `profileData` có chứa `id`
+  //   profileData['id'] = userId;
+
+  //   String? errorMessage = await ApiService.updateProfile(profileData);
+
+  //   if (!context.mounted) return;
+
+  //   if (errorMessage == null) {
+  //     Fluttertoast.showToast(
+  //       msg: "Cập nhật hồ sơ thành công!",
+  //       toastLength: Toast.LENGTH_LONG,
+  //       gravity: ToastGravity.BOTTOM,
+  //       backgroundColor: Colors.green,
+  //       textColor: Colors.white,
+  //     );
+  //     Navigator.pop(context); // Quay lại màn hình trước đó
+  //   } else {
+  //     Fluttertoast.showToast(
+  //       msg: errorMessage,
+  //       toastLength: Toast.LENGTH_LONG,
+  //       gravity: ToastGravity.BOTTOM,
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //     );
+  //   }
+  // }
 
   /// Đăng xuất
   Future<void> signOut(BuildContext context) async {
@@ -80,7 +152,7 @@ class AuthViewModel with ChangeNotifier {
 
       // Chuyển về màn hình Splash
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const SplashScreen()),
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
         (route) => false,
       );
     } else {
