@@ -3,11 +3,11 @@ import 'package:health_care/services/local_storage_service.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.3.100:8080/api/v1/auth';
-  static const String updateUrl = 'http://192.168.3.100:8080/api/v1/user';
+  static String baseUrl = 'http://192.168.3.100:8080/api/v1';
+  // static const String updateUrl = 'http://192.168.3.100:8080/api/v1/user';
   // Đăng nhập
   static Future<String?> login(String phoneNumber, String password) async {
-    final url = Uri.parse('$baseUrl/login');
+    final url = Uri.parse('$baseUrl/auth/login');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -31,7 +31,7 @@ class ApiService {
   // Đăng ký tài khoản mới
   static Future<String?> register(
       String fullName, String phoneNumber, String password) async {
-    final url = Uri.parse('$baseUrl/register');
+    final url = Uri.parse('$baseUrl/auth/register');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -59,36 +59,9 @@ class ApiService {
     }
   }
 
-  // Cập nhật hồ sơ
-  // static Future<String?> updateProfile(Map<String, dynamic> profileData) async {
-  //   final url = Uri.parse('$updateUrl/update-profile');
-  //   String? token = await LocalStorageService.getToken();
-  //   print("🔹 Token: $token");
-  //   print("🔹 Dữ liệu gửi lên: ${jsonEncode(profileData)}");
-  //   final response = await http.post(
-  //     url,
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': 'Bearer $token'
-  //     },
-  //     body: jsonEncode(profileData),
-  //   );
-  //   print("🔹 Phản hồi từ server: ${response.body}");
-  //   if (response.statusCode == 200) {
-  //     final data = jsonDecode(response.body);
-  //     if (data['status'] == 0) {
-  //       return null; // Cập nhật thành công
-  //     } else {
-  //       return data['message']; // Trả về lỗi từ server
-  //     }
-  //   } else {
-  //     return "Lỗi máy chủ, vui lòng thử lại!";
-  //   }
-  // }
-
   // Lấy thông tin hồ sơ người dùng
   static Future<int?> getMyUserId() async {
-    final url = Uri.parse('$updateUrl/get-my-info');
+    final url = Uri.parse('$baseUrl/user/get-my-info');
     String? token = await LocalStorageService.getToken();
 
     final response = await http.post(
@@ -111,9 +84,9 @@ class ApiService {
       return null;
     }
   }
-
+  // Cập nhật hồ sơ
   static Future<String?> updateProfile(Map<String, dynamic> profileData) async {
-    final url = Uri.parse('$updateUrl/update-profile');
+    final url = Uri.parse('$baseUrl/user/update-profile');
     String? token = await LocalStorageService.getToken();
     int? userId =
         await LocalStorageService.getUserId(); // 🔹 Lấy userId từ local storage
