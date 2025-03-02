@@ -3,6 +3,7 @@ import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/models/clinic.dart';
 import 'package:health_care/viewmodels/api_service.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
+import 'package:health_care/views/screens/appointment/appointment_screen.dart';
 
 class ClinicScreen extends StatefulWidget {
   const ClinicScreen({super.key});
@@ -85,7 +86,7 @@ class _ClinicScreenState extends State<ClinicScreen> {
                                 content: Text('ID phòng khám: ${clinic.id}'),
                                 duration: Duration(seconds: 2),
                               ));
-                            }, 
+                            },
                             child: Card(
                                 margin: EdgeInsets.symmetric(vertical: 10),
                                 elevation: 10,
@@ -93,38 +94,50 @@ class _ClinicScreenState extends State<ClinicScreen> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 30, horizontal: 10),
-                                  child: Row(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          clinic.image,
-                                          width: 110,
-                                          height: 100,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      SizedBox(width: 10),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 30, horizontal: 10),
+                                    child: Column(
+                                      children: [
+                                        Row(
                                           children: [
-                                            Text(
-                                              clinic.name,
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: Image.network(
+                                                clinic.image,
+                                                width: 110,
+                                                height: 100,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
-                                            Text(
-                                              clinic.address,
-                                              softWrap: true,
+                                            SizedBox(width: 10),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    clinic.name,
+                                                  ),
+                                                  Text(
+                                                    clinic.address,
+                                                    softWrap: true,
+                                                  )
+                                                ],
+                                              ),
                                             )
                                           ],
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                )),
+                                        OutlinedButton(
+                                          onPressed: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AppointmentScreen())),
+                                          child: Text('Đặt khám'),
+                                        )
+                                      ],
+                                    ))),
                           );
                         },
                       )
