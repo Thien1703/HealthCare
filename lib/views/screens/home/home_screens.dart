@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
-import 'package:health_care/views/screens/HealthCheckForm/health_check.dart';
 // ignore: unused_import
 import 'package:health_care/views/screens/clinic/clinic_screen.dart';
-import 'package:health_care/views/screens/home/homePage.dart';
 import 'package:health_care/views/screens/map/searchMap.dart';
 import 'package:health_care/views/screens/profile/profile_screen.dart';
+import 'package:health_care/views/screens/examination/examination_screen.dart';
+import 'package:health_care/views/screens/home/homePage.dart';
+
 
 class HomeScreens extends StatefulWidget {
   const HomeScreens({super.key});
@@ -28,7 +29,8 @@ class _HomeScreensState extends State<HomeScreens> {
       case 2:
         return SearchScreen();
       case 3:
-        return HealthCheckForm();
+        // return HealthCheckForm();
+        return ExaminationScreen();
       case 4:
         return ProfileScreen();
       default:
@@ -44,12 +46,12 @@ class _HomeScreensState extends State<HomeScreens> {
           items: [
             TabItem(
               icon: ImageIcon(
-                AssetImage(AppIcons.homeHos),
+                AssetImage(AppIcons.homeIcon),
                 color: _selectedIndex == 0
                     ? AppColors.accent
                     : AppColors.neutralDarkGreen2,
               ),
-              title: 'Trang Chủ',
+              title: 'Trang chủ',
             ),
             TabItem(
               icon: ImageIcon(
@@ -89,7 +91,7 @@ class _HomeScreensState extends State<HomeScreens> {
             ),
           ],
           style: TabStyle.react,
-          backgroundColor: AppColors.primary,
+          backgroundColor: Colors.white,
           activeColor: AppColors.accent,
           color: AppColors.neutralDarkGreen2,
           initialActiveIndex: _selectedIndex,

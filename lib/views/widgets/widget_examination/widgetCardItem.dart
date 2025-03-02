@@ -178,19 +178,19 @@ class WidgetCardItem extends StatelessWidget {
   }
 }
 
-Widget _customDashedLine() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: List.generate(23, (index) {
-      return Container(
-        margin: EdgeInsets.symmetric(vertical: 15),
-        width: 7,
-        height: 1.5,
-        color: AppColors.grey4,
-      );
-    }),
-  );
-}
+// Widget _customDashedLine() {
+//   return Row(
+//     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//     children: List.generate(23, (index) {
+//       return Container(
+//         margin: EdgeInsets.symmetric(vertical: 15),
+//         width: 7,
+//         height: 1.5,
+//         color: AppColors.grey4,
+//       );
+//     }),
+//   );
+// }
 
 Widget _textLabel({required String label}) {
   return Padding(

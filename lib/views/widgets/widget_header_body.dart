@@ -14,7 +14,7 @@ class WidgetHeaderBody extends StatelessWidget {
     required this.iconBack,
     required this.title,
     required this.body,
-    this.headerHeight = 0.13,
+    this.headerHeight = 0.12,
     this.onBackPressed,
     this.selectedIcon,
   });
@@ -42,7 +42,11 @@ class WidgetHeaderBody extends StatelessWidget {
           Container(child: selectedIcon)
         ])),
       ),
-      Expanded(child: body)
+      Expanded(
+          child: Container(
+        color: Colors.white,
+        child: body,
+      ))
     ]));
   }
 }

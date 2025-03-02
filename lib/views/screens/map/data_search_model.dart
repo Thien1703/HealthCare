@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-// final dataSearchModel = dataSearchModelFromJson(jsonString);
+//     final dataSearchModel = dataSearchModelFromJson(jsonString);
 
 import 'dart:convert';
 

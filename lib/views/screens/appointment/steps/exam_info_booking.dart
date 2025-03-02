@@ -8,6 +8,8 @@ import 'package:health_care/views/widgets/bottomSheet/select_specialty_widget.da
 import 'package:health_care/views/widgets/bottomSheet/select_service_widget.dart';
 import 'package:health_care/views/widgets/bottomSheet/select_day_widget.dart';
 import 'package:health_care/views/widgets/bottomSheet/select_time_widget.dart';
+import 'package:health_care/views/screens/appointment/detail/specialty_screen.dart';
+import 'package:health_care/views/screens/appointment/detail/service_screen.dart';
 
 class ExamInfoBooking extends StatefulWidget {
   const ExamInfoBooking({
@@ -91,10 +93,13 @@ class SpecialtySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SelectItemWidget(
+    return SelectItemWidget(
       image: AppIcons.specialty,
       text: 'Chọn chuyên khoa',
-      bottomSheet: SpecialtySelection(),
+      // onTap: () => Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => SpecialtyScreen()),
+      // ),
     );
   }
 }
@@ -104,10 +109,11 @@ class ServiceSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SelectItemWidget(
+    return SelectItemWidget(
       image: AppIcons.service2,
       text: 'Chọn dịch vụ',
-      bottomSheet: ServiceSelection(),
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Service())),
     );
   }
 }

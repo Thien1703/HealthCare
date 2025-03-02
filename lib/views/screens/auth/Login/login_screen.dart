@@ -1,23 +1,37 @@
 // import 'package:flutter/material.dart';
 // import 'package:health_care/common/app_colors.dart';
-// import 'package:health_care/views/screens/auth/auth_service.dart';
-// import 'package:health_care/views/screens/auth/login/password_screen.dart';
-// import 'package:health_care/views/screens/home/home_screens.dart';
-// import 'package:intl_phone_field/intl_phone_field.dart';
+// import 'package:provider/provider.dart';
+
+// import '../../../../viewmodels/auth_viewmodel.dart';
 
 // class LoginScreen extends StatefulWidget {
 //   const LoginScreen({super.key});
+
 //   @override
 //   State<LoginScreen> createState() => _LoginScreenState();
 // }
 
 // class _LoginScreenState extends State<LoginScreen> {
-//   bool isPhoneValid = false; // Biến kiểm tra trạng thái số điện thoại
-//   String? _firebaseError;
+//   final TextEditingController phoneController = TextEditingController();
+//   final TextEditingController passwordController = TextEditingController();
+//   bool _isPasswordVisible = false;
+//   String? _errorMessage;
+//   bool _isLoading = false;
 
-//   void updatePhoneNumber(String number, bool valid) {
+//   void handleLogin() async {
+//     if (!mounted) return; // Kiểm tra nếu Widget đã bị unmount
+
 //     setState(() {
-//       isPhoneValid = valid;
+//       _isLoading = true;
+//     });
+
+//     await Provider.of<AuthViewModel>(context, listen: false).login(
+//         context, phoneController.text.trim(), passwordController.text.trim());
+
+//     if (!mounted) return; // Kiểm tra lại trước khi cập nhật UI
+
+//     setState(() {
+//       _isLoading = false;
 //     });
 //   }
 
@@ -28,11 +42,10 @@
 
 //     return Scaffold(
 //       backgroundColor: AppColors.primary,
-//       resizeToAvoidBottomInset: false, // Không thay đổi layout khi bàn phím bật
+//       resizeToAvoidBottomInset: false,
 //       body: SafeArea(
 //         child: Stack(
 //           children: [
-//             // Logo nằm trên cùng
 //             Positioned(
 //               top: screenHeight * 0.1,
 //               left: 0,
@@ -40,12 +53,10 @@
 //               child: Center(
 //                 child: Image.asset(
 //                   'assets/images/healthcaregreen.png',
-//                   height: screenHeight * 0.12, // Responsive logo
+//                   height: screenHeight * 0.12,
 //                 ),
 //               ),
 //             ),
-
-//             // Nội dung chính (nhập số điện thoại)
 //             Positioned.fill(
 //               top: screenHeight * 0.3,
 //               child: Column(
@@ -74,21 +85,40 @@
 //                           ),
 //                         ),
 //                         SizedBox(height: screenHeight * 0.04),
-//                         IntlPhoneField(
+//                         // Nhập số điện thoại
+//                         TextField(
+//                           controller: phoneController,
+//                           keyboardType: TextInputType.phone,
 //                           decoration: InputDecoration(
 //                             labelText: 'Nhập số điện thoại',
 //                             border: OutlineInputBorder(
 //                               borderRadius: BorderRadius.circular(8.0),
 //                             ),
 //                           ),
-//                           initialCountryCode: 'VN',
-//                           onChanged: (phone) {
-//                             updatePhoneNumber(
-//                               phone.completeNumber,
-//                               phone.number.length >=
-//                                   9, // Kiểm tra độ dài số điện thoại
-//                             );
-//                           },
+//                         ),
+//                         SizedBox(height: screenHeight * 0.02),
+//                         // Nhập mật khẩu
+//                         TextField(
+//                           controller: passwordController,
+//                           obscureText: !_isPasswordVisible,
+//                           decoration: InputDecoration(
+//                             labelText: 'Mật khẩu',
+//                             border: OutlineInputBorder(
+//                               borderRadius: BorderRadius.circular(8.0),
+//                             ),
+//                             suffixIcon: IconButton(
+//                               icon: Icon(
+//                                 _isPasswordVisible
+//                                     ? Icons.visibility
+//                                     : Icons.visibility_off,
+//                               ),
+//                               onPressed: () {
+//                                 setState(() {
+//                                   _isPasswordVisible = !_isPasswordVisible;
+//                                 });
+//                               },
+//                             ),
+//                           ),
 //                         ),
 //                       ],
 //                     ),
@@ -96,98 +126,16 @@
 //                 ],
 //               ),
 //             ),
-
-//             // Text "Hoặc đăng nhập bằng"
-//             Positioned(
-//               bottom: screenHeight * 0.2,
-//               left: 0,
-//               right: 0,
-//               child: Center(
-//                 child: Text(
-//                   'Hoặc đăng nhập bằng',
-//                   style: TextStyle(
-//                     fontSize: screenWidth * 0.045,
-//                     color: AppColors.neutralDarkGreen1,
-//                     fontWeight: FontWeight.w700,
-//                   ),
-//                 ),
-//               ),
-//             ),
-
-//             // Icon nút mạng xã hội
-//             Positioned(
-//               bottom: screenHeight * 0.13,
-//               left: 0,
-//               right: 0,
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   IconButton(
-//                     onPressed: () {},
-//                     icon: Image.asset(
-//                       'assets/images/facebook.png',
-//                       height: screenHeight * 0.05,
-//                     ),
-//                   ),
-//                   IconButton(
-//                     onPressed: () async {
-//                       try {
-//                         final user = await AuthService().loginWithGoogle();
-//                         if (user != null) {
-//                           // Navigate to Home Screen on success
-//                           Navigator.pushReplacement(
-//                             context,
-//                             MaterialPageRoute(
-//                                 builder: (context) => const HomeScreens()),
-//                           );
-//                         }
-//                       } catch (e) {
-//                         setState(() {
-//                           _firebaseError = e.toString();
-//                         });
-//                       }
-//                     },
-//                     icon: Image.asset(
-//                       'assets/images/google.png',
-//                       height: screenHeight * 0.05,
-//                     ),
-//                   ),
-//                   IconButton(
-//                     onPressed: () {},
-//                     icon: Image.asset(
-//                       'assets/images/zalo.png',
-//                       height: screenHeight * 0.05,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-
-//             // Nút ElevatedButton nằm cuối màn hình
+//             // Nút đăng nhập
 //             Positioned(
 //               bottom: screenHeight * 0.05,
 //               left: 0,
 //               right: 0,
 //               child: Center(
 //                 child: ElevatedButton(
-//                   // onPressed: isPhoneValid
-//                   //     ? () {
-//                   //         // Logic xử lý khi số điện thoại hợp lệ
-//                   //         print("Số điện thoại hợp lệ");
-//                   //         Navigator.push(
-//                   //           context,
-//                   //           MaterialPageRoute(
-//                   //             builder: (context) => const PasswordScreen(),
-//                   //           ),
-//                   //         );
-//                   //       }
-//                   //     : null,
-//                   onPressed: () => {
-
-//                   },
+//                   onPressed: _isLoading ? null : handleLogin,
 //                   style: ElevatedButton.styleFrom(
-//                     backgroundColor:
-//                         isPhoneValid ? AppColors.accent : AppColors.grey4,
+//                     backgroundColor: AppColors.accent,
 //                     padding: EdgeInsets.symmetric(
 //                       vertical: screenHeight * 0.02,
 //                     ),
@@ -199,17 +147,33 @@
 //                       screenHeight * 0.07,
 //                     ),
 //                   ),
-//                   child: Text(
-//                     'TIẾP TỤC',
-//                     style: TextStyle(
-//                       color: Colors.white,
-//                       fontSize: screenWidth * 0.045,
-//                       fontWeight: FontWeight.bold,
-//                     ),
-//                   ),
+//                   child: _isLoading
+//                       ? CircularProgressIndicator(color: Colors.green)
+//                       : Text(
+//                           'TIẾP TỤC',
+//                           style: TextStyle(
+//                             color: Colors.white,
+//                             fontSize: screenWidth * 0.045,
+//                             fontWeight: FontWeight.bold,
+//                           ),
+//                         ),
 //                 ),
 //               ),
 //             ),
+//             // Hiển thị lỗi nếu có
+//             if (_errorMessage != null)
+//               Positioned(
+//                 bottom: screenHeight * 0.1,
+//                 left: 0,
+//                 right: 0,
+//                 child: Center(
+//                   child: Text(
+//                     _errorMessage!,
+//                     style: TextStyle(
+//                         color: Colors.red, fontSize: screenWidth * 0.04),
+//                   ),
+//                 ),
+//               ),
 //           ],
 //         ),
 //       ),

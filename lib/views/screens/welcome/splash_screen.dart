@@ -20,14 +20,6 @@ class _SplashScreenState extends State<SplashScreen> {
     _checkLoginStatus();
   }
 
-  // Future<void> _checkFirstTime() async {
-  //   Future.delayed(const Duration(seconds: 3), () {
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => WelcomeScreen()),
-  //     );
-  //   });
-  // }
   Future<void> _checkFirstTime() async {
     await Future.delayed(const Duration(seconds: 3));
     if (!mounted) return; // Kiểm tra nếu widget đã bị hủy
