@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 
 class ApiService {
   static String baseUrl = 'http://192.168.3.100:8080/api/v1';
-  // static const String updateUrl = 'http://192.168.3.100:8080/api/v1/user';
   // Đăng nhập
   static Future<String?> login(String phoneNumber, String password) async {
     final url = Uri.parse('$baseUrl/auth/login');
