@@ -140,6 +140,7 @@ class ApiService {
       return "Lỗi kết nối, vui lòng thử lại!";
     }
   }
+
   // Lấy thông tin người dùng
   static Future<Map<String, dynamic>?> getUserProfile() async {
     final url = Uri.parse('$baseUrl/customer/get-my-info');
@@ -157,7 +158,8 @@ class ApiService {
       final data = jsonDecode(response.body);
       if (data['status'] == 0) {
         int userId = data['data']['id']; // Lấy ID từ API
-        await LocalStorageService.saveUserId(userId); // Lưu ID vào Local Storage
+        await LocalStorageService.saveUserId(
+            userId); // Lưu ID vào Local Storage
         return data['data']; // Trả về dữ liệu hồ sơ
       }
     }
@@ -194,15 +196,14 @@ class ApiService {
     }
   }
 
+  //Lấy api của chuyên khoa
   static Future<List<Specialty>?> getAllSpecialty() async {
     final url = Uri.parse('$baseUrl/specialty/get-all');
 
-    // Lấy và kiểm tra token
     String? token = await LocalStorageService.getToken();
     if (token == null) {
       return null;
     }
-    // Gửi giá trị token lên server đợi phản hồi
     final response = await http.post(
       url,
       headers: {
@@ -230,6 +231,7 @@ class ApiService {
     return null;
   }
 
+  //Lấy api của phòng khám
   static Future<List<Clinic>> getAllClinic() async {
     final url = Uri.parse('${baseUrl}/clinic/get-all');
     String? token = await LocalStorageService.getToken();
@@ -260,6 +262,43 @@ class ApiService {
     return [];
   }
 
+  //Lấy api của phòng khám theo id
+  static Future<Clinic?> getClinicById(int clinicId) async {
+    final url = Uri.parse('$baseUrl/clinic/get-by-id');
+    String? token = await LocalStorageService.getToken();
+
+    if (token == null) return null;
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        "id": clinicId,
+      }),
+    );
+
+    print('Giá trị status của API: ${response.statusCode}');
+    print('Giá trị API trả về body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+
+      if (data['status'] == 0 && data['data'] != null) {
+        return Clinic.fromJson(data['data']); // Trả về một đối tượng Clinic
+      } else {
+        print('Lỗi từ API: ${data['message']}');
+      }
+    } else {
+      print('API lỗi: ${response.statusCode}');
+    }
+
+    return null;
+  }
+
+  //Lấy api của dịch vụ
   static Future<List<Service>> getAllServeById(int specialtyId) async {
     final url = Uri.parse('$baseUrl/service/get-by-specialty');
     String? token = await LocalStorageService.getToken();

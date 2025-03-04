@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
+import 'package:health_care/viewmodels/api_service.dart';
 import 'package:health_care/views/widgets/appointment/widget_hospital_info_card.dart';
 import 'package:health_care/views/widgets/widget_select_item.dart';
 import 'package:health_care/views/widgets/appointment/widget_customButton.dart';
 import 'package:health_care/views/widgets/bottomSheet/select_day_widget.dart';
 import 'package:health_care/views/widgets/bottomSheet/select_time_widget.dart';
-import 'package:health_care/views/screens/appointment/detail/service_screen.dart';
+import 'package:health_care/models/clinic.dart';
 
 class ExamInfoBooking extends StatefulWidget {
   const ExamInfoBooking({
@@ -22,6 +23,22 @@ class ExamInfoBooking extends StatefulWidget {
 }
 
 class _ExamInfoBooking extends State<ExamInfoBooking> {
+  Clinic? clinices;
+  @override
+  void initState() {
+    super.initState();
+    fetchClinics();
+  }
+
+  void fetchClinics() async {
+    Clinic? data = await ApiService.getClinicById(widget.clinicId);
+    if (data != null) {
+      setState(() {
+        clinices = data;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,10 +50,8 @@ class _ExamInfoBooking extends State<ExamInfoBooking> {
             child: ListView(
               children: [
                 HospitalInfoWidget(
-                  nameHospital: 'Bệnh viện Nhân Dân Gia Định',
-                  addressHospital:
-                      'Số 1 Nơ Trang Long, phường 7, Quận Bình Thạnh, TP.HCM',
-                ),
+                    nameHospital: clinices?.name ?? 'Đang tải',
+                    addressHospital: clinices?.address ?? "Đang tải"),
                 SectionTitle(title: 'Chuyên khoa'),
                 SpecialtySelector(),
                 SectionTitle(title: 'Dịch vụ'),
@@ -103,8 +118,8 @@ class ServiceSelector extends StatelessWidget {
     return SelectItemWidget(
       image: AppIcons.service2,
       text: 'Chọn dịch vụ',
-      onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Service())),
+      // onTap: () => Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => Service())),
     );
   }
 }

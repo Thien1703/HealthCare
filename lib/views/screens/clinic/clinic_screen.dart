@@ -85,6 +85,7 @@ class _ClinicScreenState extends State<ClinicScreen> {
                           final clinic = clinics![index];
                           return InkWell(
                             onTap: () {
+                              print(clinic.id);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
