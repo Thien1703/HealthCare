@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/models/clinic.dart';
-import 'package:health_care/views/screens/appointment/appointment_screen.dart';
 
 class ClinicDetailScreen extends StatelessWidget {
   const ClinicDetailScreen({super.key, required this.clinic});
