@@ -24,8 +24,12 @@ class ApiService {
         await LocalStorageService.saveToken(token); // Lưu token
         return null; // Đăng nhập thành công
       } else {
-        return data['message']; // Trả về lỗi từ server
+        return data['message'] ?? "Lỗi không xác định từ server.";
       }
+    } else if (response.statusCode == 401) {
+      return "Mật khẩu hiện tại không đúng.";
+    } else if (response.statusCode == 404) {
+      return "Tài khoản không tồn tại.";
     } else {
       return "Lỗi máy chủ, vui lòng thử lại!";
     }
@@ -55,8 +59,8 @@ class ApiService {
       } else {
         return data['message']; // Lỗi từ server
       }
-    } else if (response.statusCode == 400) {
-      return data['message'] ?? "Tài khoản đã tồn tại, vui lòng đăng nhập.";
+    } else if (response.statusCode == 409) {
+      return "Tài khoản đã tồn tại";
     } else {
       return "Lỗi máy chủ, vui lòng thử lại!";
     }
@@ -140,6 +144,7 @@ class ApiService {
       return "Lỗi kết nối, vui lòng thử lại!";
     }
   }
+
   // Lấy thông tin người dùng
   static Future<Map<String, dynamic>?> getUserProfile() async {
     final url = Uri.parse('$baseUrl/customer/get-my-info');
@@ -157,7 +162,8 @@ class ApiService {
       final data = jsonDecode(response.body);
       if (data['status'] == 0) {
         int userId = data['data']['id']; // Lấy ID từ API
-        await LocalStorageService.saveUserId(userId); // Lưu ID vào Local Storage
+        await LocalStorageService.saveUserId(
+            userId); // Lưu ID vào Local Storage
         return data['data']; // Trả về dữ liệu hồ sơ
       }
     }
