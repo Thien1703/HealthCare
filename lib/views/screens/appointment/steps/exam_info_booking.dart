@@ -4,19 +4,18 @@ import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/views/widgets/appointment/widget_hospital_info_card.dart';
 import 'package:health_care/views/widgets/widget_select_item.dart';
 import 'package:health_care/views/widgets/appointment/widget_customButton.dart';
-import 'package:health_care/views/widgets/bottomSheet/select_specialty_widget.dart';
-import 'package:health_care/views/widgets/bottomSheet/select_service_widget.dart';
 import 'package:health_care/views/widgets/bottomSheet/select_day_widget.dart';
 import 'package:health_care/views/widgets/bottomSheet/select_time_widget.dart';
-import 'package:health_care/views/screens/appointment/detail/specialty_screen.dart';
 import 'package:health_care/views/screens/appointment/detail/service_screen.dart';
 
 class ExamInfoBooking extends StatefulWidget {
   const ExamInfoBooking({
     super.key,
     required this.onNavigateToScreen,
+    required this.clinicId,
   });
   final Function(int, String) onNavigateToScreen;
+  final int clinicId;
 
   @override
   State<ExamInfoBooking> createState() => _ExamInfoBooking();
@@ -32,8 +31,12 @@ class _ExamInfoBooking extends State<ExamInfoBooking> {
         children: [
           Expanded(
             child: ListView(
-              children: const [
-                HospitalInfo(),
+              children: [
+                HospitalInfoWidget(
+                  nameHospital: 'Bệnh viện Nhân Dân Gia Định',
+                  addressHospital:
+                      'Số 1 Nơ Trang Long, phường 7, Quận Bình Thạnh, TP.HCM',
+                ),
                 SectionTitle(title: 'Chuyên khoa'),
                 SpecialtySelector(),
                 SectionTitle(title: 'Dịch vụ'),
@@ -52,18 +55,6 @@ class _ExamInfoBooking extends State<ExamInfoBooking> {
               text: 'Tiếp tục')
         ],
       ),
-    );
-  }
-}
-
-class HospitalInfo extends StatelessWidget {
-  const HospitalInfo({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const HospitalInfoWidget(
-      nameHospital: 'Bệnh viện Nhân Dân Gia Định',
-      addressHospital: 'Số 1 Nơ Trang Long, phường 7, Quận Bình Thạnh, TP.HCM',
     );
   }
 }

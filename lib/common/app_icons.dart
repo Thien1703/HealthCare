@@ -40,4 +40,12 @@ class AppIcons {
   static const String homeIconBlack = 'assets/icons/home_icon_black.png';
   static const String bookingIcon = 'assets/icons/booking_icon.png';
   static const String bookingIconBlack = 'assets/icons/booking_icon_black.png';
+  static const String notificationIcon = 'assets/icons/notification_icon.png';
+  static const String notificationIconBlack =
+      'assets/icons/notification_icon_black.png';
+  static const String scheduleIcon = 'assets/icons/schedule_icon.png';
+  static const String scheduleIconBlack =
+      'assets/icons/schedule_icon_black.png';
+  static const String userIcon = 'assets/icons/user_icon.png';
+  static const String userIconBlack = 'assets/icons/user_icon_black.png';
 }

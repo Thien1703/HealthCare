@@ -6,7 +6,7 @@ class Service {
   final String name;
   final String description;
   final double price;
-  final String image;
+  final String? image;
   final int? reviewCount;
   final double? rating;
 

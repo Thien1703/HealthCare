@@ -8,7 +8,11 @@ import 'package:health_care/views/screens/appointment/steps/profile_booking.dart
 import 'package:health_care/views/widgets/widget_header_body.dart';
 
 class AppointmentScreen extends StatefulWidget {
-  const AppointmentScreen({super.key});
+  const AppointmentScreen({
+    super.key,
+    required this.clinicId,
+  });
+  final int clinicId;
   @override
   State<AppointmentScreen> createState() => _AppointmentScreen();
 }
@@ -23,7 +27,10 @@ class _AppointmentScreen extends State<AppointmentScreen> {
     super.initState();
     _isSelected = [true, false, false, false];
     _screens = [
-      ExamInfoBooking(onNavigateToScreen: navigateToScreen),
+      ExamInfoBooking(
+        onNavigateToScreen: navigateToScreen,
+        clinicId: widget.clinicId,
+      ),
       ProfileBooking(onNavigateToScreen: navigateToScreen),
       ConfirmBooking(onNavigateToScreen: navigateToScreen),
       PaymentMethodBooking(),

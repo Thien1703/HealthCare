@@ -6,7 +6,11 @@ import 'package:health_care/views/widgets/widget_header_body.dart';
 import 'package:health_care/views/screens/appointment/appointment_screen.dart';
 
 class ClinicScreen extends StatefulWidget {
-  const ClinicScreen({super.key});
+  const ClinicScreen({
+    super.key,
+    this.iconBack,
+  });
+  final bool? iconBack;
 
   @override
   State<ClinicScreen> createState() => _ClinicScreenState();
@@ -30,7 +34,7 @@ class _ClinicScreenState extends State<ClinicScreen> {
   @override
   Widget build(BuildContext context) {
     return WidgetHeaderBody(
-        iconBack: false,
+        iconBack: widget.iconBack ?? false,
         title: "Đặt khám",
         body: SingleChildScrollView(
           child: Container(
@@ -81,11 +85,12 @@ class _ClinicScreenState extends State<ClinicScreen> {
                           final clinic = clinics![index];
                           return InkWell(
                             onTap: () {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text('ID phòng khám: ${clinic.id}'),
-                                duration: Duration(seconds: 2),
-                              ));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AppointmentScreen(
+                                            clinicId: clinic.id,
+                                          )));
                             },
                             child: Card(
                                 margin: EdgeInsets.symmetric(vertical: 10),
@@ -128,21 +133,13 @@ class _ClinicScreenState extends State<ClinicScreen> {
                                             )
                                           ],
                                         ),
-                                        OutlinedButton(
-                                          onPressed: () => Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      AppointmentScreen())),
-                                          child: Text('Đặt khám'),
-                                        )
                                       ],
                                     ))),
                           );
                         },
                       )
                     : Center(
-                        child: CircularProgressIndicator(),
+                        child: Text('Không có phòng khám nào'),
                       )
               ],
             ),

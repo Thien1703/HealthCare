@@ -25,10 +25,10 @@ class ClinicDetailScreen extends StatelessWidget {
                       _buildLocationRow(),
                       _buildSectionTitle('Dịch vụ', top: 20, bottom: 10),
                       _buildBookingOption('Đặt khám tại bệnh viện', () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AppointmentScreen()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => AppointmentScreen()));
                       }),
                       _buildSectionTitle('Giới thiệu', top: 10, bottom: 5),
                       _buildDescription(),

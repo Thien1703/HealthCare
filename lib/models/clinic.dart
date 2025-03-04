@@ -9,8 +9,8 @@ class Clinic {
   final int? reviewCount;
   final String address;
   final String facilitie;
-  final double latitude;
-  final double longitude;
+  final double? latitude;
+  final double? longitude;
 
   Clinic({
     required this.id,
@@ -28,18 +28,20 @@ class Clinic {
   // Chuyển từ JSON sang Object
   factory Clinic.fromJson(Map<String, dynamic> json) {
     return Clinic(
-      id: json['id'],
-      name: utf8.decode(json['name'].toString().codeUnits), // Sửa lỗi
+      id: json['id'] ?? 0,
+      name: utf8.decode(json['name'].toString().codeUnits),
       image: json['image'] ?? '',
-      description:
-          utf8.decode(json['description'].toString().codeUnits), // Sửa lỗi
-      rating:
-          json['rating'] != null ? (json['rating'] as num).toDouble() : null,
-      reviewCount: json['reviewCount'],
-      address: utf8.decode(json['address'].toString().codeUnits), // Sửa lỗi
-      facilitie: utf8.decode(json['facilitie'].toString().codeUnits), // Sửa lỗi
-      latitude: (json['latitude'] as num).toDouble(),
-      longitude: (json['longitude'] as num).toDouble(),
+      description: utf8.decode(json['description'].toString().codeUnits),
+      rating: json['rating'] != null ? (json['rating'] as num).toDouble() : 0.0,
+      reviewCount: json['reviewCount'] ?? 0,
+      address: utf8.decode(json['address'].toString().codeUnits),
+      facilitie: utf8.decode(json['facilitie'].toString().codeUnits),
+      latitude: json['latitude'] != null
+          ? (json['latitude'] as num).toDouble()
+          : null,
+      longitude: json['longitude'] != null
+          ? (json['longitude'] as num).toDouble()
+          : null,
     );
   }
 

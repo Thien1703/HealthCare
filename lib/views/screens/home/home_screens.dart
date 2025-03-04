@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
-// ignore: unused_import
 import 'package:health_care/views/screens/clinic/clinic_screen.dart';
 import 'package:health_care/views/screens/map/searchMap.dart';
 import 'package:health_care/views/screens/profile/profile_screen.dart';
 import 'package:health_care/views/screens/examination/examination_screen.dart';
 import 'package:health_care/views/screens/home/homePage.dart';
-
+import 'package:health_care/views/screens/notification/notification_screen.dart';
 
 class HomeScreens extends StatefulWidget {
   const HomeScreens({super.key});
@@ -25,11 +24,13 @@ class _HomeScreensState extends State<HomeScreens> {
       case 0:
         return HomePage();
       case 1:
-        return ClinicScreen();
+        return ClinicScreen(
+          iconBack: false,
+        );
       case 2:
-        return SearchScreen();
-      case 3:
         return ExaminationScreen();
+      case 3:
+        return NotificationScreen();
       case 4:
         return ProfileScreen();
       default:
@@ -56,10 +57,10 @@ class _HomeScreensState extends State<HomeScreens> {
             ),
             TabItem(
               icon: ImageIcon(
-                _selectedIndex == 0
-                    ? AssetImage(AppIcons.bookingIcon)
-                    : AssetImage(AppIcons.bookingIconBlack),
-                color: _selectedIndex == 0
+                _selectedIndex == 1
+                    ? AssetImage(AppIcons.bookingIconBlack)
+                    : AssetImage(AppIcons.bookingIcon),
+                color: _selectedIndex == 1
                     ? AppColors.accent
                     : const Color.fromARGB(255, 169, 169, 169),
               ),
@@ -67,8 +68,21 @@ class _HomeScreensState extends State<HomeScreens> {
             ),
             TabItem(
               icon: ImageIcon(
-                AssetImage(AppIcons.map),
+                _selectedIndex == 2
+                    ? AssetImage(AppIcons.scheduleIcon)
+                    : AssetImage(AppIcons.scheduleIconBlack),
                 color: _selectedIndex == 2
+                    ? AppColors.accent
+                    : const Color.fromARGB(255, 169, 169, 169),
+              ),
+              title: 'Tài khoản',
+            ),
+            TabItem(
+              icon: ImageIcon(
+                _selectedIndex == 3
+                    ? AssetImage(AppIcons.notificationIcon)
+                    : AssetImage(AppIcons.notificationIconBlack),
+                color: _selectedIndex == 3
                     ? AppColors.accent
                     : AppColors.neutralDarkGreen2,
               ),
@@ -76,16 +90,9 @@ class _HomeScreensState extends State<HomeScreens> {
             ),
             TabItem(
               icon: ImageIcon(
-                AssetImage(AppIcons.phieuKham),
-                color: _selectedIndex == 3
-                    ? AppColors.accent
-                    : AppColors.neutralDarkGreen2,
-              ),
-              title: 'Khám',
-            ),
-            TabItem(
-              icon: ImageIcon(
-                AssetImage(AppIcons.person),
+                _selectedIndex == 4
+                    ? AssetImage(AppIcons.userIcon)
+                    : AssetImage(AppIcons.userIconBlack),
                 color: _selectedIndex == 4
                     ? AppColors.accent
                     : AppColors.neutralDarkGreen2,

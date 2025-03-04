@@ -3,6 +3,7 @@ import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/viewmodels/api_service.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
 import 'package:health_care/models/service.dart';
+import 'package:health_care/views/screens/clinic/clinic_screen.dart';
 
 class ServiceScreen extends StatefulWidget {
   ServiceScreen({super.key, required this.specialtyId});
@@ -13,7 +14,7 @@ class ServiceScreen extends StatefulWidget {
 }
 
 class _ServiceScreen extends State<ServiceScreen> {
-  List<Service> services = []; // Tránh lỗi null
+  List<Service> services = [];
 
   @override
   void initState() {
@@ -35,128 +36,125 @@ class _ServiceScreen extends State<ServiceScreen> {
     return WidgetHeaderBody(
       iconBack: true,
       title: 'Dịch vụ',
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 15),
-                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: AppColors.accent,
-                        width: 1,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Tìm kiếm chuyên khoa/dịch vụ',
-                            style: TextStyle(color: Colors.black54)),
-                        Icon(Icons.search, color: AppColors.accent),
-                      ],
-                    ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 15),
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: AppColors.accent,
+                    width: 1,
                   ),
-                  Expanded(
-                    child: services.isEmpty
-                        ? Center(child: CircularProgressIndicator())
-                        : GridView.builder(
-                            padding: EdgeInsets.zero,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 8,
-                              mainAxisSpacing: 8,
-                              childAspectRatio: 0.69,
-                            ),
-                            itemCount: services.length,
-                            itemBuilder: (context, index) {
-                              final service = services[index];
-                              return Card(
-                                elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(5),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Image.network(
-                                        service.image,
-                                        height: 100,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Tìm kiếm chuyên khoa/dịch vụ',
+                        style: TextStyle(color: Colors.black54)),
+                    Icon(Icons.search, color: AppColors.accent),
+                  ],
+                ),
+              ),
+
+              // Hiển thị danh sách dịch vụ
+              services.isEmpty
+                  ? Center(child: Text('Chưa có dịch vụ này'))
+                  : GridView.builder(
+                      shrinkWrap: true, // Thêm shrinkWrap để tránh lỗi layout
+                      physics: NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.zero,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                        childAspectRatio: 0.69,
+                      ),
+                      itemCount: services.length,
+                      itemBuilder: (context, index) {
+                        final service = services[index];
+                        return Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Kiểm tra service.image null
+                                service.image != null &&
+                                        service.image!.isNotEmpty
+                                    ? Image.network(
+                                        service.image!,
+                                        height: 120,
+                                        width: double.infinity,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Image.asset(
+                                            'assets/images/avt.png',
+                                            height: 120,
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                          );
+                                        },
+                                      )
+                                    : Image.asset(
+                                        'assets/images/avt.png',
+                                        height: 120,
                                         width: double.infinity,
                                         fit: BoxFit.cover,
                                       ),
-                                      SizedBox(height: 5),
-                                      Text(
-                                        service.name,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14),
-                                        softWrap: true,
-                                      ),
-                                      Text(
-                                        service.description,
-                                        softWrap: true,
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                      Text(
-                                        '${service.price} VND',
-                                        style: TextStyle(
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      OutlinedButton(
-                                        onPressed: () {},
-                                        child: Text('Thêm dịch vụ'),
-                                      )
-                                    ],
-                                  ),
+                                SizedBox(height: 5),
+                                Text(
+                                  service.name,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                  softWrap: true,
                                 ),
-                              );
-                            },
+                                Text(
+                                  service.description,
+                                  softWrap: true,
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                                Text(
+                                  '${service.price} VND',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
-                  ),
-                ],
+                        );
+                      },
+                    ),
+
+              SizedBox(height: 10),
+              OutlinedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ClinicScreen(
+                                iconBack: true,
+                              )));
+                },
+                child: Text('Đặt lịch ngay'),
               ),
-            ),
+            ],
           ),
-          Container(
-            padding: EdgeInsets.all(16),
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Đã chọn 0 dịch vụ'),
-                Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('Tổng thanh toán'),
-                        Text('0K', style: TextStyle(fontSize: 16)),
-                      ],
-                    ),
-                    SizedBox(width: 10),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: Text('Đặt khám'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
