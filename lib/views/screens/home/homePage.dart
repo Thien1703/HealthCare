@@ -147,8 +147,12 @@ class _HomePage extends State<HomePage> {
                                 contentPadding: const EdgeInsets.all(10),
                                 leading: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(specialty.image,
-                                      width: 50, height: 50, fit: BoxFit.cover),
+                                  child: Image.network(
+                                      specialty.image ??
+                                          'https://example.com/default-image.png',
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.cover),
                                 ),
                                 title: Text(
                                   specialty.name,

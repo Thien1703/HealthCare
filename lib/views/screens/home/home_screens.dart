@@ -43,19 +43,23 @@ class _HomeScreensState extends State<HomeScreens> {
           items: [
             TabItem(
               icon: ImageIcon(
-                AssetImage(AppIcons.homeIcon),
+                _selectedIndex == 0
+                    ? AssetImage(AppIcons.homeIcon)
+                    : AssetImage(AppIcons.homeIconBlack),
                 color: _selectedIndex == 0
                     ? AppColors.accent
-                    : AppColors.neutralDarkGreen2,
+                    : const Color.fromARGB(255, 169, 169, 169),
               ),
               title: 'Trang chủ',
             ),
             TabItem(
               icon: ImageIcon(
-                AssetImage(AppIcons.healthBook),
-                color: _selectedIndex == 1
+                _selectedIndex == 0
+                    ? AssetImage(AppIcons.bookingIcon)
+                    : AssetImage(AppIcons.bookingIconBlack),
+                color: _selectedIndex == 0
                     ? AppColors.accent
-                    : AppColors.neutralDarkGreen2,
+                    : const Color.fromARGB(255, 169, 169, 169),
               ),
               title: 'Đặt khám',
             ),
@@ -66,7 +70,7 @@ class _HomeScreensState extends State<HomeScreens> {
                     ? AppColors.accent
                     : AppColors.neutralDarkGreen2,
               ),
-              title: 'Bản đồ',
+              title: 'Thông báo',
             ),
             TabItem(
               icon: ImageIcon(

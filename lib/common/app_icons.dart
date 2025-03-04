@@ -37,4 +37,7 @@ class AppIcons {
   static const String creditCard = 'assets/icons/icon_payment.png';
   static const String notiBlue = 'assets/icons/notification_blue.png';
   static const String homeIcon = 'assets/icons/home_icon.png';
+  static const String homeIconBlack = 'assets/icons/home_icon_black.png';
+  static const String bookingIcon = 'assets/icons/booking_icon.png';
+  static const String bookingIconBlack = 'assets/icons/booking_icon_black.png';
 }
