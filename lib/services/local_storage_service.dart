@@ -21,8 +21,9 @@ class LocalStorageService {
   }
 
   // Xóa token khi đăng xuất
-  static Future<void> deleteToken() async {
+  static Future<void> logOut() async {
     await _storage.delete(key: _keyToken);
+    await _storage.delete(key: _keyUserId);
   }
 
 // 🔹 Lưu userId (dùng FlutterSecureStorage thay vì SharedPreferences)

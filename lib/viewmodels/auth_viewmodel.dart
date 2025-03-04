@@ -131,58 +131,6 @@ class AuthViewModel with ChangeNotifier {
       );
     }
   }
-  // /// Cập nhật hồ sơ
-  // Future<void> updateProfile(
-  //     BuildContext context, Map<String, dynamic> profileData) async {
-  //   // 🔹 Lấy userId từ local storage
-  //   int? userId = await LocalStorageService.getUserId();
-
-  //   // 🔹 Nếu chưa có, gọi API lấy userId
-  //   if (userId == null) {
-  //     userId = await ApiService.getMyUserId();
-  //     if (userId != null) {
-  //       await LocalStorageService.saveUserId(userId); // Lưu lại để dùng sau
-  //     }
-  //   }
-
-  //   // 🔹 Nếu vẫn không có userId, báo lỗi
-  //   if (userId == null) {
-  //     Fluttertoast.showToast(
-  //       msg: "Lỗi: Không thể xác định ID người dùng.",
-  //       toastLength: Toast.LENGTH_LONG,
-  //       gravity: ToastGravity.BOTTOM,
-  //       backgroundColor: Colors.red,
-  //       textColor: Colors.white,
-  //     );
-  //     return;
-  //   }
-
-  //   // 🔹 Đảm bảo `profileData` có chứa `id`
-  //   profileData['id'] = userId;
-
-  //   String? errorMessage = await ApiService.updateProfile(profileData);
-
-  //   if (!context.mounted) return;
-
-  //   if (errorMessage == null) {
-  //     Fluttertoast.showToast(
-  //       msg: "Cập nhật hồ sơ thành công!",
-  //       toastLength: Toast.LENGTH_LONG,
-  //       gravity: ToastGravity.BOTTOM,
-  //       backgroundColor: Colors.green,
-  //       textColor: Colors.white,
-  //     );
-  //     Navigator.pop(context); // Quay lại màn hình trước đó
-  //   } else {
-  //     Fluttertoast.showToast(
-  //       msg: errorMessage,
-  //       toastLength: Toast.LENGTH_LONG,
-  //       gravity: ToastGravity.BOTTOM,
-  //       backgroundColor: Colors.red,
-  //       textColor: Colors.white,
-  //     );
-  //   }
-  // }
 
   /// Đăng xuất
   Future<void> signOut(BuildContext context) async {
@@ -192,7 +140,7 @@ class AuthViewModel with ChangeNotifier {
 
     if (errorMessage == null) {
       print("Token đã bị xóa thành công!");
-      await LocalStorageService.deleteToken(); // Xóa token
+      await LocalStorageService.logOut(); // Xóa token
 
       Fluttertoast.showToast(
         msg: "Đăng xuất thành công!",
@@ -218,4 +166,3 @@ class AuthViewModel with ChangeNotifier {
     }
   }
 }
-

@@ -29,7 +29,6 @@ class _HomeScreensState extends State<HomeScreens> {
       case 2:
         return SearchScreen();
       case 3:
-        // return HealthCheckForm();
         return ExaminationScreen();
       case 4:
         return ProfileScreen();

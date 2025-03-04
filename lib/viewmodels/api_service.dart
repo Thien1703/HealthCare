@@ -6,7 +6,7 @@ import 'package:health_care/models/service.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.3.100:8080/api/v1';
+  static const String baseUrl = 'http://192.168.3.100:8080';
 
   // Đăng nhập
   static Future<String?> login(String phoneNumber, String password) async {
@@ -62,9 +62,9 @@ class ApiService {
     }
   }
 
-  // Lấy thông tin hồ sơ người dùng
+  // Lấy id hồ sơ người dùng
   static Future<int?> getMyUserId() async {
-    final url = Uri.parse('$baseUrl/user/get-my-info');
+    final url = Uri.parse('$baseUrl/customer/get-my-info');
     String? token = await LocalStorageService.getToken();
 
     final response = await http.post(
@@ -87,9 +87,10 @@ class ApiService {
       return null;
     }
   }
+
   // Cập nhật hồ sơ
   static Future<String?> updateProfile(Map<String, dynamic> profileData) async {
-    final url = Uri.parse('$baseUrl/user/update-profile');
+    final url = Uri.parse('$baseUrl/customer/update-by-id');
     String? token = await LocalStorageService.getToken();
     int? userId =
         await LocalStorageService.getUserId(); // 🔹 Lấy userId từ local storage
@@ -139,6 +140,29 @@ class ApiService {
       return "Lỗi kết nối, vui lòng thử lại!";
     }
   }
+  // Lấy thông tin người dùng
+  static Future<Map<String, dynamic>?> getUserProfile() async {
+    final url = Uri.parse('$baseUrl/customer/get-my-info');
+    String? token = await LocalStorageService.getToken();
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        int userId = data['data']['id']; // Lấy ID từ API
+        await LocalStorageService.saveUserId(userId); // Lưu ID vào Local Storage
+        return data['data']; // Trả về dữ liệu hồ sơ
+      }
+    }
+    return null; // Lỗi hoặc không lấy được dữ liệu
+  }
 
   // Đăng xuất
   static Future<String?> logout() async {
@@ -160,7 +184,7 @@ class ApiService {
       final data = jsonDecode(response.body);
       if (data['status'] == 0) {
         await LocalStorageService
-            .deleteToken(); // Xóa token sau khi logout thành công
+            .logOut(); // Xóa token sau khi logout thành công
         return null; // Logout thành công
       } else {
         return data['message'];
