@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
+import 'package:health_care/viewmodels/auth_viewmodel.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
 import 'package:health_care/views/widgets/widget_selectGender.dart';
-import 'package:health_care/views/widgets/widget_selectProvince.dart';
+import 'package:provider/provider.dart';
 import 'package:vietnam_provinces/vietnam_provinces.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -15,14 +16,14 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
-  final TextEditingController _idCardController = TextEditingController();
-  final TextEditingController _insuranceController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  // final TextEditingController _idCardController = TextEditingController();
+  // final TextEditingController _insuranceController = TextEditingController();
+  // final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
   Province? selectedProvince;
+  String? selectedGender;
   bool isButtonEnabled = false;
 
   @override
@@ -30,11 +31,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     _nameController.addListener(_updateButtonState);
     _dobController.addListener(_updateButtonState);
-    _idCardController.addListener(_updateButtonState);
-    _insuranceController.addListener(_updateButtonState);
-    _phoneController.addListener(_updateButtonState);
+    // _idCardController.addListener(_updateButtonState);
+    // _insuranceController.addListener(_updateButtonState);
+    // _phoneController.addListener(_updateButtonState);
     _emailController.addListener(_updateButtonState);
-    _cityController.addListener(_updateButtonState);
     _addressController.addListener(_updateButtonState);
   }
 
@@ -42,13 +42,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() {
       isButtonEnabled = _nameController.text.isNotEmpty &&
           _dobController.text.isNotEmpty &&
-          _idCardController.text.isNotEmpty &&
-          _insuranceController.text.isNotEmpty &&
-          _phoneController.text.isNotEmpty &&
+          // _idCardController.text.isNotEmpty &&
+          // _insuranceController.text.isNotEmpty &&
+          // _phoneController.text.isNotEmpty &&
           _emailController.text.isNotEmpty &&
-          _cityController.text.isNotEmpty &&
-          _addressController.text.isNotEmpty;
+          _addressController.text.isNotEmpty &&
+          selectedGender != null; // Kiểm tra giới tính
+          // selectedProvince != null; // Kiểm tra tỉnh/thành phố
     });
+  }
+
+  void _updateUserProfile(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
+
+    // Lấy dữ liệu từ các trường nhập
+    Map<String, dynamic> profileData = {
+      
+      "fullName": _nameController.text.trim(),
+      "birthDate": _dobController.text.trim(),
+      // "cccd": _idCardController.text.trim(),
+      // "bhyt": _insuranceController.text.trim(),
+      // "phoneNumber": _phoneController.text.trim(),
+      "email": _emailController.text.trim(),
+      // "province": selectedProvince?.name, // Tên tỉnh/thành phố
+      "address": _addressController.text.trim(),
+      "gender": selectedGender, // Nam / Nữ
+    };
+    // Gọi API cập nhật
+    authViewModel.updateProfile(context, profileData);
   }
 
   @override
@@ -65,9 +86,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: [
                 _customTitle(title: 'Họ và tên'),
                 _customTextField(
-                    controller: _nameController,
-                    labelText: 'Nhập họ và tên',
-                    width: double.infinity),
+                    controller: _nameController, labelText: 'Nhập họ và tên'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -86,49 +105,54 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _customTitle(title: 'Giới tính'),
-                        WidgetSelectgender(),
+                        WidgetSelectGender(
+                          initialGender: selectedGender,
+                          onChanged: (String gender) {
+                            setState(() {
+                              selectedGender = gender;
+                            });
+                            _updateButtonState();
+                          },
+                        ),
                       ],
                     ),
                   ],
                 ),
-                _customTitle(title: 'Mã định danh/CCCD'),
-                _customTextField(
-                    controller: _idCardController,
-                    labelText: 'Vui lòng nhập Mã định danh/CCCD',
-                    width: double.infinity),
-                _customTitle(title: 'Mã bảo hiểm y tế'),
-                _customTextField(
-                    controller: _insuranceController,
-                    labelText: 'Mã bảo hiểm y tế',
-                    width: double.infinity),
-                _customTitle(title: 'Số điện thoại'),
-                _customTextField(
-                    controller: _phoneController,
-                    labelText: '09xxxxxxxx',
-                    width: double.infinity),
+                // _customTitle(title: 'Mã định danh/CCCD'),
+                // _customTextField(
+                //     controller: _idCardController,
+                //     labelText: 'Vui lòng nhập Mã định danh/CCCD'),
+                // _customTitle(title: 'Mã bảo hiểm y tế'),
+                // _customTextField(
+                //     controller: _insuranceController,
+                //     labelText: 'Mã bảo hiểm y tế'),
+                // _customTitle(title: 'Số điện thoại'),
+                // _customTextField(
+                //     controller: _phoneController, labelText: '09xxxxxxxx'),
                 _customTitle(title: 'Email'),
                 _customTextField(
-                    controller: _emailController,
-                    labelText: 'Email',
-                    width: double.infinity),
-                _customTitle(title: 'Tỉnh / TP'),
-                WidgetSelectProvince(
-                  initialProvince: selectedProvince,
-                  onChanged: (Province province) {
-                    selectedProvince = province;
-                    _updateButtonState();
-                  },
-                ),
+                    controller: _emailController, labelText: 'Email'),
+                // _customTitle(title: 'Tỉnh / TP'),
+                // WidgetSelectProvince(
+                //   initialProvince: selectedProvince,
+                //   onChanged: (Province province) {
+                //     setState(() {
+                //       selectedProvince = province;
+                //     });
+                //     _updateButtonState();
+                //   },
+                // ),
                 _customTitle(title: 'Địa chỉ'),
                 _customTextField(
                     controller: _addressController,
-                    labelText: 'Chỉ nhập số nhà, tên đường, ấp thôn xóm,...',
-                    width: double.infinity),
+                    labelText: 'Chỉ nhập số nhà, tên đường, ấp thôn xóm,...'),
                 Container(
                   margin: const EdgeInsets.only(top: 12, bottom: 20),
                   width: double.infinity,
                   child: OutlinedButton(
-                    onPressed: isButtonEnabled ? () {} : null,
+                    onPressed: isButtonEnabled
+                        ? () => _updateUserProfile(context)
+                        : null,
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
                           color: isButtonEnabled
@@ -139,8 +163,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 30),
                     ),
                     child: Text(
                       'Cập nhật',
@@ -172,10 +196,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  Widget _customTextField(
-      {required TextEditingController controller,
-      required String labelText,
-      required double width}) {
+  Widget _customTextField({
+    required TextEditingController controller,
+    required String labelText,
+    double width = double.infinity,
+  }) {
     return Container(
       height: 45,
       width: width,

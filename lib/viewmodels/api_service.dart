@@ -62,6 +62,108 @@ class ApiService {
     }
   }
 
+  // Lấy id hồ sơ người dùng
+  static Future<int?> getMyUserId() async {
+    final url = Uri.parse('$baseUrl/customer/get-my-info');
+    String? token = await LocalStorageService.getToken();
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        int userId = data['data']['id'];
+        return userId;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  // Cập nhật hồ sơ
+  static Future<String?> updateProfile(Map<String, dynamic> profileData) async {
+    final url = Uri.parse('$baseUrl/customer/update-by-id');
+    String? token = await LocalStorageService.getToken();
+    int? userId =
+        await LocalStorageService.getUserId(); // 🔹 Lấy userId từ local storage
+
+    // 🔹 Kiểm tra nếu chưa có userId, lấy từ API
+    if (userId == null) {
+      userId = await getMyUserId();
+      if (userId != null) {
+        await LocalStorageService.saveUserId(userId); // Lưu lại userId
+      }
+    }
+
+    // 🔹 Nếu vẫn không có ID, báo lỗi
+    if (userId == null) {
+      return "Lỗi: Không thể xác định ID người dùng.";
+    }
+
+    // 🔹 Đảm bảo `profileData` có chứa `id`
+    profileData['id'] = userId;
+
+    print("📌 Gửi dữ liệu cập nhật: ${jsonEncode(profileData)}");
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
+        body: jsonEncode(profileData),
+      );
+
+      print("📌 Phản hồi từ server: ${response.statusCode} - ${response.body}");
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          return null; // ✅ Cập nhật thành công
+        } else {
+          return data['message'] ?? "Lỗi không xác định từ server.";
+        }
+      } else {
+        return "Lỗi máy chủ: ${response.body}";
+      }
+    } catch (e) {
+      print("❌ Lỗi khi gọi API: $e");
+      return "Lỗi kết nối, vui lòng thử lại!";
+    }
+  }
+  // Lấy thông tin người dùng
+  static Future<Map<String, dynamic>?> getUserProfile() async {
+    final url = Uri.parse('$baseUrl/customer/get-my-info');
+    String? token = await LocalStorageService.getToken();
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        int userId = data['data']['id']; // Lấy ID từ API
+        await LocalStorageService.saveUserId(userId); // Lưu ID vào Local Storage
+        return data['data']; // Trả về dữ liệu hồ sơ
+      }
+    }
+    return null; // Lỗi hoặc không lấy được dữ liệu
+  }
+
   // Đăng xuất
   static Future<String?> logout() async {
     final url = Uri.parse('$baseUrl/auth/logout');
@@ -82,7 +184,7 @@ class ApiService {
       final data = jsonDecode(response.body);
       if (data['status'] == 0) {
         await LocalStorageService
-            .deleteToken(); // Xóa token sau khi logout thành công
+            .logOut(); // Xóa token sau khi logout thành công
         return null; // Logout thành công
       } else {
         return data['message'];

@@ -34,13 +34,6 @@ class ProfileScreen extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                // Align(
-                //   alignment: Alignment.topLeft,
-                //   child: IconButton(
-                //     icon: const Icon(Icons.arrow_back, color: Colors.white),
-                //     onPressed: () {},
-                //   ),
-                // ),
                 Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

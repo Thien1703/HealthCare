@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
+// ignore: unused_import
 import 'package:health_care/views/screens/clinic/clinic_screen.dart';
 import 'package:health_care/views/screens/map/searchMap.dart';
 import 'package:health_care/views/screens/profile/profile_screen.dart';
 import 'package:health_care/views/screens/examination/examination_screen.dart';
 import 'package:health_care/views/screens/home/homePage.dart';
+
 
 class HomeScreens extends StatefulWidget {
   const HomeScreens({super.key});
