@@ -2,6 +2,7 @@ C/C++ Structured Logu
 s
 qC:\src\flutter\flutter_windows_3.27.1-stable\flutter\packages\flutter_tools\gradle\src\main\groovy\CMakeLists.txtC
 A
+<<<<<<< HEAD
 ?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	›äýïÓ2§ Â…Á¨Ñ2f
 d
 bD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\additional_project_files.txt	›äýïÓ2 ÆÔ¶ëÓ2c
@@ -26,3 +27,29 @@ Z
 XD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\prefab_config.json	›äýïÓ2( ÙÔ¶ëÓ2a
 _
 ]D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\symbol_folder_index.txt	›äýïÓ2T ÚÔ¶ëÓ2
+=======
+?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	þ®ÆéÓ2§ Â…Á¨Ñ2f
+d
+bD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\additional_project_files.txt	þ®ÆéÓ2 â®ÆéÓ2c
+a
+_D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\android_gradle_build.json	þ®ÆéÓ2Á ç®ÆéÓ2h
+f
+dD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\android_gradle_build_mini.json	þ®ÆéÓ2¢ ÷®ÆéÓ2U
+S
+QD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\build.ninja	þ®ÆéÓ2‹Ð Ä­ÆéÓ2Y
+W
+UD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\build.ninja.txt	þ®ÆéÓ2^
+\
+ZD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\build_file_index.txt	þ®ÆéÓ2q ú®ÆéÓ2_
+]
+[D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\compile_commands.json	þ®ÆéÓ2	c
+a
+_D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\compile_commands.json.bin	þ®ÆéÓ2
+i
+g
+eD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\metadata_generation_command.txt	þ®ÆéÓ2È ø®ÆéÓ2\
+Z
+XD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\prefab_config.json	þ®ÆéÓ2( ù®ÆéÓ2a
+_
+]D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86_64\symbol_folder_index.txt	þ®ÆéÓ2T ú®ÆéÓ2
+>>>>>>> e0159da21452efe9d27355b4ea6cb6110a4c774b

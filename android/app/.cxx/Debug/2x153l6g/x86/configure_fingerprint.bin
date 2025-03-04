@@ -2,6 +2,7 @@ C/C++ Structured Logu
 s
 qC:\src\flutter\flutter_windows_3.27.1-stable\flutter\packages\flutter_tools\gradle\src\main\groovy\CMakeLists.txtC
 A
+<<<<<<< HEAD
 ?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	÷ãýïÓ2§ Â…Á¨Ñ2c
 a
 _D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\additional_project_files.txt	÷ãýïÓ2 ÿÃ¶ëÓ2`
@@ -26,3 +27,29 @@ W
 UD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\prefab_config.json	øãýïÓ2( Ä¶ëÓ2^
 \
 ZD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\symbol_folder_index.txt	øãýïÓ2Q Ä¶ëÓ2
+=======
+?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	½˜ÆéÓ2§ Â…Á¨Ñ2c
+a
+_D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\additional_project_files.txt	½˜ÆéÓ2 «˜ÆéÓ2`
+^
+\D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\android_gradle_build.json	½˜ÆéÓ2» ­˜ÆéÓ2e
+c
+aD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\android_gradle_build_mini.json	½˜ÆéÓ2œ ¹˜ÆéÓ2R
+P
+ND:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\build.ninja	½˜ÆéÓ2üÏ Ñ—ÆéÓ2V
+T
+RD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\build.ninja.txt	½˜ÆéÓ2[
+Y
+WD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\build_file_index.txt	½˜ÆéÓ2q »˜ÆéÓ2\
+Z
+XD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\compile_commands.json	½˜ÆéÓ2	`
+^
+\D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\compile_commands.json.bin	½˜ÆéÓ2
+f
+d
+bD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\metadata_generation_command.txt	½˜ÆéÓ2¹ º˜ÆéÓ2Y
+W
+UD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\prefab_config.json	½˜ÆéÓ2( º˜ÆéÓ2^
+\
+ZD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\symbol_folder_index.txt	½˜ÆéÓ2Q º˜ÆéÓ2
+>>>>>>> e0159da21452efe9d27355b4ea6cb6110a4c774b

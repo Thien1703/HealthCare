@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); 
+  WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting(
       'vi', null); // Khởi tạo định dạng cho ngôn ngữ 'vi'
   runApp(MyApp());
@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-     
       home: BookingScreen(),
     );
   }
@@ -43,6 +42,7 @@ class _BookingScreenState extends State<BookingScreen> {
       builder: (context) {
         return SingleChildScrollView(
           child: Container(
+            height: 900,
             padding: EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -99,8 +99,7 @@ class _BookingScreenState extends State<BookingScreen> {
                     setState(() {
                       _selectedDay = selectedDay;
                       _focusedDay = focusedDay;
-                      _kinLichDays.add(
-                          selectedDay); 
+                      _kinLichDays.add(selectedDay);
                     });
                     Navigator.pop(context);
                   },

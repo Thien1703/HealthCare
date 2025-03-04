@@ -1,24 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
+import 'package:health_care/viewmodels/api_service.dart';
 import 'package:health_care/views/widgets/appointment/widget_hospital_info_card.dart';
 import 'package:health_care/views/widgets/widget_select_item.dart';
 import 'package:health_care/views/widgets/appointment/widget_customButton.dart';
-import 'package:health_care/views/widgets/bottomSheet/select_specialty_widget.dart';
-import 'package:health_care/views/widgets/bottomSheet/select_service_widget.dart';
+import 'package:health_care/views/widgets/bottomSheet/select_day_widget.dart';
+import 'package:health_care/views/widgets/bottomSheet/select_time_widget.dart';
+import 'package:health_care/models/clinic.dart';
 
 class ExamInfoBooking extends StatefulWidget {
   const ExamInfoBooking({
     super.key,
     required this.onNavigateToScreen,
+    required this.clinicId,
   });
   final Function(int, String) onNavigateToScreen;
+  final int clinicId;
 
   @override
   State<ExamInfoBooking> createState() => _ExamInfoBooking();
 }
 
 class _ExamInfoBooking extends State<ExamInfoBooking> {
+  Clinic? clinices;
+  @override
+  void initState() {
+    super.initState();
+    fetchClinics();
+  }
+
+  void fetchClinics() async {
+    Clinic? data = await ApiService.getClinicById(widget.clinicId);
+    if (data != null) {
+      setState(() {
+        clinices = data;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,8 +48,10 @@ class _ExamInfoBooking extends State<ExamInfoBooking> {
         children: [
           Expanded(
             child: ListView(
-              children: const [
-                HospitalInfo(),
+              children: [
+                HospitalInfoWidget(
+                    nameHospital: clinices?.name ?? 'Đang tải',
+                    addressHospital: clinices?.address ?? "Đang tải"),
                 SectionTitle(title: 'Chuyên khoa'),
                 SpecialtySelector(),
                 SectionTitle(title: 'Dịch vụ'),
@@ -48,17 +70,6 @@ class _ExamInfoBooking extends State<ExamInfoBooking> {
               text: 'Tiếp tục')
         ],
       ),
-    );
-  }
-}
-class HospitalInfo extends StatelessWidget {
-  const HospitalInfo({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const HospitalInfoWidget(
-      nameHospital: 'Bệnh viện Nhân Dân Gia Định',
-      addressHospital: 'Số 1 Nơ Trang Long, phường 7, Quận Bình Thạnh, TP.HCM',
     );
   }
 }
@@ -88,10 +99,13 @@ class SpecialtySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SelectItemWidget(
+    return SelectItemWidget(
       image: AppIcons.specialty,
       text: 'Chọn chuyên khoa',
-      bottomSheet: SpecialtySelection(),
+      // onTap: () => Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => SpecialtyScreen()),
+      // ),
     );
   }
 }
@@ -101,10 +115,11 @@ class ServiceSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SelectItemWidget(
+    return SelectItemWidget(
       image: AppIcons.service2,
       text: 'Chọn dịch vụ',
-      bottomSheet: ServiceSelection(),
+      // onTap: () => Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => Service())),
     );
   }
 }
@@ -117,6 +132,7 @@ class DateSelector extends StatelessWidget {
     return const SelectItemWidget(
       image: AppIcons.calendar,
       text: 'Chọn ngày khám',
+      bottomSheet: SelectDayWidget(),
     );
   }
 }
@@ -129,6 +145,7 @@ class TimeSelector extends StatelessWidget {
     return const SelectItemWidget(
       image: AppIcons.clock,
       text: 'Chọn giờ khám',
+      bottomSheet: SelectTimeWidget(),
     );
   }
 }
