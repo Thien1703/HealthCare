@@ -26,7 +26,7 @@ class _ServiceScreen extends State<ServiceScreen> {
     List<Service>? data = await ApiService.getAllServeById(widget.specialtyId);
     if (mounted) {
       setState(() {
-        services = data ?? [];
+        services = data;
       });
     }
   }

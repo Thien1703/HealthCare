@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/viewmodels/api_service.dart';
 import 'package:health_care/models/specialty.dart';
+import 'package:health_care/views/screens/BMI/measureBMI_Screen.dart';
 import 'package:health_care/views/screens/home/service_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -101,9 +102,18 @@ class _HomePage extends State<HomePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildFeatureButton('Xem bản đồ', Icons.map),
-                      _buildFeatureButton('Chat AI', Icons.chat),
-                      _buildFeatureButton('Đo BMI', Icons.fitness_center),
+                      _buildFeatureButton(
+                        'Xem bản đồ',
+                        Icons.map,
+                        () {},
+                      ),
+                      _buildFeatureButton('Chat AI', Icons.chat, () {}),
+                      _buildFeatureButton('Đo BMI', Icons.fitness_center, () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MeasurebmiScreen()));
+                      }),
                     ],
                   ),
                 ),
@@ -185,20 +195,23 @@ class _HomePage extends State<HomePage> {
   }
 
   // Widget cho các nút chức năng chính
-  Widget _buildFeatureButton(String text, IconData icon) {
-    return Column(
-      children: [
-        CircleAvatar(
-          radius: 25,
-          backgroundColor: const Color.fromARGB(255, 178, 232, 181),
-          child: Icon(icon, color: AppColors.accent),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          text,
-          style: TextStyle(fontSize: 12, color: AppColors.accent),
-        ),
-      ],
+  Widget _buildFeatureButton(String text, IconData icon, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 25,
+            backgroundColor: const Color.fromARGB(255, 178, 232, 181),
+            child: Icon(icon, color: AppColors.accent),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            text,
+            style: TextStyle(fontSize: 12, color: AppColors.accent),
+          ),
+        ],
+      ),
     );
   }
 }
