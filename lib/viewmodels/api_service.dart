@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:health_care/services/local_storage_service.dart';
-import 'package:health_care/models/specialty.dart';
 import 'package:health_care/models/clinic.dart';
 import 'package:health_care/models/service.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.1.6:8080';
+  static const String baseUrl = 'http://192.168.3.100:8080';
 
   // Đăng nhập
   static Future<String?> login(String phoneNumber, String password) async {
@@ -196,41 +195,6 @@ class ApiService {
     }
   }
 
-  //Lấy api của chuyên khoa
-  static Future<List<Specialty>?> getAllSpecialty() async {
-    final url = Uri.parse('$baseUrl/specialty/get-all');
-
-    String? token = await LocalStorageService.getToken();
-    if (token == null) {
-      return null;
-    }
-    final response = await http.post(
-      url,
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-    );
-
-    print('Giá trị status của API: ${response.statusCode}');
-    print('Giá trị API trả về body: ${response.body}');
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      if (data['status'] == 0) {
-        List<Specialty> specialties = (data['data'] as List)
-            .map((item) => Specialty.fromJson(item))
-            .toList();
-        return specialties;
-      } else {
-        print(' Lỗi từ API: ${data['message']}');
-      }
-    } else {
-      print(' API lỗi: ${response.statusCode}');
-    }
-
-    return null;
-  }
-
   //Lấy api của phòng khám
   static Future<List<Clinic>> getAllClinic() async {
     final url = Uri.parse('${baseUrl}/clinic/get-all');
@@ -331,5 +295,36 @@ class ApiService {
       print(' API lỗi: ${response.statusCode}');
     }
     return [];
+  }
+
+  static Future<List<Service>?> getAllServe() async {
+    final url = Uri.parse('$baseUrl/service/get-all');
+    String? token = await LocalStorageService.getToken();
+    if (token == null) {
+      return null;
+    }
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    print('Giá trị status của API: ${response.statusCode}');
+    print('Giá trị API trả về body: ${response.body}');
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      if (data['status'] == 0) {
+        List<Service> services = (data['data'] as List)
+            .map((item) => Service.fromJson(item))
+            .toList();
+        return services;
+      } else {
+        print(' Lỗi từ API: ${data['message']}');
+      }
+    } else {
+      print(' API lỗi: ${response.statusCode}');
+    }
+    return null;
   }
 }

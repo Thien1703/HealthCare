@@ -141,17 +141,18 @@ class _ServiceScreen extends State<ServiceScreen> {
                     ),
 
               SizedBox(height: 10),
-              OutlinedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ClinicScreen(
-                                iconBack: true,
-                              )));
-                },
-                child: Text('Đặt lịch ngay'),
-              ),
+              if (services.isNotEmpty)
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ClinicScreen(
+                                  iconBack: true,
+                                )));
+                  },
+                  child: Text('Đặt lịch ngay'),
+                ),
             ],
           ),
         ),
