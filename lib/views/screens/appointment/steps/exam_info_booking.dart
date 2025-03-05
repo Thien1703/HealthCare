@@ -8,6 +8,7 @@ import 'package:health_care/views/widgets/appointment/widget_customButton.dart';
 import 'package:health_care/views/widgets/bottomSheet/select_day_widget.dart';
 import 'package:health_care/views/widgets/bottomSheet/select_time_widget.dart';
 import 'package:health_care/models/clinic.dart';
+import 'package:health_care/views/screens/cartService/serviceCart_screen.dart';
 
 class ExamInfoBooking extends StatefulWidget {
   const ExamInfoBooking({
@@ -52,8 +53,8 @@ class _ExamInfoBooking extends State<ExamInfoBooking> {
                 HospitalInfoWidget(
                     nameHospital: clinices?.name ?? 'Đang tải',
                     addressHospital: clinices?.address ?? "Đang tải"),
-                SectionTitle(title: 'Chuyên khoa'),
-                SpecialtySelector(),
+                // SectionTitle(title: 'Chuyên khoa'),
+                // SpecialtySelector(),
                 SectionTitle(title: 'Dịch vụ'),
                 ServiceSelector(),
                 SectionTitle(title: 'Ngày khám'),
@@ -118,8 +119,8 @@ class ServiceSelector extends StatelessWidget {
     return SelectItemWidget(
       image: AppIcons.service2,
       text: 'Chọn dịch vụ',
-      // onTap: () => Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => Service())),
+      onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: (context) => ServicecartScreen())),
     );
   }
 }
