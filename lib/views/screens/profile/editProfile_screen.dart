@@ -16,9 +16,6 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
-  // final TextEditingController _idCardController = TextEditingController();
-  // final TextEditingController _insuranceController = TextEditingController();
-  // final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
@@ -31,9 +28,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     _nameController.addListener(_updateButtonState);
     _dobController.addListener(_updateButtonState);
-    // _idCardController.addListener(_updateButtonState);
-    // _insuranceController.addListener(_updateButtonState);
-    // _phoneController.addListener(_updateButtonState);
     _emailController.addListener(_updateButtonState);
     _addressController.addListener(_updateButtonState);
   }
@@ -42,13 +36,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() {
       isButtonEnabled = _nameController.text.isNotEmpty &&
           _dobController.text.isNotEmpty &&
-          // _idCardController.text.isNotEmpty &&
-          // _insuranceController.text.isNotEmpty &&
-          // _phoneController.text.isNotEmpty &&
           _emailController.text.isNotEmpty &&
           _addressController.text.isNotEmpty &&
           selectedGender != null; // Kiểm tra giới tính
-          // selectedProvince != null; // Kiểm tra tỉnh/thành phố
+      // selectedProvince != null; // Kiểm tra tỉnh/thành phố
     });
   }
 
@@ -57,14 +48,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     // Lấy dữ liệu từ các trường nhập
     Map<String, dynamic> profileData = {
-      
       "fullName": _nameController.text.trim(),
       "birthDate": _dobController.text.trim(),
-      // "cccd": _idCardController.text.trim(),
-      // "bhyt": _insuranceController.text.trim(),
-      // "phoneNumber": _phoneController.text.trim(),
       "email": _emailController.text.trim(),
-      // "province": selectedProvince?.name, // Tên tỉnh/thành phố
       "address": _addressController.text.trim(),
       "gender": selectedGender, // Nam / Nữ
     };
