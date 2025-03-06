@@ -128,7 +128,7 @@ class _ServiceScreen extends State<ServiceScreen> {
                                   style: TextStyle(fontSize: 12),
                                 ),
                                 Text(
-                                  '${service.price} VND',
+                                  service.formattedPrice,
                                   style: TextStyle(
                                       color: Colors.red,
                                       fontWeight: FontWeight.bold),
@@ -141,17 +141,18 @@ class _ServiceScreen extends State<ServiceScreen> {
                     ),
 
               SizedBox(height: 10),
-              OutlinedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ClinicScreen(
-                                iconBack: true,
-                              )));
-                },
-                child: Text('Đặt lịch ngay'),
-              ),
+              if (services.isNotEmpty)
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ClinicScreen(
+                                  iconBack: true,
+                                )));
+                  },
+                  child: Text('Đặt lịch ngay'),
+                ),
             ],
           ),
         ),

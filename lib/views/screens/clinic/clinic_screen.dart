@@ -9,7 +9,7 @@ import 'package:health_care/viewmodels/clinic_viewmodel.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/models/clinic.dart';
 import 'package:health_care/viewmodels/api_service.dart';
-import 'package:health_care/views/widgets/widget_header_body.dart';
+import 'package:health_care/views/widgets/widget_header_body_scoller.dart';
 import 'package:health_care/views/screens/appointment/appointment_screen.dart';
 
 >>>>>>> e0159da21452efe9d27355b4ea6cb6110a4c774b
@@ -25,16 +25,6 @@ class ClinicScreen extends StatefulWidget {
 }
 
 class _ClinicScreenState extends State<ClinicScreen> {
-<<<<<<< HEAD
-  final TextEditingController _searchController = TextEditingController();
-  
-  @override
-  void initState() {
-    super.initState();
-   
-    Future.delayed(Duration.zero, () {
-      context.read<ClinicViewModel>().fetchClinics();
-=======
   List<Clinic>? clinics;
   @override
   void initState() {
@@ -46,12 +36,12 @@ class _ClinicScreenState extends State<ClinicScreen> {
     List<Clinic>? data = await ApiService.getAllClinic();
     setState(() {
       clinics = data;
->>>>>>> e0159da21452efe9d27355b4ea6cb6110a4c774b
     });
   }
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
 <<<<<<< HEAD
     return ChangeNotifierProvider<ClinicViewModel>(
       create: (_) => ClinicViewModel()..fetchClinics(), 
@@ -113,6 +103,9 @@ class _ClinicScreenState extends State<ClinicScreen> {
     );
 =======
     return WidgetHeaderBody(
+=======
+    return WidgetHeaderBodyScoller(
+>>>>>>> f3ba4b057e4ee7b95bf13ee0c116f99ad1e02587
         iconBack: widget.iconBack ?? false,
         title: "Đặt khám",
         body: SingleChildScrollView(

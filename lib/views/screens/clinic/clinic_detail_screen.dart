@@ -135,28 +135,6 @@ class ClinicDetailScreen extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
           ),
         ),
-<<<<<<< HEAD
-        // Padding(
-        //   padding: EdgeInsets.only(left: 20),
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: List.generate(clinic.specialties.length, (index) {
-        //       return Row(
-        //         children: [
-        //           Text(
-        //             '${index + 1}. ',
-        //             style: TextStyle(
-        //                 fontSize: 14,
-        //                 color: AppColors.neutralGrey3,
-        //                 fontWeight: FontWeight.bold),
-        //           ),
-        //           Expanded(child: _buildText(clinic.specialties[index])),
-        //         ],
-        //       );
-        //     }),
-        //   ),
-        // ),
-=======
         Padding(
           padding: EdgeInsets.only(left: 20),
           child: Column(
@@ -177,7 +155,6 @@ class ClinicDetailScreen extends StatelessWidget {
             // }),
           ),
         ),
->>>>>>> e0159da21452efe9d27355b4ea6cb6110a4c774b
       ],
     );
   }

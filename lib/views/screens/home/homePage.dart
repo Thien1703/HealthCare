@@ -4,6 +4,7 @@ import 'package:health_care/viewmodels/api_service.dart';
 import 'package:health_care/models/specialty.dart';
 import 'package:health_care/views/screens/BMI/measureBMI_Screen.dart';
 import 'package:health_care/views/screens/home/service_screen.dart';
+import 'package:health_care/viewmodels/specialty_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,7 +22,7 @@ class _HomePage extends State<HomePage> {
   }
 
   void fetchSpecialties() async {
-    List<Specialty>? data = await ApiService.getAllSpecialty();
+    List<Specialty>? data = await SpecialtyService.getAllSpecialty();
     setState(() {
       specialties = data;
     });
