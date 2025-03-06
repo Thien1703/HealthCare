@@ -51,6 +51,7 @@ class SpecialtyService {
     final response = await http.post(
       url,
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode({

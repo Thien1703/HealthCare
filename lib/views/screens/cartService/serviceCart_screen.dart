@@ -1,31 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/viewmodels/api_service.dart';
-import 'package:health_care/views/widgets/widget_header_body_scoller.dart';
 import 'package:health_care/models/service.dart';
+import 'package:health_care/models/specialty.dart';
+import 'package:health_care/viewmodels/api_service.dart';
+import 'package:health_care/viewmodels/specialty_service.dart';
+import 'package:health_care/views/widgets/widget_header_body_scoller.dart';
 
 class ServicecartScreen extends StatefulWidget {
   const ServicecartScreen({super.key});
   @override
-  State<ServicecartScreen> createState() => _ServicecartScreen();
+  State<ServicecartScreen> createState() => _ServicecartScreenState();
 }
 
-class _ServicecartScreen extends State<ServicecartScreen> {
+class _ServicecartScreenState extends State<ServicecartScreen> {
   List<Service> services = [];
+  List<Specialty> specialties = [];
+  Map<String, List<Service>> groupedServices = {};
+  Set<int> selectedService = {};
 
   @override
   void initState() {
     super.initState();
-    fetchServices();
+    fetchData();
   }
 
-  void fetchServices() async {
-    List<Service>? data = await ApiService.getAllServe();
-    if (mounted) {
-      setState(() {
-        services = data ?? [];
-      });
+  void fetchData() async {
+    // Gọi API lấy danh sách dịch vụ & chuyên khoa
+    List<Service>? serviceData = await ApiService.getAllServe();
+    List<Specialty>? specialtyData = await SpecialtyService.getAllSpecialty();
+
+    if (serviceData != null && specialtyData != null) {
+      // Tạo map để lấy tên chuyên khoa từ specialtyId
+      Map<int, String> specialtyMap = {
+        for (var specialty in specialtyData) specialty.id: specialty.name
+      };
+
+      // Gán specialtyName vào service
+      for (var service in serviceData) {
+        service.specialtyName = specialtyMap[service.specialtyId] ?? 'Khác';
+      }
+
+      // Nhóm dịch vụ theo specialtyName
+      Map<String, List<Service>> grouped = {};
+      for (var service in serviceData) {
+        grouped.putIfAbsent(service.specialtyName!, () => []).add(service);
+      }
+
+      if (mounted) {
+        setState(() {
+          services = serviceData;
+          specialties = specialtyData;
+          groupedServices = grouped;
+        });
+      }
     }
+  }
+
+  void toggleServiceSelection(int serviceId) {
+    setState(() {
+      if (selectedService.contains(serviceId)) {
+        selectedService.remove(serviceId);
+      } else {
+        selectedService.add(serviceId);
+      }
+    });
   }
 
   @override
@@ -65,31 +103,87 @@ class _ServicecartScreen extends State<ServicecartScreen> {
                             ),
                           ),
 
-                          // Danh sách dịch vụ
-                          services.isNotEmpty
-                              ? GridView.builder(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  padding: EdgeInsets.zero,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 8,
-                                    mainAxisSpacing: 8,
-                                  ),
-                                  itemCount: services.length,
-                                  itemBuilder: (context, index) {
-                                    final service = services[index];
-                                    return Container(
-                                      child: Column(
-                                        children: [
-                                          Text(service.name),
-                                          Text(service.description,),
-                                          Text(service.price.toString()),
-                                        ],
-                                      ),
+                          // Danh sách dịch vụ theo chuyên khoa
+                          groupedServices.isNotEmpty
+                              ? Column(
+                                  children:
+                                      groupedServices.entries.map((entry) {
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        // Tiêu đề chuyên khoa
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 10, bottom: 5),
+                                          child: Text(
+                                            entry.key, // specialtyName
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.accent,
+                                            ),
+                                          ),
+                                        ),
+                                        // Danh sách dịch vụ
+                                        GridView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          padding: EdgeInsets.zero,
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 8,
+                                            mainAxisSpacing: 8,
+                                          ),
+                                          itemCount: entry.value.length,
+                                          itemBuilder: (context, index) {
+                                            final service = entry.value[index];
+                                            return Container(
+                                              padding: EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.black,
+                                                    width: 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(service.name,
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  Text(service.formattedPrice,
+                                                      style: TextStyle(
+                                                          color: Colors.green)),
+                                                  OutlinedButton(
+                                                    onPressed: () =>
+                                                        toggleServiceSelection(
+                                                            service.id),
+                                                    style: OutlinedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                          selectedService
+                                                                  .contains(
+                                                                      service
+                                                                          .id)
+                                                              ? Colors.green
+                                                              : Colors.blue,
+                                                    ),
+                                                    child: Text('Thêm dịch vụ'),
+                                                  )
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ],
                                     );
-                                  },
+                                  }).toList(),
                                 )
                               : Center(child: Text('Không có dịch vụ')),
                         ],
@@ -100,6 +194,8 @@ class _ServicecartScreen extends State<ServicecartScreen> {
               ),
             ),
           ),
+
+          // Thanh thông tin dịch vụ đã chọn
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(15),
@@ -107,14 +203,14 @@ class _ServicecartScreen extends State<ServicecartScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Đã chọn 0 dịch vụ'),
+                Text('Đã chọn ${selectedService.length} dịch vụ'),
                 Row(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text('Tổng thanh toán'),
-                        Text('0k'),
+                        Text('0đ'),
                       ],
                     ),
                     OutlinedButton(

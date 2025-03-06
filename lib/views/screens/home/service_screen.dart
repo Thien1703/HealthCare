@@ -128,7 +128,7 @@ class _ServiceScreen extends State<ServiceScreen> {
                                   style: TextStyle(fontSize: 12),
                                 ),
                                 Text(
-                                  '${service.price} VND',
+                                  service.formattedPrice,
                                   style: TextStyle(
                                       color: Colors.red,
                                       fontWeight: FontWeight.bold),
