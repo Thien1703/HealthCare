@@ -4,11 +4,8 @@ import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/views/widgets/appointment/widget_hospital_info_card.dart';
 import 'package:health_care/views/widgets/widget_select_item.dart';
 import 'package:health_care/views/widgets/appointment/widget_customButton.dart';
-import 'package:health_care/views/widgets/bottomSheet/select_specialty_widget.dart';
-import 'package:health_care/views/widgets/bottomSheet/select_service_widget.dart';
 import 'package:health_care/views/widgets/bottomSheet/select_day_widget.dart';
 import 'package:health_care/views/widgets/bottomSheet/select_time_widget.dart';
-import 'package:health_care/views/screens/appointment/detail/specialty_screen.dart';
 import 'package:health_care/views/screens/appointment/detail/service_screen.dart';
 
 class ExamInfoBooking extends StatefulWidget {

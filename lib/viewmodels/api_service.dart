@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:health_care/services/local_storage_service.dart';
 import 'package:health_care/models/specialty.dart';
 import 'package:health_care/models/clinic.dart';
@@ -144,6 +145,33 @@ class ApiService {
       return "Lỗi kết nối, vui lòng thử lại!";
     }
   }
+
+//   static Future<String?> updateProfile(Map<String, dynamic> profileData, File? avatar) async {
+//   final url = Uri.parse('$baseUrl/customer/update-by-id');
+//   String? token = await LocalStorageService.getToken();
+
+//   var request = http.MultipartRequest("POST", url);
+//   request.headers['Authorization'] = 'Bearer $token';
+
+//   request.fields.addAll({
+//     "fullName": profileData['fullName'],
+//     "birthDate": profileData['birthDate'],
+//     "email": profileData['email'],
+//     "address": profileData['address'],
+//   });
+
+//   if (avatar != null) {
+//     request.files.add(await http.MultipartFile.fromPath('avatar', avatar.path));
+//   }
+
+//   var response = await request.send();
+//   if (response.statusCode == 200) {
+//     return null; // Thành công
+//   } else {
+//     return "Cập nhật thất bại!";
+//   }
+// }
+
 
   // Lấy thông tin người dùng
   static Future<Map<String, dynamic>?> getUserProfile() async {

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:health_care/views/screens/auth/login/login_screen.dart';
@@ -81,7 +82,7 @@ class AuthViewModel with ChangeNotifier {
 
   /// Cập nhật hồ sơ
   Future<void> updateProfile(
-      BuildContext context, Map<String, dynamic> profileData) async {
+      BuildContext context, Map<String, dynamic> profileData, File? avatar) async {
     // 🔹 Lấy userId từ local storage
     int? userId = await LocalStorageService.getUserId();
 
