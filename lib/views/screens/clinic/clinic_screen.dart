@@ -81,88 +81,105 @@ class _ClinicScreenState extends State<ClinicScreen> {
                   ),
                 ),
                 clinics != null
-                    ? ListView.builder(
-                        padding: EdgeInsets.only(top: 10),
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: clinics!.length,
-                        itemBuilder: (context, index) {
-                          final clinic = clinics![index];
-                          return InkWell(
-                            onTap: () {
-                              print(clinic.id);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AppointmentScreen(
-                                    clinicId: clinic.id,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Card(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 15),
-                              elevation: 8,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                side: BorderSide(
-                                  color: Colors.greenAccent,
-                                  width: 1.5,
+    ? ListView.builder(
+        padding: EdgeInsets.only(top: 10),
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: clinics!.length,
+        itemBuilder: (context, index) {
+          final clinic = clinics![index];
+          return InkWell(
+            onTap: () {
+              print(clinic.id);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AppointmentScreen(
+                    clinicId: clinic.id,
+                  ),
+                ),
+              );
+            },
+            child: Card(
+              margin: EdgeInsets.symmetric(vertical: 10, ),
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+                side: BorderSide(
+                  color: AppColors.accent,
+                  width: 1.5,
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Hình ảnh nền
+                    Image.network(
+                      clinic.image,
+                      width: double.infinity,
+                      height: 180, 
+                      fit: BoxFit.cover,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Tên bệnh viện với icon
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.local_hospital, // Icon bệnh viện
+                                size: 20,
+                                color: AppColors.accent,
+                              ),
+                              SizedBox(width: 3),
+                              Text(
+                                clinic.name,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                               ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Hình ảnh nền
-                                    Image.network(
-                                      clinic.image,
-                                      width: double.infinity,
-                                      height: 180, 
-                                      fit: BoxFit.cover,
-                                    ),
-                                    
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            clinic.name,
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                              height:
-                                                  5), 
-                                          Text(
-                                            clinic.address,
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              color: const Color.fromARGB(255, 111, 107, 107),
-                                            ),
-                                            softWrap: true,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                          // Địa chỉ với icon
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.location_on, // Icon địa chỉ
+                                size: 18,
+                                color:  AppColors.accent,
                               ),
-                            ),
-                          );
-                        },
-                      )
-                    : Center(
-                        child: Text('Không có phòng khám nào'),
+                              // SizedBox(width: 3),
+                              Text(
+                                clinic.address,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: const Color.fromARGB(255, 111, 107, 107),
+                                ),
+                                softWrap: true,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      )
+    : Center(
+        child: Text('Không có phòng khám nào'),
+      ),
+
               ],
             ),
           ),
