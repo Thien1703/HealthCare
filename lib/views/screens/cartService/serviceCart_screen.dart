@@ -141,11 +141,16 @@ class _ServicecartScreenState extends State<ServicecartScreen> {
                                           itemBuilder: (context, index) {
                                             final service = entry.value[index];
                                             return Container(
+                                              width:
+                                                  100, // Tăng chiều dài theo hướng ngang
+                                              height:
+                                                  400, // Tăng chiều dài theo hướng dọc
                                               padding: EdgeInsets.all(10),
                                               decoration: BoxDecoration(
                                                 border: Border.all(
-                                                    color: Colors.black,
-                                                    width: 1),
+                                                  color: Colors.black,
+                                                  width: 1,
+                                                ),
                                                 borderRadius:
                                                     BorderRadius.circular(8),
                                               ),

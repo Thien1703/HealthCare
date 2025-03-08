@@ -4,14 +4,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:health_care/viewmodels/auth_viewmodel.dart';
 import 'package:health_care/views/screens/welcome/splash_screen.dart';
-<<<<<<< HEAD
-import 'package:health_care/views/screens/clinic/clinic_screen.dart';
-=======
 import 'package:health_care/views/screens/home/home_screens.dart';
 import 'package:vietnam_provinces/vietnam_provinces.dart';
 
 import 'views/screens/auth/login/login_screen.dart';
->>>>>>> e0159da21452efe9d27355b4ea6cb6110a4c774b
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,15 +27,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return MaterialApp(
-      title: 'Flutter Login',
-      initialRoute: '/clinic',
-      routes: {
-        
-        '/clinic':(context) => ClinicScreen(),
-      },
-=======
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
@@ -61,7 +48,6 @@ class MyApp extends StatelessWidget {
           Locale('vi', 'VN'),
         ],
       ),
->>>>>>> e0159da21452efe9d27355b4ea6cb6110a4c774b
     );
   }
 }

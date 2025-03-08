@@ -2,54 +2,27 @@ C/C++ Structured Logu
 s
 qC:\src\flutter\flutter_windows_3.27.1-stable\flutter\packages\flutter_tools\gradle\src\main\groovy\CMakeLists.txtC
 A
-<<<<<<< HEAD
-?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	÷ãıïÓ2§ Â…Á¨Ñ2c
+?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	äÇ” ×2§ Â…Á¨Ñ2c
 a
-_D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\additional_project_files.txt	÷ãıïÓ2 ÿÃ¶ëÓ2`
+_D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\additional_project_files.txt	äÇ” ×2 àè˜âÖ2`
 ^
-\D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\android_gradle_build.json	÷ãıïÓ2» Ä¶ëÓ2e
+\D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\android_gradle_build.json	äÇ” ×2» âè˜âÖ2e
 c
-aD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\android_gradle_build_mini.json	÷ãıïÓ2œ Ä¶ëÓ2R
+aD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\android_gradle_build_mini.json	äÇ” ×2œ ëè˜âÖ2R
 P
-ND:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\build.ninja	÷ãıïÓ2üÏ ıÂ¶ëÓ2V
+ND:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\build.ninja	äÇ” ×2üÏ —è˜âÖ2V
 T
-RD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\build.ninja.txt	÷ãıïÓ2[
+RD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\build.ninja.txt	äÇ” ×2[
 Y
-WD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\build_file_index.txt	øãıïÓ2q Ä¶ëÓ2\
+WD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\build_file_index.txt	äÇ” ×2q ìè˜âÖ2\
 Z
-XD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\compile_commands.json	øãıïÓ2	`
+XD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\compile_commands.json	äÇ” ×2	`
 ^
-\D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\compile_commands.json.bin	øãıïÓ2
+\D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\compile_commands.json.bin	äÇ” ×2
 f
 d
-bD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\metadata_generation_command.txt	øãıïÓ2¹ Ä¶ëÓ2Y
+bD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\metadata_generation_command.txt	äÇ” ×2¹ ìè˜âÖ2Y
 W
-UD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\prefab_config.json	øãıïÓ2( Ä¶ëÓ2^
+UD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\prefab_config.json	äÇ” ×2( ìè˜âÖ2^
 \
-ZD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\symbol_folder_index.txt	øãıïÓ2Q Ä¶ëÓ2
-=======
-?com.android.build.gradle.internal.cxx.io.EncodedFileFingerPrint	½˜ÆéÓ2§ Â…Á¨Ñ2c
-a
-_D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\additional_project_files.txt	½˜ÆéÓ2 «˜ÆéÓ2`
-^
-\D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\android_gradle_build.json	½˜ÆéÓ2» ­˜ÆéÓ2e
-c
-aD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\android_gradle_build_mini.json	½˜ÆéÓ2œ ¹˜ÆéÓ2R
-P
-ND:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\build.ninja	½˜ÆéÓ2üÏ Ñ—ÆéÓ2V
-T
-RD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\build.ninja.txt	½˜ÆéÓ2[
-Y
-WD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\build_file_index.txt	½˜ÆéÓ2q »˜ÆéÓ2\
-Z
-XD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\compile_commands.json	½˜ÆéÓ2	`
-^
-\D:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\compile_commands.json.bin	½˜ÆéÓ2
-f
-d
-bD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\metadata_generation_command.txt	½˜ÆéÓ2¹ º˜ÆéÓ2Y
-W
-UD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\prefab_config.json	½˜ÆéÓ2( º˜ÆéÓ2^
-\
-ZD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\symbol_folder_index.txt	½˜ÆéÓ2Q º˜ÆéÓ2
->>>>>>> e0159da21452efe9d27355b4ea6cb6110a4c774b
+ZD:\projects\flutter\HealthCare\android\app\.cxx\Debug\2x153l6g\x86\symbol_folder_index.txt	äÇ” ×2Q ìè˜âÖ2

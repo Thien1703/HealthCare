@@ -49,7 +49,7 @@ class _ServiceScreen extends State<ServiceScreen> {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
                     color: AppColors.accent,
-                    width: 1,
+                    width: 1.5,
                   ),
                 ),
                 child: Row(
@@ -80,60 +80,94 @@ class _ServiceScreen extends State<ServiceScreen> {
                         final service = services[index];
                         return Card(
                           elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                          
+                          // shape: RoundedRectangleBorder(
+                          //   borderRadius: BorderRadius.circular(12),
+                          // ),
                           child: Padding(
-                            padding: EdgeInsets.all(5),
+                            
+                            padding: EdgeInsets.all(6),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              
                               children: [
                                 // Kiểm tra service.image null
+                                SizedBox(height: 14),
+                                
                                 service.image != null &&
                                         service.image!.isNotEmpty
-                                    ? Image.network(
-                                        service.image!,
-                                        height: 120,
-                                        width: double.infinity,
-                                        fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return Image.asset(
-                                            'assets/images/avt.png',
-                                            height: 120,
-                                            width: double.infinity,
-                                            fit: BoxFit.cover,
-                                          );
-                                        },
+                                    ? ClipRRect(
+                                       
+                                        child: Image.network(
+                                          service.image!,
+                                          height: 120,
+                                          width: double.infinity,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              child: Image.asset(
+                                                'assets/images/avt.png',
+                                                height: 120,
+                                                width: double.infinity,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            );
+                                          },
+                                        ),
                                       )
-                                    : Image.asset(
-                                        'assets/images/avt.png',
-                                        height: 120,
-                                        width: double.infinity,
-                                        fit: BoxFit.cover,
+                                    : ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                            12), // Bo tròn góc với bán kính 12
+                                        child: Image.asset(
+                                          'assets/images/avt.png',
+                                          height: 120,
+                                          width: double.infinity,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                 SizedBox(height: 5),
-                                Text(
-                                  service.name,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14),
-                                  softWrap: true,
-                                ),
-                                Text(
-                                  service.description,
-                                  softWrap: true,
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                                Text(
-                                  service.formattedPrice,
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment
+                                      .start, // Đảm bảo các chữ bên trái được căn chỉnh
+                                      
+                                  children: [
+                                    
+                                    Text(
+                                      service.name,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                      ),
+                                      softWrap: true,
+                                    ),
+                                    Text(
+                                      service.description,
+                                      softWrap: true,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .end, // Căn giá trị về bên phải
+                                      children: [
+                                        Text(
+                                          service.formattedPrice,
+                                          style: TextStyle(
+                                            color: AppColors.accent,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],  
                             ),
                           ),
                         );
@@ -143,6 +177,12 @@ class _ServiceScreen extends State<ServiceScreen> {
               SizedBox(height: 10),
               if (services.isNotEmpty)
                 OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                      backgroundColor: AppColors.accent,
+                      minimumSize: Size(240, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      )),
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -151,7 +191,14 @@ class _ServiceScreen extends State<ServiceScreen> {
                                   iconBack: true,
                                 )));
                   },
-                  child: Text('Đặt lịch ngay'),
+                  child: Text(
+                    'ĐẶT LỊCH NGAY',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
             ],
           ),
