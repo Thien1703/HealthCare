@@ -41,6 +41,7 @@ class _ServiceScreen extends State<ServiceScreen> {
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
+              // Phần hộp tìm kiếm
               Container(
                 margin: EdgeInsets.symmetric(vertical: 15),
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
@@ -55,8 +56,10 @@ class _ServiceScreen extends State<ServiceScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Tìm kiếm chuyên khoa/dịch vụ',
-                        style: TextStyle(color: Colors.black54)),
+                    Text(
+                      'Tìm kiếm chuyên khoa/dịch vụ',
+                      style: TextStyle(color: Colors.black54, fontSize: 14),
+                    ),
                     Icon(Icons.search, color: AppColors.accent),
                   ],
                 ),
@@ -66,38 +69,40 @@ class _ServiceScreen extends State<ServiceScreen> {
               services.isEmpty
                   ? Center(child: Text('Chưa có dịch vụ này'))
                   : GridView.builder(
-                      shrinkWrap: true, // Thêm shrinkWrap để tránh lỗi layout
+                      shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 8,
                         mainAxisSpacing: 8,
-                        childAspectRatio: 0.69,
+                        childAspectRatio: 0.76,
                       ),
                       itemCount: services.length,
                       itemBuilder: (context, index) {
                         final service = services[index];
                         return Card(
                           elevation: 5,
-                          
-                          // shape: RoundedRectangleBorder(
-                          //   borderRadius: BorderRadius.circular(12),
-                          // ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          color: Colors.white,
                           child: Padding(
-                            
                             padding: EdgeInsets.all(6),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              
                               children: [
-                                // Kiểm tra service.image null
+                                // Hình ảnh dịch vụ
                                 SizedBox(height: 14),
-                                
                                 service.image != null &&
                                         service.image!.isNotEmpty
                                     ? ClipRRect(
-                                       
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(16),
+                                          topRight: Radius.circular(16),
+                                          bottomLeft: Radius.zero,
+                                          bottomRight: Radius.zero,
+                                        ),
                                         child: Image.network(
                                           service.image!,
                                           height: 120,
@@ -106,8 +111,12 @@ class _ServiceScreen extends State<ServiceScreen> {
                                           errorBuilder:
                                               (context, error, stackTrace) {
                                             return ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(16),
+                                                topRight: Radius.circular(16),
+                                                bottomLeft: Radius.zero,
+                                                bottomRight: Radius.zero,
+                                              ),
                                               child: Image.asset(
                                                 'assets/images/avt.png',
                                                 height: 120,
@@ -119,8 +128,12 @@ class _ServiceScreen extends State<ServiceScreen> {
                                         ),
                                       )
                                     : ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                            12), // Bo tròn góc với bán kính 12
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(16),
+                                          topRight: Radius.circular(16),
+                                          bottomLeft: Radius.zero,
+                                          bottomRight: Radius.zero,
+                                        ),
                                         child: Image.asset(
                                           'assets/images/avt.png',
                                           height: 120,
@@ -129,36 +142,50 @@ class _ServiceScreen extends State<ServiceScreen> {
                                         ),
                                       ),
                                 SizedBox(height: 5),
+
+                                // Thông tin dịch vụ (Tên và Mô tả)
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .start, // Đảm bảo các chữ bên trái được căn chỉnh
-                                      
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    
                                     Text(
                                       service.name,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15,
+                                        color: Colors.black87,
                                       ),
                                       softWrap: true,
                                     ),
-                                    Text(
-                                      service.description,
-                                      softWrap: true,
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 12),
+                                    Row(
+                                      children: [
+                                        SizedBox(width: 5),
+                                        Expanded(
+                                          child: Text(
+                                            service.description,
+                                            softWrap: true,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black54),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     SizedBox(height: 10),
+
+                                    // Phần giá dịch vụ
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .end, // Căn giá trị về bên phải
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
+                                        Icon(Icons.attach_money,
+                                            size: 20, color: AppColors.accent),
                                         Text(
                                           service.formattedPrice,
                                           style: TextStyle(
-                                            color: AppColors.accent,
+                                            color: const Color.fromARGB(
+                                                255, 219, 152, 93),
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16,
                                           ),
@@ -166,8 +193,8 @@ class _ServiceScreen extends State<ServiceScreen> {
                                       ],
                                     ),
                                   ],
-                                )
-                              ],  
+                                ),
+                              ],
                             ),
                           ),
                         );
@@ -178,26 +205,36 @@ class _ServiceScreen extends State<ServiceScreen> {
               if (services.isNotEmpty)
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                      backgroundColor: AppColors.accent,
-                      minimumSize: Size(240, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      )),
+                    backgroundColor: AppColors.accent,
+                    minimumSize: Size(240, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ClinicScreen(
-                                  iconBack: true,
-                                )));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ClinicScreen(
+                          iconBack: true,
+                        ),
+                      ),
+                    );
                   },
-                  child: Text(
-                    'ĐẶT LỊCH NGAY',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.calendar_today, color: Colors.white),
+                      SizedBox(width: 10),
+                      Text(
+                        'ĐẶT LỊCH NGAY',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
             ],
