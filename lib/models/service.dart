@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class Service {
   final int id;
@@ -9,6 +10,7 @@ class Service {
   final String? image;
   final int? reviewCount;
   final double? rating;
+  String? specialtyName;
 
   Service({
     required this.id,
@@ -19,6 +21,7 @@ class Service {
     required this.image,
     this.reviewCount,
     this.rating,
+    this.specialtyName,
   });
 
   // Chuyển từ JSON sang Object
@@ -32,6 +35,7 @@ class Service {
       image: json['image'],
       reviewCount: json['reviewCount'],
       rating: json['rating'] != null ? json['rating'].toDouble() : null,
+      specialtyName: json['specialtyName'],
     );
   }
 
@@ -47,5 +51,10 @@ class Service {
       'reviewCount': reviewCount,
       'rating': rating,
     };
+  }
+
+  String get formattedPrice {
+    final formatter = NumberFormat("#,###", "vi_VN");
+    return "${formatter.format(price)}đ";
   }
 }
