@@ -9,6 +9,7 @@ import 'package:vietnam_provinces/vietnam_provinces.dart';
 
 import 'views/screens/auth/login/login_screen.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await VietnamProvinces.initialize();

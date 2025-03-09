@@ -5,6 +5,8 @@ import 'package:health_care/models/specialty.dart';
 import 'package:health_care/viewmodels/api_service.dart';
 import 'package:health_care/viewmodels/specialty_service.dart';
 import 'package:health_care/views/widgets/widget_header_body_scoller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 class ServicecartScreen extends StatefulWidget {
   const ServicecartScreen({super.key});
@@ -17,10 +19,13 @@ class _ServicecartScreenState extends State<ServicecartScreen> {
   List<Specialty> specialties = [];
   Map<String, List<Service>> groupedServices = {};
   Set<int> selectedService = {};
+  double totalPrice = 0.0;
 
   @override
   void initState() {
     super.initState();
+    loadSelectedServices();
+
     fetchData();
   }
 
@@ -64,6 +69,43 @@ class _ServicecartScreenState extends State<ServicecartScreen> {
         selectedService.add(serviceId);
       }
     });
+    saveSelectedServices();
+    updateTotalPrice();
+  }
+
+  void saveSelectedServices() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> selectedIds =
+        selectedService.map((id) => id.toString()).toList();
+    await prefs.setStringList('selected_services', selectedIds);
+    await prefs.setDouble('total_price', totalPrice); // Lưu tổng tiền
+  }
+
+  void loadSelectedServices() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? savedIds = prefs.getStringList('selected_services');
+    double? savedTotalPrice =
+        prefs.getDouble('total_price'); // Lấy tổng tiền đã lưu
+
+    if (savedIds != null) {
+      setState(() {
+        selectedService = savedIds.map((id) => int.parse(id)).toSet();
+        totalPrice = savedTotalPrice ?? 0.0; // Khôi phục tổng tiền
+      });
+    }
+  }
+
+  void updateTotalPrice() {
+    setState(() {
+      totalPrice = services
+          .where((service) => selectedService.contains(service.id))
+          .fold(0.0, (sum, service) => sum + service.price);
+    });
+  }
+
+  String formatCurrency(double amount) {
+    final formatter = NumberFormat("#,###", "vi_VN");
+    return "${formatter.format(amount)}đ";
   }
 
   @override
@@ -210,11 +252,20 @@ class _ServicecartScreenState extends State<ServicecartScreen> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text('Tổng thanh toán'),
-                        Text('0đ'),
+                        Text(
+                          formatCurrency(totalPrice), // Hiển thị tổng tiền
+                        ),
                       ],
                     ),
                     OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print(selectedService);
+                        List<Service> selectedServiceList = services
+                            .where((service) =>
+                                selectedService.contains(service.id))
+                            .toList();
+                        Navigator.pop(context, selectedServiceList);
+                      },
                       child: Text('Xong'),
                     ),
                   ],
