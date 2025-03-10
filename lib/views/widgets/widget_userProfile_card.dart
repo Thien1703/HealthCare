@@ -112,7 +112,7 @@ class _WidgetUserprofileCardState extends State<WidgetUserprofileCard> {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        // margin: EdgeInsets.only(top: 10),
+        // margin: EdgeInsets.only(top: 8),
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -148,10 +148,6 @@ class _WidgetUserprofileCardState extends State<WidgetUserprofileCard> {
                                   userInfo!['address'] ?? 'Chưa có địa chỉ'),
                         ],
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: Image.asset(AppIcons.variant21),
-                      )
                     ],
                   ),
       ),

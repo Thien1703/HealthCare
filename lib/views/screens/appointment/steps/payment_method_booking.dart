@@ -5,7 +5,6 @@ import 'package:health_care/views/widgets/appointment/widget_hospital_info_card.
 import 'package:health_care/views/widgets/widget_select_item.dart';
 import 'package:health_care/views/widgets/appointment/widget_customPricePayment.dart';
 import 'package:health_care/views/widgets/appointment/widget_customButton.dart';
-import 'package:health_care/views/widgets/appointment/widget_infoPatient.dart';
 import 'package:health_care/views/widgets/widget_userProfile_card.dart';
 
 class PaymentMethodBooking extends StatefulWidget {
