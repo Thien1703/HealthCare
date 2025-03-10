@@ -7,6 +7,7 @@ import 'package:health_care/views/widgets/appointment/widget_customPricePayment.
 import 'package:health_care/views/widgets/appointment/widget_customButton.dart';
 import 'package:health_care/views/widgets/widget_lineBold.dart';
 import 'package:health_care/views/widgets/appointment/widget_infoPatient.dart';
+import 'package:health_care/views/widgets/widget_userProfile_card.dart';
 
 class ConfirmBooking extends StatefulWidget {
   const ConfirmBooking({
@@ -36,7 +37,7 @@ class _ConfirmBooking extends State<ConfirmBooking> {
                 ),
                 SectionTitle(title: 'Thông tin bệnh nhân'),
                 Expanded(
-                  child: PatientInfo(),
+                  child: WidgetUserprofileCard(),
                 ),
                 SectionTitle(title: 'Thông tin đặt khám'),
                 BookingInformation(
@@ -71,7 +72,7 @@ class SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 10, bottom: 5),
       child: Text(
         title,
         style: TextStyle(
@@ -84,17 +85,17 @@ class SectionTitle extends StatelessWidget {
   }
 }
 
-class PatientInfo extends StatelessWidget {
-  const PatientInfo({super.key});
+// class PatientInfo extends StatelessWidget {
+//   const PatientInfo({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const WidgetInfoPatient(
-      image: AppIcons.user1,
-      text: 'Nguyễn Hữu Thiện ',
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return const WidgetInfoPatient(
+//       image: AppIcons.user1,
+//       text: 'Nguyễn Hữu Thiện',
+//     );
+//   }
+// }
 
 class BookingInformation extends StatelessWidget {
   final String text1;
