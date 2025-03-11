@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/models/clinic.dart';
-import 'package:health_care/viewmodels/api_service.dart';
+import 'package:health_care/viewmodels/api/api_service.dart';
 import 'package:health_care/views/widgets/widget_header_body_scoller.dart';
 import 'package:health_care/views/screens/appointment/appointment_screen.dart';
 

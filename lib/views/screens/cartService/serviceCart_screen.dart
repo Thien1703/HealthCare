@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/models/service.dart';
 import 'package:health_care/models/specialty.dart';
-import 'package:health_care/viewmodels/api_service.dart';
-import 'package:health_care/viewmodels/specialty_service.dart';
+import 'package:health_care/viewmodels/api/api_service.dart';
+import 'package:health_care/viewmodels/api/specialty_api.dart';
 import 'package:health_care/views/widgets/widget_header_body_scoller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -32,7 +32,7 @@ class _ServicecartScreenState extends State<ServicecartScreen> {
   void fetchData() async {
     // Gọi API lấy danh sách dịch vụ & chuyên khoa
     List<Service>? serviceData = await ApiService.getAllServe();
-    List<Specialty>? specialtyData = await SpecialtyService.getAllSpecialty();
+    List<Specialty>? specialtyData = await SpecialtyApi.getAllSpecialty();
 
     if (serviceData != null && specialtyData != null) {
       // Tạo map để lấy tên chuyên khoa từ specialtyId

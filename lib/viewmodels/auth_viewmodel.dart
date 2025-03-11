@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:health_care/views/screens/auth/login/login_screen.dart';
 import '../services/local_storage_service.dart';
 import '../views/screens/home/home_screens.dart';
-import 'api_service.dart';
+import 'api/api_service.dart';
 
 class AuthViewModel with ChangeNotifier {
   /// Đăng nhập

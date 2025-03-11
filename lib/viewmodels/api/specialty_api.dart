@@ -1,10 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:health_care/viewmodels/api_service.dart';
+import 'package:health_care/viewmodels/api/api_service.dart';
 import 'package:health_care/models/specialty.dart';
 import 'package:health_care/services/local_storage_service.dart';
 
-class SpecialtyService {
+class SpecialtyApi {
   //Lấy api của chuyên khoa
   static Future<List<Specialty>?> getAllSpecialty() async {
     final url = Uri.parse('${ApiService.baseUrl}/specialty/get-all');

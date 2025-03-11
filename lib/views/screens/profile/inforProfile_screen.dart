@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/viewmodels/api_service.dart';
+import 'package:health_care/viewmodels/api/api_service.dart';
 import 'package:health_care/views/screens/profile/editProfile_screen.dart';
 
 class InforProfileScreen extends StatefulWidget {

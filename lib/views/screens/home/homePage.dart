@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
-import 'package:health_care/viewmodels/api_service.dart';
+import 'package:health_care/viewmodels/api/api_service.dart';
 import 'package:health_care/models/specialty.dart';
 import 'package:health_care/views/screens/BMI/measureBMI_Screen.dart';
 import 'package:health_care/views/screens/home/service_screen.dart';
-import 'package:health_care/viewmodels/specialty_service.dart';
+import 'package:health_care/viewmodels/api/specialty_api.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,7 +22,7 @@ class _HomePage extends State<HomePage> {
   }
 
   void fetchSpecialties() async {
-    List<Specialty>? data = await SpecialtyService.getAllSpecialty();
+    List<Specialty>? data = await SpecialtyApi.getAllSpecialty();
     setState(() {
       specialties = data;
     });
