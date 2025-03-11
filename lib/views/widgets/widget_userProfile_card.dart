@@ -72,7 +72,8 @@ import 'package:health_care/viewmodels/api_service.dart';
 import 'package:intl/intl.dart';
 
 class WidgetUserprofileCard extends StatefulWidget {
-  const WidgetUserprofileCard({super.key});
+  final Function(int)? onTap;
+  const WidgetUserprofileCard({super.key, this.onTap});
 
   @override
   _WidgetUserprofileCardState createState() => _WidgetUserprofileCardState();
@@ -110,46 +111,58 @@ class _WidgetUserprofileCardState extends State<WidgetUserprofileCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        // margin: EdgeInsets.only(top: 8),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
+    return InkWell(
+      onTap: () {
+        if (userInfo != null && userInfo!['id'] != null) {
+          int customerId = userInfo!['id']; // Lấy ID từ API
+          print("ID khách hàng: $customerId"); // In ra console
+          if (widget.onTap != null) {
+            widget.onTap!(customerId); // Truyền ID qua callback
+          }
+        }
+      },
+      child: Card(
+        child: Container(
+          // margin: EdgeInsets.only(top: 8),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: isLoading
+              ? Center(
+                  child:
+                      CircularProgressIndicator()) // Hiển thị khi tải dữ liệu
+              : userInfo == null
+                  ? Center(child: Text("Không có dữ liệu"))
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _customeRow(
+                                image: AppIcons.user1,
+                                titleOfImage:
+                                    userInfo!['fullName'] ?? 'Chưa có tên'),
+                            _customeRow(
+                                image: AppIcons.call,
+                                titleOfImage:
+                                    userInfo!['phoneNumber'] ?? 'Chưa có SĐT'),
+                            _customeRow(
+                                image: AppIcons.calendar,
+                                titleOfImage:
+                                    formatBirthDate(userInfo!['birthDate'])),
+                            _customeRow(
+                                image: AppIcons.location,
+                                titleOfImage:
+                                    userInfo!['address'] ?? 'Chưa có địa chỉ'),
+                          ],
+                        ),
+                      ],
+                    ),
         ),
-        child: isLoading
-            ? Center(
-                child: CircularProgressIndicator()) // Hiển thị khi tải dữ liệu
-            : userInfo == null
-                ? Center(child: Text("Không có dữ liệu"))
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _customeRow(
-                              image: AppIcons.user1,
-                              titleOfImage:
-                                  userInfo!['fullName'] ?? 'Chưa có tên'),
-                          _customeRow(
-                              image: AppIcons.call,
-                              titleOfImage:
-                                  userInfo!['phoneNumber'] ?? 'Chưa có SĐT'),
-                          _customeRow(
-                              image: AppIcons.calendar,
-                              titleOfImage:
-                                  formatBirthDate(userInfo!['birthDate'])),
-                          _customeRow(
-                              image: AppIcons.location,
-                              titleOfImage:
-                                  userInfo!['address'] ?? 'Chưa có địa chỉ'),
-                        ],
-                      ),
-                    ],
-                  ),
       ),
     );
   }
