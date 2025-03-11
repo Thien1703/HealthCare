@@ -6,6 +6,7 @@ import 'package:health_care/views/widgets/widget_select_item.dart';
 import 'package:health_care/views/widgets/appointment/widget_customPricePayment.dart';
 import 'package:health_care/views/widgets/appointment/widget_customButton.dart';
 import 'package:health_care/views/widgets/widget_userProfile_card.dart';
+import 'package:health_care/views/screens/home/home_screens.dart';
 
 class PaymentMethodBooking extends StatefulWidget {
   const PaymentMethodBooking({super.key});
@@ -236,7 +237,8 @@ class BottomBar extends StatelessWidget {
       ),
       child: WidgetCustombutton(
         onTap: () {
-          // Logic for payment
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomeScreens()));
         },
         text: 'Thanh toán',
       ),

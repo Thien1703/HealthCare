@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:health_care/viewmodels/api/api_service.dart';
 import 'package:health_care/services/local_storage_service.dart';
 import 'package:health_care/models/appointment/appointment_service.dart';
+import 'package:health_care/models/appointment/appointmentCreate.dart';
 
 class AppointmentserviceApi {
   static Future<List<AppointmentService>?> getAllAppointmentService() async {
@@ -49,5 +50,53 @@ class AppointmentserviceApi {
     }
 
     return [];
+  }
+
+  //đặt lịch
+  static Future<bool> addServicesToAppointment(
+      int appointmentId, List<int> serviceIds) async {
+    final url =
+        Uri.parse('${ApiService.baseUrl}/appointment-service/create-multiple');
+    String? token = await LocalStorageService.getToken();
+
+    if (token == null) {
+      print("❌ Lỗi: Không tìm thấy token");
+      return false;
+    }
+
+    // Tạo object từ model
+    AddServiceRequest request = AddServiceRequest(
+      appointmentId: appointmentId,
+      serviceIds: serviceIds,
+    );
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode(request.toJson()),
+      );
+
+      print('📤 Gửi yêu cầu thêm dịch vụ: ${jsonEncode(request.toJson())}');
+      print('📩 Phản hồi API: ${response.body}');
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data['status'] == 0) {
+          print("✅ Thêm dịch vụ thành công!");
+          return true;
+        } else {
+          print("❌ Lỗi API: ${data['message']}");
+        }
+      } else {
+        print("❌ API trả về lỗi: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("⚠ Lỗi hệ thống: $e");
+    }
+    return false;
   }
 }

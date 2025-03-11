@@ -18,7 +18,12 @@ class ExamInfoBooking extends StatefulWidget {
     required this.onNavigateToScreen,
     required this.clinicId,
   });
-  final Function(int, String) onNavigateToScreen;
+
+  final void Function(int, String,
+      {int? clinicId,
+      List<int>? serviceIds,
+      String? date,
+      String? time}) onNavigateToScreen;
   final int clinicId;
 
   @override
@@ -27,6 +32,10 @@ class ExamInfoBooking extends StatefulWidget {
 
 class _ExamInfoBooking extends State<ExamInfoBooking> {
   Clinic? clinices;
+  List<int> selectedServiceId = [];
+  DateTime? selectedDate; // Thêm biến lưu ngày
+  String? selectedTime; // Thêm biến lưu giờ
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +51,24 @@ class _ExamInfoBooking extends State<ExamInfoBooking> {
     }
   }
 
+  void updateSelectedServices(List<int> serviceIds) {
+    setState(() {
+      selectedServiceId = serviceIds;
+    });
+  }
+
+  void updateSelectedDate(DateTime date) {
+    setState(() {
+      selectedDate = date;
+    });
+  }
+
+  void updateSelectedTime(String time) {
+    setState(() {
+      selectedTime = time;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,24 +80,34 @@ class _ExamInfoBooking extends State<ExamInfoBooking> {
             child: ListView(
               children: [
                 HospitalInfoWidget(
-                    nameHospital: clinices?.name ?? 'Đang tải',
-                    addressHospital: clinices?.address ?? "Đang tải"),
-                // SectionTitle(title: 'Chuyên khoa'),
-                // SpecialtySelector(),
+                  nameHospital: clinices?.name ?? 'Đang tải',
+                  addressHospital: clinices?.address ?? "Đang tải",
+                ),
                 SectionTitle(title: 'Dịch vụ'),
-                ServiceSelector(),
+                ServiceSelector(onServicesSelected: updateSelectedServices),
                 SectionTitle(title: 'Ngày khám'),
-                DateSelector(),
+                DateSelector(onDateSelected: updateSelectedDate),
                 SectionTitle(title: 'Giờ khám'),
-                TimeSelector(),
+                TimeSelector(onTimeSelected: updateSelectedTime),
               ],
             ),
           ),
           WidgetCustombutton(
-              onTap: () {
-                widget.onNavigateToScreen(1, 'Chọn hồ sơ');
-              },
-              text: 'Tiếp tục')
+            onTap: () {
+              print(
+                "Dữ liệu gửi sang ProfileBooking: clinicId = ${widget.clinicId}, dịch vụ: $selectedServiceId, ngày: $selectedDate, giờ: $selectedTime",
+              );
+              widget.onNavigateToScreen(
+                1,
+                'Chọn hồ sơ',
+                clinicId: widget.clinicId,
+                serviceIds: selectedServiceId,
+                date: DateFormat('yyyy-MM-dd').format(selectedDate!),
+                time: selectedTime!,
+              );
+            },
+            text: 'Tiếp tục',
+          ),
         ],
       ),
     );
@@ -97,31 +134,18 @@ class SectionTitle extends StatelessWidget {
   }
 }
 
-class SpecialtySelector extends StatelessWidget {
-  const SpecialtySelector({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SelectItemWidget(
-      image: AppIcons.specialty,
-      text: 'Chọn chuyên khoa',
-      // onTap: () => Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => SpecialtyScreen()),
-      // ),
-    );
-  }
-}
-
 class ServiceSelector extends StatefulWidget {
-  const ServiceSelector({super.key});
+  final Function(List<int>)
+      onServicesSelected; // Nhận callback để truyền lên ExamInfoBooking
+  const ServiceSelector({super.key, required this.onServicesSelected});
 
   @override
   State<ServiceSelector> createState() => _ServiceSelectorState();
 }
 
 class _ServiceSelectorState extends State<ServiceSelector> {
-  List<Service> selectedServices = []; // Lưu danh sách dịch vụ đã chọn
+  List<Service> selectedServices = [];
+  List<int> selectedServiceId = [];
 
   @override
   Widget build(BuildContext context) {
@@ -139,15 +163,18 @@ class _ServiceSelectorState extends State<ServiceSelector> {
               MaterialPageRoute(builder: (context) => ServicecartScreen()),
             );
 
-            if (result != null && result is List<Service>) {
+            if (result != null && result is Map<String, dynamic>) {
               setState(() {
-                selectedServices = result; // Cập nhật danh sách dịch vụ đã chọn
+                selectedServices =
+                    List<Service>.from(result['selectedServiceList']);
+                selectedServiceId = List<int>.from(result['selectedServiceId']);
               });
+
+              // Gọi callback để truyền dữ liệu lên ExamInfoBooking
+              widget.onServicesSelected(selectedServiceId);
             }
           },
         ),
-
-        // Hiển thị danh sách dịch vụ đã chọn
         if (selectedServices.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(top: 10),
@@ -167,16 +194,16 @@ class _ServiceSelectorState extends State<ServiceSelector> {
 }
 
 class DateSelector extends StatefulWidget {
-  const DateSelector({super.key});
+  final Function(DateTime) onDateSelected;
+  const DateSelector({super.key, required this.onDateSelected});
 
   @override
   State<DateSelector> createState() => _DateSelectorState();
 }
 
 class _DateSelectorState extends State<DateSelector> {
-  DateTime? _selectedDate; // Lưu ngày đã chọn
+  DateTime? _selectedDate;
 
-  // Hàm hiển thị bottom sheet chọn ngày
   void _showDatePicker(BuildContext context) async {
     final DateTime? pickedDate = await showModalBottomSheet<DateTime>(
       context: context,
@@ -187,6 +214,7 @@ class _DateSelectorState extends State<DateSelector> {
       setState(() {
         _selectedDate = pickedDate;
       });
+      widget.onDateSelected(pickedDate); // Truyền ngày lên ExamInfoBooking
     }
   }
 
@@ -195,16 +223,16 @@ class _DateSelectorState extends State<DateSelector> {
     return SelectItemWidget(
       image: AppIcons.calendar,
       text: _selectedDate != null
-          ? DateFormat('dd/MM/yyyy')
-              .format(_selectedDate!) // Hiển thị ngày đã chọn
-          : 'Chọn ngày khám', // Mặc định
+          ? DateFormat('dd/MM/yyyy').format(_selectedDate!)
+          : 'Chọn ngày khám',
       onTap: () => _showDatePicker(context),
     );
   }
 }
 
 class TimeSelector extends StatefulWidget {
-  const TimeSelector({super.key});
+  final Function(String) onTimeSelected;
+  const TimeSelector({super.key, required this.onTimeSelected});
 
   @override
   State<TimeSelector> createState() => _TimeSelectorState();
@@ -217,6 +245,7 @@ class _TimeSelectorState extends State<TimeSelector> {
     setState(() {
       selectedTime = time;
     });
+    widget.onTimeSelected(time); // Truyền giờ lên ExamInfoBooking
   }
 
   @override

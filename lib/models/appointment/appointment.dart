@@ -1,20 +1,22 @@
 class Appointment {
-  final int id;
+  final int?
+      id; // ID chỉ cần khi lấy dữ liệu từ API, không bắt buộc khi gửi lên
   final int clinicId;
   final int customerId;
   final String date;
   final String time;
-  final String status;
+  final String?
+      status; // status không cần khi gửi API, nhưng có khi nhận dữ liệu
   final int? paymentId;
 
   Appointment({
-    required this.id,
+    this.id, // ID có thể là null
     required this.clinicId,
     required this.customerId,
     required this.date,
     required this.time,
-    required this.status,
-    required this.paymentId,
+    this.status, // Status không cần khi gửi
+    this.paymentId,
   });
 
   // Chuyển đổi từ JSON sang Model
@@ -25,19 +27,25 @@ class Appointment {
       customerId: json['customerId'],
       date: json['date'],
       time: json['time'],
-      status: json['status'],
+      status: json['status'], // API sẽ trả về status (pending)
       paymentId: json['paymentId'],
     );
   }
 
-  // Chuyển đổi từ Model sang JSON
+  // Chuyển đổi từ Model sang JSON (dùng khi gửi API)
   Map<String, dynamic> toJson() {
-    return {
+    final Map<String, dynamic> data = {
       'clinicId': clinicId,
       'customerId': customerId,
       'date': date,
       'time': time,
-      'paymentId': paymentId,
     };
+
+    // Nếu paymentId không null thì thêm vào JSON
+    if (paymentId != null) {
+      data['paymentId'] = paymentId;
+    }
+
+    return data;
   }
 }
