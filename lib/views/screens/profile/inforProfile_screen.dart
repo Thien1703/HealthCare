@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/viewmodels/api/api_service.dart';
 import 'package:health_care/views/screens/profile/editProfile_screen.dart';
+import 'package:intl/intl.dart';
 
 class InforProfileScreen extends StatefulWidget {
   const InforProfileScreen({super.key});
@@ -27,6 +28,16 @@ class _InforProfileScreenState extends State<InforProfileScreen> {
         userData = data;
         isLoading = false;
       });
+    }
+  }
+
+  String formatBirthDate(String? birthDate) {
+    if (birthDate == null || birthDate.isEmpty) return 'Chưa cập nhật';
+    try {
+      DateTime dateTime = DateTime.parse(birthDate);
+      return DateFormat('dd/MM/yyyy').format(dateTime);
+    } catch (e) {
+      return 'Sai định dạng';
     }
   }
 
@@ -89,8 +100,9 @@ class _InforProfileScreenState extends State<InforProfileScreen> {
                         const SizedBox(height: 10),
                         _buildInfoRow('Họ và tên',
                             userData?['fullName'] ?? 'Chưa cập nhật'),
-                        _buildInfoRow('Ngày sinh',
-                            userData?['birthDate'] ?? 'Chưa cập nhật'),
+                        _buildInfoRow(
+                            'Ngày sinh',
+                            formatBirthDate(userData?['birthDate'])),
                         _buildInfoRow('Giới tính',
                             userData?['gender'] ?? 'Chưa cập nhật'),
                         _buildInfoRow(

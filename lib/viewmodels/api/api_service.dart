@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:health_care/services/local_storage_service.dart';
 import 'package:health_care/models/clinic.dart';
 import 'package:health_care/models/service.dart';
