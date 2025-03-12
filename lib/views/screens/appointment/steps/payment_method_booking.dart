@@ -5,7 +5,8 @@ import 'package:health_care/views/widgets/appointment/widget_hospital_info_card.
 import 'package:health_care/views/widgets/widget_select_item.dart';
 import 'package:health_care/views/widgets/appointment/widget_customPricePayment.dart';
 import 'package:health_care/views/widgets/appointment/widget_customButton.dart';
-import 'package:health_care/views/widgets/appointment/widget_infoPatient.dart';
+import 'package:health_care/views/widgets/widget_userProfile_card.dart';
+import 'package:health_care/views/screens/home/home_screens.dart';
 
 class PaymentMethodBooking extends StatefulWidget {
   const PaymentMethodBooking({super.key});
@@ -30,7 +31,7 @@ class _PaymentMethodBooking extends State<PaymentMethodBooking> {
                       'Số 1 Nơ Trang Long, Phường 7, Quận Bình Thạnh, TpHCM',
                 ),
                 SectionTitle(title: 'Thông tin bệnh nhân'),
-                PatientInfo(),
+                WidgetUserprofileCard(),
                 SectionTitle(title: 'Thông tin đặt khám'),
                 BookingInformation(
                   text1: 'Đông Y',
@@ -72,17 +73,17 @@ class SectionTitle extends StatelessWidget {
   }
 }
 
-class PatientInfo extends StatelessWidget {
-  const PatientInfo({super.key});
+// class PatientInfo extends StatelessWidget {
+//   const PatientInfo({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const WidgetInfoPatient(
-      image: AppIcons.user1,
-      text: 'Nguyễn Hữu Thiện ',
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return const WidgetInfoPatient(
+//       image: AppIcons.user1,
+//       text: 'Nguyễn Hữu Thiện ',
+//     );
+//   }
+// }
 
 class BookingInformation extends StatelessWidget {
   final String text1;
@@ -236,7 +237,8 @@ class BottomBar extends StatelessWidget {
       ),
       child: WidgetCustombutton(
         onTap: () {
-          // Logic for payment
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomeScreens()));
         },
         text: 'Thanh toán',
       ),

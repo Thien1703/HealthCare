@@ -20,6 +20,7 @@ class AppointmentScreen extends StatefulWidget {
 class _AppointmentScreen extends State<AppointmentScreen> {
   int _currentIndex = 0;
   String _showTitleScreen = 'Chọn thông tin khám';
+  int? customerId; // Thêm biến customerId
   late final List<Widget> _screens;
   late List<bool> _isSelected;
   @override
@@ -31,18 +32,64 @@ class _AppointmentScreen extends State<AppointmentScreen> {
         onNavigateToScreen: navigateToScreen,
         clinicId: widget.clinicId,
       ),
-      ProfileBooking(onNavigateToScreen: navigateToScreen),
-      ConfirmBooking(onNavigateToScreen: navigateToScreen),
+      ProfileBooking(
+        onNavigateToScreen: navigateToScreen,
+        clinicId: widget.clinicId,
+        selectedServiceId: [],
+        date: 'Chưa chọn ngày', // Giá trị mặc định
+        time: 'Chưa chọn giờ', // Giá trị mặc định
+      ),
+      ConfirmBooking(
+        onNavigateToScreen: navigateToScreen,
+        customerId: customerId ?? 0,
+        clinicId: widget.clinicId,
+        selectedServiceIds: [],
+        date: 'Chưa chọn ngày', // Giá trị mặc định
+        time: 'Chưa chọn giờ', // Giá trị mặc định
+        paymentId: 1,
+      ),
       PaymentMethodBooking(),
     ];
   }
 
-  void navigateToScreen(int index, String title) {
+  void navigateToScreen(
+    int index,
+    String title, {
+    int? clinicId,
+    String? date,
+    String? time,
+    List<int>? serviceIds,
+    int? customerId, // ✅ Thêm customerId
+    int? paymentId, // ✅ Thêm paymentId
+  }) {
     setState(() {
       _currentIndex = index;
       _showTitleScreen = title;
       for (int i = 0; i < _isSelected.length; i++) {
         _isSelected[i] = i <= index;
+      }
+
+      if (index == 1) {
+        _screens[index] = ProfileBooking(
+          onNavigateToScreen: navigateToScreen,
+          clinicId: clinicId ?? widget.clinicId,
+          selectedServiceId: serviceIds ?? [],
+          date: date ?? 'Chưa chọn ngày',
+          time: time ?? 'Chưa chọn giờ',
+          paymentId: paymentId ?? 1, // ✅ Lưu paymentId khi chọn hồ sơ
+        );
+      }
+
+      if (index == 2) {
+        _screens[index] = ConfirmBooking(
+          onNavigateToScreen: navigateToScreen,
+          customerId: customerId ?? this.customerId ?? 0,
+          clinicId: clinicId ?? widget.clinicId,
+          selectedServiceIds: serviceIds ?? [],
+          date: date ?? 'Chưa chọn ngày',
+          time: time ?? 'Chưa chọn giờ',
+          paymentId: paymentId ?? 1, // ✅ Đảm bảo truyền paymentId
+        );
       }
     });
   }

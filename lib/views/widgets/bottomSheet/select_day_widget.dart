@@ -35,9 +35,10 @@ class _SelectDayWidget extends State<SelectDayWidget> {
                   setState(() {
                     _selectedDay = selectedDay;
                     _focusedDay = focusedDay;
-                    _kinLichDays.add(selectedDay);
                   });
-                  Navigator.pop(context);
+                  Navigator.pop(context,
+                      _selectedDay); // Trả ngày đã chọn về DateSelector
+                  print(_selectedDay);
                 },
                 onPageChanged: (focusedDay) {
                   setState(() {

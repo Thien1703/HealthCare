@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/viewmodels/auth_viewmodel.dart';
 import 'package:health_care/views/widgets/widget_header_body.dart';
@@ -16,24 +18,19 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
-  // final TextEditingController _idCardController = TextEditingController();
-  // final TextEditingController _insuranceController = TextEditingController();
-  // final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
 
   String? selectedGender;
   bool isButtonEnabled = false;
+  File? _avatarFile; // Ảnh đại diện
 
   @override
   void initState() {
     super.initState();
     _nameController.addListener(_updateButtonState);
     _dobController.addListener(_updateButtonState);
-    // _idCardController.addListener(_updateButtonState);
-    // _insuranceController.addListener(_updateButtonState);
-    // _phoneController.addListener(_updateButtonState);
     _emailController.addListener(_updateButtonState);
     _addressController.addListener(_updateButtonState);
   }
@@ -42,34 +39,38 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() {
       isButtonEnabled = _nameController.text.isNotEmpty &&
           _dobController.text.isNotEmpty &&
-          // _idCardController.text.isNotEmpty &&
-          // _insuranceController.text.isNotEmpty &&
-          // _phoneController.text.isNotEmpty &&
           _emailController.text.isNotEmpty &&
           _addressController.text.isNotEmpty &&
-          selectedGender != null; // Kiểm tra giới tính
-          // selectedProvince != null; // Kiểm tra tỉnh/thành phố
+          selectedGender != null;
     });
   }
 
+  /// Chọn ảnh từ thư viện
+  // Future<void> _pickImage() async {
+  //   final ImagePicker picker = ImagePicker();
+  //   final XFile? pickedFile =
+  //       await picker.pickImage(source: ImageSource.gallery);
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       _avatarFile = File(pickedFile.path);
+  //     });
+  //     _updateButtonState();
+  //   }
+  // }
+
+  /// Cập nhật hồ sơ người dùng
   void _updateUserProfile(BuildContext context) {
     final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
 
-    // Lấy dữ liệu từ các trường nhập
     Map<String, dynamic> profileData = {
-      
       "fullName": _nameController.text.trim(),
       "birthDate": _dobController.text.trim(),
-      // "cccd": _idCardController.text.trim(),
-      // "bhyt": _insuranceController.text.trim(),
-      // "phoneNumber": _phoneController.text.trim(),
       "email": _emailController.text.trim(),
-      // "province": selectedProvince?.name, // Tên tỉnh/thành phố
       "address": _addressController.text.trim(),
-      "gender": selectedGender, // Nam / Nữ
+      "gender": selectedGender,
     };
-    // Gọi API cập nhật
-    authViewModel.updateProfile(context, profileData);
+
+    authViewModel.updateProfile(context, profileData, _avatarFile);
   }
 
   @override
@@ -84,6 +85,35 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Center(
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12.0),
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundImage: _avatarFile != null
+                              ? FileImage(_avatarFile!)
+                              : const AssetImage('assets/images/noavatar.png')
+                                  as ImageProvider,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: InkWell(
+                          // onTap: _pickImage,
+                          child: CircleAvatar(
+                            radius: 18,
+                            backgroundColor: Colors.white,
+                            child:
+                                Icon(Icons.camera_alt, color: AppColors.accent),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 _customTitle(title: 'Họ và tên'),
                 _customTextField(
                     controller: _nameController, labelText: 'Nhập họ và tên'),
@@ -118,30 +148,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                   ],
                 ),
-                // _customTitle(title: 'Mã định danh/CCCD'),
-                // _customTextField(
-                //     controller: _idCardController,
-                //     labelText: 'Vui lòng nhập Mã định danh/CCCD'),
-                // _customTitle(title: 'Mã bảo hiểm y tế'),
-                // _customTextField(
-                //     controller: _insuranceController,
-                //     labelText: 'Mã bảo hiểm y tế'),
-                // _customTitle(title: 'Số điện thoại'),
-                // _customTextField(
-                //     controller: _phoneController, labelText: '09xxxxxxxx'),
                 _customTitle(title: 'Email'),
                 _customTextField(
                     controller: _emailController, labelText: 'Email'),
-                // _customTitle(title: 'Tỉnh / TP'),
-                // WidgetSelectProvince(
-                //   initialProvince: selectedProvince,
-                //   onChanged: (Province province) {
-                //     setState(() {
-                //       selectedProvince = province;
-                //     });
-                //     _updateButtonState();
-                //   },
-                // ),
                 _customTitle(title: 'Địa chỉ'),
                 _customTextField(
                     controller: _addressController,

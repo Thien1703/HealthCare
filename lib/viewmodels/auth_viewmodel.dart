@@ -1,9 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:health_care/views/screens/auth/login/login_screen.dart';
 import '../services/local_storage_service.dart';
 import '../views/screens/home/home_screens.dart';
-import 'api_service.dart';
+import 'api/api_service.dart';
 
 class AuthViewModel with ChangeNotifier {
   /// Đăng nhập
@@ -81,7 +82,7 @@ class AuthViewModel with ChangeNotifier {
 
   /// Cập nhật hồ sơ
   Future<void> updateProfile(
-      BuildContext context, Map<String, dynamic> profileData) async {
+      BuildContext context, Map<String, dynamic> profileData, File? avatar) async {
     // 🔹 Lấy userId từ local storage
     int? userId = await LocalStorageService.getUserId();
 
@@ -131,6 +132,7 @@ class AuthViewModel with ChangeNotifier {
       );
     }
   }
+
 
   /// Đăng xuất
   Future<void> signOut(BuildContext context) async {

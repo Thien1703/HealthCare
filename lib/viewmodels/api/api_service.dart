@@ -5,7 +5,11 @@ import 'package:health_care/models/service.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
+<<<<<<< HEAD:lib/viewmodels/api_service.dart
   static const String baseUrl = 'http://192.168.1.5:8080';
+=======
+  static const String baseUrl = 'http://192.168.1.6:8080';
+>>>>>>> c14e7bd78d906934e7d00985243f8f10994f6bd8:lib/viewmodels/api/api_service.dart
 
   // Đăng nhập
   static Future<String?> login(String phoneNumber, String password) async {
@@ -23,8 +27,12 @@ class ApiService {
         await LocalStorageService.saveToken(token); // Lưu token
         return null; // Đăng nhập thành công
       } else {
-        return data['message']; // Trả về lỗi từ server
+        return data['message'] ?? "Lỗi không xác định từ server.";
       }
+    } else if (response.statusCode == 401) {
+      return "Mật khẩu hiện tại không đúng.";
+    } else if (response.statusCode == 404) {
+      return "Tài khoản không tồn tại.";
     } else {
       return "Lỗi máy chủ, vui lòng thử lại!";
     }
@@ -54,8 +62,8 @@ class ApiService {
       } else {
         return data['message']; // Lỗi từ server
       }
-    } else if (response.statusCode == 400) {
-      return data['message'] ?? "Tài khoản đã tồn tại, vui lòng đăng nhập.";
+    } else if (response.statusCode == 409) {
+      return "Tài khoản đã tồn tại";
     } else {
       return "Lỗi máy chủ, vui lòng thử lại!";
     }
@@ -157,6 +165,8 @@ class ApiService {
       final data = jsonDecode(response.body);
       if (data['status'] == 0) {
         int userId = data['data']['id']; // Lấy ID từ API
+        await LocalStorageService.saveUserId(
+            userId); // Lưu ID vào Local Storage
         await LocalStorageService.saveUserId(
             userId); // Lưu ID vào Local Storage
         return data['data']; // Trả về dữ liệu hồ sơ

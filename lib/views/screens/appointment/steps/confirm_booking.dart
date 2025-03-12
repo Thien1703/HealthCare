@@ -2,24 +2,85 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
 import 'package:health_care/views/widgets/appointment/widget_hospital_info_card.dart';
-import 'package:health_care/views/widgets/widget_selectCheckbox.dart';
 import 'package:health_care/views/widgets/appointment/widget_customPricePayment.dart';
 import 'package:health_care/views/widgets/appointment/widget_customButton.dart';
 import 'package:health_care/views/widgets/widget_lineBold.dart';
-import 'package:health_care/views/widgets/appointment/widget_infoPatient.dart';
+import 'package:health_care/views/widgets/widget_userProfile_card.dart';
+import 'package:health_care/models/appointment/appointment.dart';
+import 'package:health_care/viewmodels/api/appointment_api.dart';
+import 'package:health_care/models/appointment/appointmentCreate.dart';
+import 'package:health_care/viewmodels/api/appointmentService_api.dart';
 
 class ConfirmBooking extends StatefulWidget {
   const ConfirmBooking({
     super.key,
     required this.onNavigateToScreen,
+    required this.customerId,
+    required this.clinicId,
+    required this.selectedServiceIds,
+    required this.date,
+    required this.time,
+    required this.paymentId,
   });
+
   final Function(int, String) onNavigateToScreen;
+  final int customerId;
+  final int clinicId;
+  final List<int> selectedServiceIds;
+  final String date;
+  final String time;
+  final int paymentId;
 
   @override
-  State<ConfirmBooking> createState() => _ConfirmBooking();
+  State<ConfirmBooking> createState() => _ConfirmBookingState();
 }
 
-class _ConfirmBooking extends State<ConfirmBooking> {
+class _ConfirmBookingState extends State<ConfirmBooking> {
+  bool isLoading = false;
+
+  Future<void> _bookAppointment() async {
+    setState(() => isLoading = true);
+
+    // Gửi yêu cầu tạo lịch hẹn
+    Appointment newBooking = Appointment(
+      id: 0,
+      clinicId: widget.clinicId,
+      customerId: widget.customerId,
+      date: widget.date,
+      time: widget.time,
+      status: "pending",
+      paymentId: widget.paymentId,
+    );
+
+    int? appointmentId = await AppointmentApi.createAppointment(newBooking);
+
+    if (appointmentId == null) {
+      setState(() => isLoading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("❌ Đặt lịch thất bại, vui lòng thử lại!")),
+      );
+      return;
+    }
+    print("✅ Đã tạo lịch hẹn với ID: $appointmentId");
+
+    // Gửi yêu cầu thêm dịch vụ vào lịch hẹn
+    bool serviceAdded = await AppointmentserviceApi.addServicesToAppointment(
+      appointmentId,
+      widget.selectedServiceIds,
+    );
+
+    setState(() => isLoading = false);
+
+    if (serviceAdded) {
+      widget.onNavigateToScreen(3, 'Thông tin thanh toán');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text("❌ Thêm dịch vụ thất bại, vui lòng thử lại!")),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,35 +89,36 @@ class _ConfirmBooking extends State<ConfirmBooking> {
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
-              children: const [
-                HospitalInfoWidget(
+              children: [
+                Text('Customer ID: ${widget.customerId}'),
+                Text("Clinic ID: ${widget.clinicId}"),
+                Text("Dịch vụ đã chọn: ${widget.selectedServiceIds}"),
+                Text("Ngày khám: ${widget.date}"),
+                Text("Giờ khám: ${widget.time}"),
+                Text("Thanh toán: ${widget.paymentId}"),
+                const HospitalInfoWidget(
                   nameHospital: 'Bệnh viện nhân dân Gia Định',
                   addressHospital:
-                      'Số 1 Nơ Trang Long, Phường 7, Quận Bình Thạnh, TpHCM',
+                      'Số 1 Nơ Trang Long, P.7, Q.Bình Thạnh, Tp.HCM',
                 ),
-                SectionTitle(title: 'Thông tin bệnh nhân'),
-                Expanded(
-                  child: PatientInfo(),
-                ),
-                SectionTitle(title: 'Thông tin đặt khám'),
+                const SectionTitle(title: 'Thông tin bệnh nhân'),
+                const WidgetUserprofileCard(),
+                const SectionTitle(title: 'Thông tin đặt khám'),
                 BookingInformation(
                   text1: 'Đông Y',
                   text2: 'Khám Dịch Vụ Khu Vip',
-                  text3: '03/01/2025 (08:00 - 09:00)',
+                  text3: '${widget.date} (${widget.time})',
                   text4: '127,000đ',
                 ),
-                WidgetLineBold(),
-                AdditionalServicesTitle(),
-                WidgetSelectcheckbox(),
-                CancellationNotice(),
+                const WidgetLineBold(),
+                const CancellationNotice(),
               ],
             ),
           ),
         ),
         BottomBar(
-          onContinue: () {
-            widget.onNavigateToScreen(3, 'Thông tin thanh toán');
-          },
+          onContinue: isLoading ? null : _bookAppointment,
+          isLoading: isLoading,
         ),
       ],
     );
@@ -71,7 +133,7 @@ class SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 10, bottom: 5),
       child: Text(
         title,
         style: TextStyle(
@@ -80,18 +142,6 @@ class SectionTitle extends StatelessWidget {
           color: AppColors.neutralDarkGreen1,
         ),
       ),
-    );
-  }
-}
-
-class PatientInfo extends StatelessWidget {
-  const PatientInfo({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const WidgetInfoPatient(
-      image: AppIcons.user1,
-      text: 'Nguyễn Hữu Thiện ',
     );
   }
 }
@@ -170,28 +220,6 @@ class BookingInfoRow extends StatelessWidget {
   }
 }
 
-class AdditionalServicesTitle extends StatelessWidget {
-  const AdditionalServicesTitle({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        SectionTitle(title: 'Dịch vụ đặt thêm (Không bắt buộc)'),
-        Text(
-          'Xét nghiệm tại nhà, tư vấn dinh dưỡng, chăm sóc sức khỏe,...',
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-            color: AppColors.neutralGrey3,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class CancellationNotice extends StatelessWidget {
   const CancellationNotice({super.key});
 
@@ -226,9 +254,11 @@ class CancellationNotice extends StatelessWidget {
 }
 
 class BottomBar extends StatelessWidget {
-  final VoidCallback onContinue;
+  final VoidCallback? onContinue;
+  final bool isLoading;
 
-  const BottomBar({super.key, required this.onContinue});
+  const BottomBar(
+      {super.key, required this.onContinue, required this.isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -243,15 +273,16 @@ class BottomBar extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: const WidgetCustompricepayment(),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: WidgetCustompricepayment(),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: WidgetCustombutton(
               onTap: onContinue,
-              text: 'Tiếp tục',
+              text: isLoading ? 'Đang xử lý...' : 'Tiếp tục',
+              isLoading: isLoading,
             ),
           ),
         ],
