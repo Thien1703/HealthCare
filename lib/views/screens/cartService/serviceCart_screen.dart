@@ -3,8 +3,8 @@ import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/models/service.dart';
 import 'package:health_care/models/specialty.dart';
 import 'package:health_care/viewmodels/api/api_service.dart';
+import 'package:health_care/views/widgets/widget_header_body.dart';
 import 'package:health_care/viewmodels/api/specialty_api.dart';
-import 'package:health_care/views/widgets/widget_header_body_scoller.dart';
 import 'package:intl/intl.dart';
 
 class ServicecartScreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class ServicecartScreen extends StatefulWidget {
 class _ServicecartScreenState extends State<ServicecartScreen> {
   List<Service> services = [];
   Map<String, List<Service>> groupedServices = {};
-  Set<int> selectedService = {};
+  Set<int> selectedService = {}; // Giữ ID các dịch vụ đã chọn
   double totalPrice = 0.0;
 
   @override
@@ -55,9 +55,9 @@ class _ServicecartScreenState extends State<ServicecartScreen> {
   void toggleServiceSelection(int serviceId) {
     setState(() {
       if (selectedService.contains(serviceId)) {
-        selectedService.remove(serviceId);
+        selectedService.remove(serviceId); // Bỏ chọn dịch vụ
       } else {
-        selectedService.add(serviceId);
+        selectedService.add(serviceId); // Chọn dịch vụ
       }
       updateTotalPrice();
     });
@@ -78,112 +78,246 @@ class _ServicecartScreenState extends State<ServicecartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WidgetHeaderBody(
+      iconBack: true,
+      title: 'Dịch vụ',
       body: Column(
         children: [
           Expanded(
-            child: WidgetHeaderBodyScoller(
-              iconBack: true,
-              title: 'Chọn dịch vụ',
-              body: SingleChildScrollView(
+            child: SingleChildScrollView(
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      const Color.fromARGB(255, 37, 135, 162),
+                      Colors.white,
+                      const Color.fromARGB(255, 37, 135, 162),
+                      Colors.white,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
                 child: Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          groupedServices.isNotEmpty
-                              ? Column(
-                                  children:
-                                      groupedServices.entries.map((entry) {
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 10, bottom: 5),
-                                          child: Text(
-                                            entry.key,
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.accent,
-                                            ),
-                                          ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: groupedServices.isNotEmpty
+                          ? Column(
+                              children: groupedServices.entries.map((entry) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 5),
+                                      child: Text(
+                                        entry.key,
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.neutralDarkGreen1,
                                         ),
-                                        GridView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
-                                          gridDelegate:
-                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 2,
-                                            crossAxisSpacing: 8,
-                                            mainAxisSpacing: 8,
+                                      ),
+                                    ),
+                                    GridView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 1,
+                                        mainAxisSpacing: 2,
+                                        childAspectRatio: 0.67,
+                                      ),
+                                      itemCount: entry.value.length,
+                                      itemBuilder: (context, index) {
+                                        final service = entry.value[index];
+
+                                        return Card(
+                                          elevation: 6,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
                                           ),
-                                          itemCount: entry.value.length,
-                                          itemBuilder: (context, index) {
-                                            final service = entry.value[index];
-                                            return Container(
-                                              width:
-                                                  100, // Tăng chiều dài theo hướng ngang
-                                              height:
-                                                  400, // Tăng chiều dài theo hướng dọc
-                                              padding: EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                  color: Colors.black,
-                                                  width: 1,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(service.name,
+                                          color: Colors.white,
+                                          child: Padding(
+                                            padding: EdgeInsets.all(6),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                service.image != null &&
+                                                        service
+                                                            .image!.isNotEmpty
+                                                    ? ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  16),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  16),
+                                                          bottomLeft:
+                                                              Radius.zero,
+                                                          bottomRight:
+                                                              Radius.zero,
+                                                        ),
+                                                        child: Image.network(
+                                                          service.image! ?? '',
+                                                          height: 120,
+                                                          width:
+                                                              double.infinity,
+                                                          fit: BoxFit.cover,
+                                                          errorBuilder:
+                                                              (context, error,
+                                                                  stackTrace) {
+                                                            return ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        16),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        16),
+                                                                bottomLeft:
+                                                                    Radius.zero,
+                                                                bottomRight:
+                                                                    Radius.zero,
+                                                              ),
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/images/avt.png',
+                                                                height: 120,
+                                                                width: double
+                                                                    .infinity,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      )
+                                                    : ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  16),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  16),
+                                                          bottomLeft:
+                                                              Radius.zero,
+                                                          bottomRight:
+                                                              Radius.zero,
+                                                        ),
+                                                        child: Image.asset(
+                                                          'assets/images/avt.png',
+                                                          height: 120,
+                                                          width:
+                                                              double.infinity,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                SizedBox(height: 5),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      service.name,
                                                       style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold)),
-                                                  Text(service.formattedPrice,
-                                                      style: TextStyle(
-                                                          color: Colors.green)),
-                                                  OutlinedButton(
-                                                    onPressed: () =>
-                                                        toggleServiceSelection(
-                                                            service.id),
-                                                    style: OutlinedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 15,
+                                                        color: Colors.black87,
+                                                      ),
+                                                      softWrap: true,
+                                                    ),
+                                                    SizedBox(height: 10),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Icon(
+                                                            Icons
+                                                                .monetization_on,
+                                                            size: 20,
+                                                            color:
+                                                                Colors.yellow),
+                                                        SizedBox(
+                                                          width: 3,
+                                                        ),
+                                                        Text(
+                                                          service
+                                                              .formattedPrice,
+                                                          style: TextStyle(
+                                                            color: const Color
+                                                                .fromARGB(255,
+                                                                32, 32, 32),
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 16,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 4,
+                                                    ),
+                                                    Center(
+                                                      child: OutlinedButton(
+                                                        onPressed: selectedService
+                                                                .contains(
+                                                                    service.id)
+                                                            ? null
+                                                            : () =>
+                                                                toggleServiceSelection(
+                                                                    service.id),
+                                                        style: OutlinedButton
+                                                            .styleFrom(
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .blue),
+                                                        child: Text(
                                                           selectedService
                                                                   .contains(
                                                                       service
                                                                           .id)
-                                                              ? Colors.green
-                                                              : Colors.blue,
+                                                              ? 'Đã thêm'
+                                                              : 'Thêm dịch vụ',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      ),
                                                     ),
-                                                    child: Text('Thêm dịch vụ'),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  }).toList(),
-                                )
-                              : Center(child: Text('Không có dịch vụ')),
-                        ],
-                      ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                );
+                              }).toList(),
+                            )
+                          : Center(child: Text('Không có dịch vụ')),
                     ),
                   ],
                 ),
               ),
             ),
           ),
+
+          // Thanh thông tin giỏ hàng
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(15),
@@ -191,36 +325,63 @@ class _ServicecartScreenState extends State<ServicecartScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Đã chọn ${selectedService.length} dịch vụ'),
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('Tổng thanh toán'),
-                        Text(formatCurrency(totalPrice)),
-                      ],
+                    SizedBox(height: 5),
+                    Text(
+                      'Tổng thanh toán',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Color(0xFF4C4C4C),
+                      ),
                     ),
-                    OutlinedButton(
-                      onPressed: () {
-                        List<Service> selectedServiceList = services
-                            .where((service) =>
-                                selectedService.contains(service.id))
-                            .toList();
-                        List<int> selectedServiceId = selectedService.toList();
-                        print(selectedService);
-                        Navigator.pop(context, {
-                          'selectedServiceList': selectedServiceList,
-                          'selectedServiceId': selectedServiceId,
-                        });
-                      },
-                      child: Text('Xong'),
+                    SizedBox(height: 5),
+                    Text(
+                      formatCurrency(
+                          totalPrice), // Đảm bảo phương thức formatCurrency() đã được định nghĩa
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: const Color.fromARGB(255, 15, 149, 169),
+                      ),
                     ),
                   ],
-                )
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    List<Service> selectedServiceList = services
+                        .where(
+                            (service) => selectedService.contains(service.id))
+                        .toList();
+                    List<int> selectedServiceId = selectedService.toList();
+                    Navigator.pop(context, {
+                      'selectedServiceList': selectedServiceList,
+                      'selectedServiceId': selectedServiceId,
+                    });
+                  },
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.blue, // Màu nền nút
+                    side: BorderSide(color: Colors.blue), // Viền của nút
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30), // Bo tròn nút
+                    ),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 12), // Padding để nút lớn hơn
+                  ),
+                  child: Text(
+                    'XONG',
+                    style: TextStyle(
+                      color: Colors.white, // Màu chữ trắng
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
               ],
             ),
-          ),
+          )
         ],
       ),
     );

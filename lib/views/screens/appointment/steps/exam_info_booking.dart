@@ -72,43 +72,58 @@ class _ExamInfoBooking extends State<ExamInfoBooking> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 25),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: ListView(
-              children: [
-                HospitalInfoWidget(
-                  nameHospital: clinices?.name ?? 'Đang tải',
-                  addressHospital: clinices?.address ?? "Đang tải",
-                ),
-                SectionTitle(title: 'Dịch vụ'),
-                ServiceSelector(onServicesSelected: updateSelectedServices),
-                SectionTitle(title: 'Ngày khám'),
-                DateSelector(onDateSelected: updateSelectedDate),
-                SectionTitle(title: 'Giờ khám'),
-                TimeSelector(onTimeSelected: updateSelectedTime),
-              ],
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            const Color.fromARGB(255, 37, 135, 162),
+            Colors.white,
+            const Color.fromARGB(255, 37, 135, 162),
+            Colors.white,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: ListView(
+                children: [
+                  HospitalInfoWidget(
+                    nameHospital: clinices?.name ?? 'Đang tải',
+                    addressHospital: clinices?.address ?? "Đang tải",
+                  ),
+                  SectionTitle(title: 'Dịch vụ'),
+                  ServiceSelector(onServicesSelected: updateSelectedServices),
+                  SectionTitle(title: 'Ngày khám'),
+                  DateSelector(onDateSelected: updateSelectedDate),
+                  SectionTitle(title: 'Giờ khám'),
+                  TimeSelector(onTimeSelected: updateSelectedTime),
+                ],
+              ),
             ),
-          ),
-          WidgetCustombutton(
-            onTap: () {
-              print(
-                "Dữ liệu gửi sang ProfileBooking: clinicId = ${widget.clinicId}, dịch vụ: $selectedServiceId, ngày: $selectedDate, giờ: $selectedTime",
-              );
-              widget.onNavigateToScreen(
-                1,
-                'Chọn hồ sơ',
-                clinicId: widget.clinicId,
-                serviceIds: selectedServiceId,
-                date: DateFormat('yyyy-MM-dd').format(selectedDate!),
-                time: selectedTime!,
-              );
-            },
-            text: 'Tiếp tục',
-          ),
-        ],
+            WidgetCustombutton(
+              onTap: () {
+                print(
+                  "Dữ liệu gửi sang ProfileBooking: clinicId = ${widget.clinicId}, dịch vụ: $selectedServiceId, ngày: $selectedDate, giờ: $selectedTime",
+                );
+                widget.onNavigateToScreen(
+                  1,
+                  'Chọn hồ sơ',
+                  clinicId: widget.clinicId,
+                  serviceIds: selectedServiceId,
+                  date: DateFormat('yyyy-MM-dd').format(selectedDate!),
+                  time: selectedTime!,
+                );
+              },
+              text: ('TIẾP TỤC'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -125,9 +140,9 @@ class SectionTitle extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
-          fontSize: 18,
+          fontSize: 23,
           fontWeight: FontWeight.bold,
-          color: AppColors.neutralDarkGreen1,
+          color: const Color.fromARGB(255, 26, 27, 26),
         ),
       ),
     );
@@ -146,7 +161,7 @@ class ServiceSelector extends StatefulWidget {
 class _ServiceSelectorState extends State<ServiceSelector> {
   List<Service> selectedServices = [];
   List<int> selectedServiceId = [];
-
+  
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -181,10 +196,28 @@ class _ServiceSelectorState extends State<ServiceSelector> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ...selectedServices.map((service) => Text(
-                      "- ${service.name}",
-                      style: TextStyle(fontSize: 14, color: Colors.black),
-                    )),
+                ...selectedServices.map((service) => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${service.name}",
+                          style: TextStyle(fontSize: 14, color: Colors.black),
+                        ),
+                        SizedBox(width: 10),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.monetization_on,
+                                size: 20, color: Colors.yellow),
+                            Text(
+                              " ${service.formattedPrice}",
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ))
               ],
             ),
           ),

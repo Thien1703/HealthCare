@@ -13,6 +13,7 @@ class ExaminationScreen extends StatefulWidget {
 
 class _ExaminationScreenState extends State<ExaminationScreen> {
   List<AppointmentService>? appointmentServices;
+
   @override
   void initState() {
     super.initState();
@@ -32,7 +33,7 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
     return WidgetHeaderBody(
       iconBack: false,
       title: 'Danh sách phiếu khám',
-      body: Container(
+      body: SingleChildScrollView( // Wrap the column with SingleChildScrollView
         child: Column(
           children: [
             appointmentServices != null
@@ -58,7 +59,7 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
                   )
                 : Center(
                     child: Text('Không có data'),
-                  )
+                  ),
           ],
         ),
       ),

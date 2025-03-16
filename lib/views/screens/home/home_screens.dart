@@ -49,7 +49,7 @@ class _HomeScreensState extends State<HomeScreens> {
                     ? AssetImage(AppIcons.homeIcon)
                     : AssetImage(AppIcons.homeIconBlack),
                 color: _selectedIndex == 0
-                    ? AppColors.accent
+                    ? Colors.blue
                     : const Color.fromARGB(255, 169, 169, 169),
               ),
               title: 'Trang chủ',
@@ -60,7 +60,7 @@ class _HomeScreensState extends State<HomeScreens> {
                     ? AssetImage(AppIcons.bookingIconBlack)
                     : AssetImage(AppIcons.bookingIcon),
                 color: _selectedIndex == 1
-                    ? AppColors.accent
+                    ? Colors.blue
                     : const Color.fromARGB(255, 169, 169, 169),
               ),
               title: 'Đặt khám',
@@ -71,7 +71,7 @@ class _HomeScreensState extends State<HomeScreens> {
                     ? AssetImage(AppIcons.scheduleIcon)
                     : AssetImage(AppIcons.scheduleIconBlack),
                 color: _selectedIndex == 2
-                    ? AppColors.accent
+                    ? Colors.blue
                     : const Color.fromARGB(255, 169, 169, 169),
               ),
               title: 'Lịch khám',
@@ -82,7 +82,7 @@ class _HomeScreensState extends State<HomeScreens> {
                     ? AssetImage(AppIcons.notificationIcon)
                     : AssetImage(AppIcons.notificationIconBlack),
                 color: _selectedIndex == 3
-                    ? AppColors.accent
+                    ? Colors.blue
                     : AppColors.neutralDarkGreen2,
               ),
               title: 'Thông báo',
@@ -93,7 +93,7 @@ class _HomeScreensState extends State<HomeScreens> {
                     ? AssetImage(AppIcons.userIcon)
                     : AssetImage(AppIcons.userIconBlack),
                 color: _selectedIndex == 4
-                    ? AppColors.accent
+                    ? Colors.blue
                     : AppColors.neutralDarkGreen2,
               ),
               title: 'Tài khoản',
@@ -101,7 +101,7 @@ class _HomeScreensState extends State<HomeScreens> {
           ],
           style: TabStyle.react,
           backgroundColor: Colors.white,
-          activeColor: AppColors.accent,
+          activeColor: Colors.blue,
           color: AppColors.neutralDarkGreen2,
           initialActiveIndex: _selectedIndex,
           onTap: (index) {

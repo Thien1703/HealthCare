@@ -44,29 +44,59 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  @override
+@override
   Widget build(BuildContext context) {
+    // Get the screen width and height using MediaQuery
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      backgroundColor: Colors.green,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              'assets/images/healthcare.png',
-              width: 148,
-              height: 148,
-            ),
-            const SizedBox(height: 20.0),
-            const Text(
-              'HEALTH CARE',
-              style: TextStyle(
-                fontSize: 24.0,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+      body: Container(
+        height: screenHeight,
+        width: screenWidth,
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              const Color.fromARGB(255, 37, 135, 162),
+              Colors.white,
+              const Color.fromARGB(255, 37, 135, 162),
+              Colors.white,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              CircleAvatar(
+                    radius: 75,
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        Colors.blue,
+                        BlendMode.srcATop,
+                      ),
+                      child: Image.asset(
+                        'assets/images/healthcaregreen.png',
+                        width: screenWidth * 2,
+                        height: screenHeight * 2,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+              const SizedBox(height: 20.0),
+              const Text(
+                'HEALTH CARE',
+                style: TextStyle(
+                  fontSize: 24.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

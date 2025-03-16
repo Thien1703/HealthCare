@@ -6,7 +6,7 @@ class Service {
   final int specialtyId;
   final String name;
   final String description;
-  final double price;
+  final int price;
   final String? image;
   final int? reviewCount;
   final double? rating;
@@ -31,7 +31,7 @@ class Service {
       specialtyId: json['specialtyId'],
       name: utf8.decode(json['name'].runes.toList()),
       description: utf8.decode(json['description'].runes.toList()),
-      price: json['price'].toDouble(),
+      price: json['price'].toInt(),
       image: json['image'],
       reviewCount: json['reviewCount'],
       rating: json['rating'] != null ? json['rating'].toDouble() : null,

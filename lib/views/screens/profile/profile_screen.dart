@@ -51,17 +51,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
             width: double.infinity,
             height: screenHeight / 3,
             padding: const EdgeInsets.all(20),
+            // decoration: BoxDecoration(
+            //   color: const Color.fromARGB(255, 105, 154, 107),
+            //   borderRadius: const BorderRadius.only(
+            //     bottomLeft: Radius.circular(25),
+            //     bottomRight: Radius.circular(25),
+            //   ),
+            //   boxShadow: [
+            //     BoxShadow(
+            //       color: Colors.black,
+            //       blurRadius: 10,
+            //       spreadRadius: 2,
+            //     ),
+            //   ],
+            // ),
             decoration: BoxDecoration(
-              color: Colors.green,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(25),
-                bottomRight: Radius.circular(25),
+              gradient: LinearGradient(
+                colors: [
+                  const Color.fromARGB(255, 37, 135, 162),
+                  const Color.fromARGB(255, 201, 231, 235),
+                  const Color.fromARGB(255, 37, 135, 162),
+                  const Color.fromARGB(255, 201, 231, 235),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(60),
+                bottomRight: Radius.circular(60),
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black,
-                  blurRadius: 10,
-                  spreadRadius: 2,
+                  color: const Color.fromARGB(255, 185, 185, 185),
+                  blurRadius: 16,
+                  spreadRadius: 4,
                 ),
               ],
             ),
@@ -80,6 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               radius: 50,
                               backgroundImage:
                                   AssetImage('assets/images/avt.png'),
+                            
                             ),
                             const SizedBox(height: 10),
                             Text(
@@ -93,12 +117,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             const SizedBox(height: 5),
                             OutlinedButton(
                               onPressed: () async {
-                                final authViewModel =
-                                    Provider.of<AuthViewModel>(
-                                  context,
-                                  listen: false,
+                                bool? shouldSignOut = await showDialog<bool>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      content: const Text(
+                                          'Đăng xuất khỏi tài khoản của bạn?'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(false);
+                                          },
+                                          child: const Text('HỦY'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(true);
+                                          },
+                                          child: const Text('ĐĂNG XUẤT'),
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 );
-                                await authViewModel.signOut(context);
+
+                                if (shouldSignOut ?? false) {
+                                  final authViewModel =
+                                      Provider.of<AuthViewModel>(
+                                    context,
+                                    listen: false,
+                                  );
+                                  await authViewModel.signOut(context);
+                                }
                               },
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: Colors.white,
@@ -108,7 +158,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ),
                               child: const Text('Đăng xuất'),
-                            ),
+                            )
                           ],
                         ),
             ),
@@ -165,7 +215,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ListTile(
-        leading: Icon(icon, color: Colors.green),
+        leading: Icon(icon, color: const Color.fromARGB(255, 37, 135, 162)),
         title: Text(text),
         onTap: onTap,
       ),

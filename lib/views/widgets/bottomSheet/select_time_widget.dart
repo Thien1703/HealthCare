@@ -19,7 +19,7 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
     return HeaderBottomSheet(
       title: 'Chọn giờ khám',
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -68,7 +68,7 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
       child: Text(
         label,
         style: TextStyle(
-          fontSize: 17,
+          fontSize: 19,
           fontWeight: FontWeight.w700,
           color: AppColors.neutralBlack,
         ),
@@ -87,22 +87,24 @@ class _SelectTimeWidgetState extends State<SelectTimeWidget> {
         Navigator.pop(context);
       },
       child: Card(
-        elevation: 5,
+  elevation: 5,
+  color: selectedTime == valueTime
+      ? Colors.blue // Nền xanh khi chọn thời gian
+      : const Color.fromARGB(255, 151, 190, 223), // Màu nền mặc định
+  child: Padding(
+    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+    child: Text(
+      valueTime,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w500,
         color: selectedTime == valueTime
-            ? AppColors.secondary1
-            : AppColors.primary,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 13, vertical: 10),
-          child: Text(
-            valueTime,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: AppColors.neutralDarkGreen2,
-            ),
-          ),
-        ),
+            ? const Color.fromARGB(255, 38, 63, 173) // Chữ trắng khi chọn thời gian
+            : Colors.white // Chữ màu khác khi không chọn
       ),
+    ),
+  ),
+)
     );
   }
 }

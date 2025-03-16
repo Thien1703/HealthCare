@@ -128,10 +128,11 @@ class _InforProfileScreenState extends State<InforProfileScreen> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              backgroundColor: Colors.green,
+                              backgroundColor: Color.fromARGB(255, 21, 91, 110),
+
                               foregroundColor: Colors.white,
                             ),
-                            child: const Text('Chỉnh sửa'),
+                            child: const Text('Chỉnh sửa',style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                           ),
                         ),
                       ],

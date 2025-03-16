@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/viewmodels/api/api_service.dart';
 import 'package:health_care/models/specialty.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:health_care/views/screens/BMI/measureBMI_Screen.dart';
 import 'package:health_care/views/screens/home/service_screen.dart';
 import 'package:health_care/viewmodels/api/specialty_api.dart';
@@ -27,9 +28,16 @@ class _HomePage extends State<HomePage> {
       specialties = data;
     });
   }
+  List<String> imgList = [
+    'assets/images/slide1.jpg',
+    'assets/images/slide2.jpg',
+    'assets/images/slide3.jpg',
+   
+  ];
 
   @override
   Widget build(BuildContext context) {
+    // bool isWideScreen = MediaQuery.of(context).size.width > 600;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -37,9 +45,9 @@ class _HomePage extends State<HomePage> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                AppColors.accent,
+                const Color.fromARGB(255, 37, 135, 162),
                 Colors.white,
-                AppColors.accent,
+                const Color.fromARGB(255, 37, 135, 162),
                 Colors.white,
               ],
               begin: Alignment.topCenter,
@@ -55,9 +63,15 @@ class _HomePage extends State<HomePage> {
                   children: [
                     CircleAvatar(
                       radius: 25,
-                      child: Image.asset(
-                        'assets/images/healthcaregreen.png',
-                        width: 70,
+                      child: ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                          Colors.blue, // Thay đổi màu thành màu xanh
+                          BlendMode.srcATop, // Chọn chế độ pha trộn
+                        ),
+                        child: Image.asset(
+                          'assets/images/healthcaregreen.png',
+                          width: 70,
+                        ),
                       ),
                     ),
                     SizedBox(width: 10),
@@ -88,7 +102,7 @@ class _HomePage extends State<HomePage> {
                     children: const [
                       Text('Tìm kiếm chuyên khoa/dịch vụ',
                           style: TextStyle(color: Colors.black54)),
-                      Icon(Icons.search, color: AppColors.accent),
+                      Icon(Icons.search, color: Colors.blue),
                     ],
                   ),
                 ),
@@ -117,23 +131,49 @@ class _HomePage extends State<HomePage> {
                       }),
                     ],
                   ),
+                  
                 ),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 200.0,
+                    autoPlay: true,
+                    // enlargeCenterPage: true,
+                    aspectRatio: 14 / 9,
+                    viewportFraction: 1.0,
+                  ),
+                  items: imgList.map((item) => Container(
+                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.asset(item, fit: BoxFit.fill,), 
+                    ),
+                  )).toList(),
+                ),
+               
 
-                // Tiêu đề Chuyên khoa
+                
                 Text(
                   'Chuyên khoa',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.accent,
+                    color: const Color.fromARGB(255, 75, 75, 75),
                   ),
                 ),
 
-                // Danh sách chuyên khoa
+                
                 specialties != null
-                    ? ListView.builder(
+                  ? Container(
+                      height: 300, 
+                      child: GridView.builder(
+                        scrollDirection: Axis.horizontal, 
                         shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
+                         physics: const BouncingScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, 
+                          crossAxisSpacing: 10, 
+                          mainAxisSpacing: 10, 
+                        ),
                         itemCount: specialties!.length,
                         itemBuilder: (context, index) {
                           final specialty = specialties![index];
@@ -143,9 +183,8 @@ class _HomePage extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ServiceScreen(
-                                    specialtyId: specialty.id,
-                                  ),
+                                  builder: (context) =>
+                                      ServiceScreen(specialtyId: specialty.id),
                                 ),
                               );
                             },
@@ -154,40 +193,47 @@ class _HomePage extends State<HomePage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: ListTile(
-                                contentPadding: const EdgeInsets.all(10),
-                                leading: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                      specialty.image ??
-                                          'https://example.com/default-image.png',
-                                      width: 50,
-                                      height: 50,
-                                      fit: BoxFit.cover),
-                                ),
-                                title: Text(
-                                  specialty.name,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.blue.shade800,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // Hình vuông với nền trắng
+                                  Container(
+                                    width: 90, // Đặt chiều rộng cho hình vuông
+                                    height: 90, // Đặt chiều cao cho hình vuông
+                                    color: Colors.white, // Nền trắng
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(
+                                        specialty.image ??
+                                            'https://example.com/default-image.png',
+                                        width: 70, // Chiều rộng
+                                        height: 70, // Chiều cao
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                subtitle: Text(
-                                  specialty.description,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black54,
+                                  SizedBox(height: 8), // Khoảng cách giữa hình ảnh và chữ
+                                  // Tên chuyên khoa
+                                  Text(
+                                    specialty.name,
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blue.shade800,
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
                           );
                         },
-                      )
-                    : const Center(
-                        child: CircularProgressIndicator(),
                       ),
-              ],
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+              ]
             ),
           ),
         ),
@@ -201,15 +247,16 @@ class _HomePage extends State<HomePage> {
       onTap: onTap,
       child: Column(
         children: [
-          CircleAvatar(
+          CircleAvatar( 
             radius: 25,
-            backgroundColor: const Color.fromARGB(255, 178, 232, 181),
-            child: Icon(icon, color: AppColors.accent),
+            backgroundColor: const Color.fromARGB(255, 37, 135, 162),
+            child: Icon(icon, color: const Color.fromARGB(255, 255, 255, 255)),
           ),
           const SizedBox(height: 5),
           Text(
             text,
-            style: TextStyle(fontSize: 12, color: AppColors.accent),
+            style: TextStyle(
+                fontSize: 12, color: const Color.fromARGB(255, 27, 137, 154)),
           ),
         ],
       ),

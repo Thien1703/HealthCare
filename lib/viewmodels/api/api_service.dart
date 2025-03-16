@@ -5,11 +5,8 @@ import 'package:health_care/models/service.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-<<<<<<< HEAD:lib/viewmodels/api_service.dart
-  static const String baseUrl = 'http://192.168.1.5:8080';
-=======
-  static const String baseUrl = 'http://192.168.1.6:8080';
->>>>>>> c14e7bd78d906934e7d00985243f8f10994f6bd8:lib/viewmodels/api/api_service.dart
+
+  static const String baseUrl = 'http://192.168.1.7:8080';
 
   // Đăng nhập
   static Future<String?> login(String phoneNumber, String password) async {

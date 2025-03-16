@@ -37,207 +37,235 @@ class _ServiceScreen extends State<ServiceScreen> {
       iconBack: true,
       title: 'Dịch vụ',
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              // Phần hộp tìm kiếm
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 15),
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 15),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: AppColors.accent,
-                    width: 1.5,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Tìm kiếm chuyên khoa/dịch vụ',
-                      style: TextStyle(color: Colors.black54, fontSize: 14),
-                    ),
-                    Icon(Icons.search, color: AppColors.accent),
-                  ],
-                ),
-              ),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                const Color.fromARGB(255, 37, 135, 162),
+                Colors.white,
+                const Color.fromARGB(255, 37, 135, 162),
+                Colors.white,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 17),
+            child: Column(
+              children: [
+                
+                // Container(
+                //   margin: EdgeInsets.symmetric(vertical: 15),
+                //   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                //   decoration: BoxDecoration(
+                //     color: Colors.white,
+                //     borderRadius: BorderRadius.circular(12),
+                //     border: Border.all(
+                //       color: const Color.fromARGB(255, 37, 135, 162),
+                //       width: 1.5,
+                //     ),
+                //   ),
+                  // child: Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text(
+                  //       'Tìm kiếm chuyên khoa/dịch vụ',
+                  //       style: TextStyle(color: Colors.black54, fontSize: 14),
+                  //     ),
+                  //     Icon(Icons.search, color: Colors.blue),
+                  //   ],
+                  // ),
+                // ),
 
-              // Hiển thị danh sách dịch vụ
-              services.isEmpty
-                  ? Center(child: Text('Chưa có dịch vụ này'))
-                  : GridView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 8,
-                        childAspectRatio: 0.76,
-                      ),
-                      itemCount: services.length,
-                      itemBuilder: (context, index) {
-                        final service = services[index];
-                        return Card(
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          color: Colors.white,
-                          child: Padding(
-                            padding: EdgeInsets.all(6),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Hình ảnh dịch vụ
-                                SizedBox(height: 14),
-                                service.image != null &&
-                                        service.image!.isNotEmpty
-                                    ? ClipRRect(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(16),
-                                          topRight: Radius.circular(16),
-                                          bottomLeft: Radius.zero,
-                                          bottomRight: Radius.zero,
-                                        ),
-                                        child: Image.network(
-                                          service.image!,
-                                          height: 120,
-                                          width: double.infinity,
-                                          fit: BoxFit.cover,
-                                          errorBuilder:
-                                              (context, error, stackTrace) {
-                                            return ClipRRect(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(16),
-                                                topRight: Radius.circular(16),
-                                                bottomLeft: Radius.zero,
-                                                bottomRight: Radius.zero,
-                                              ),
-                                              child: Image.asset(
-                                                'assets/images/avt.png',
-                                                height: 120,
-                                                width: double.infinity,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      )
-                                    : ClipRRect(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(16),
-                                          topRight: Radius.circular(16),
-                                          bottomLeft: Radius.zero,
-                                          bottomRight: Radius.zero,
-                                        ),
-                                        child: Image.asset(
-                                          'assets/images/avt.png',
-                                          height: 120,
-                                          width: double.infinity,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                SizedBox(height: 5),
-
-                                // Thông tin dịch vụ (Tên và Mô tả)
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      service.name,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
-                                        color: Colors.black87,
-                                      ),
-                                      softWrap: true,
-                                    ),
-                                    Row(
-                                      children: [
-                                        SizedBox(width: 5),
-                                        Expanded(
-                                          child: Text(
-                                            service.description,
-                                            softWrap: true,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.black54),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10),
-
-                                    // Phần giá dịch vụ
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Icon(Icons.attach_money,
-                                            size: 20, color: AppColors.accent),
-                                        Text(
-                                          service.formattedPrice,
-                                          style: TextStyle(
-                                            color: const Color.fromARGB(
-                                                255, 219, 152, 93),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
+                // Hiển thị danh sách dịch vụ
+                services.isEmpty
+                    ? Center(child: Text('Chưa có dịch vụ này'))
+                    : GridView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          childAspectRatio: 0.68,
+                        ),
+                        itemCount: services.length,
+                        itemBuilder: (context, index) {
+                          final service = services[index];
+                          return Card(
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                          ),
-                        );
-                      },
-                    ),
+                            color: Colors.white,
+                            child: Padding(
+                              padding: EdgeInsets.all(6),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  
+                                  SizedBox(height: 14),
+                                  service.image != null &&
+                                          service.image!.isNotEmpty
+                                      ? ClipRRect(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(16),
+                                            topRight: Radius.circular(16),
+                                            bottomLeft: Radius.zero,
+                                            bottomRight: Radius.zero,
+                                          ),
+                                          child: Image.network(
+                                            service.image!,
+                                            height: 120,
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return ClipRRect(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(16),
+                                                  topRight: Radius.circular(16),
+                                                  bottomLeft: Radius.zero,
+                                                  bottomRight: Radius.zero,
+                                                ),
+                                                child: Image.asset(
+                                                  'assets/images/avt.png',
+                                                  height: 120,
+                                                  width: double.infinity,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        )
+                                      : ClipRRect(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(16),
+                                            topRight: Radius.circular(16),
+                                            bottomLeft: Radius.zero,
+                                            bottomRight: Radius.zero,
+                                          ),
+                                          child: Image.asset(
+                                            'assets/images/avt.png',
+                                            height: 120,
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                  SizedBox(height: 5),
 
-              SizedBox(height: 10),
-              if (services.isNotEmpty)
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: AppColors.accent,
-                    minimumSize: Size(240, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                                  
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        service.name,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                          color: Colors.black87,
+                                        ),
+                                        softWrap: true,
+                                      ),
+                                      
+                                      Row(
+                                        children: [
+                                          SizedBox(width: 5),
+                                          Expanded(
+                                            child: Text(
+                                              service.description,
+                                              softWrap: true,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.black54),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 10),
+
+                                      
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Icon(Icons.monetization_on,
+                                              size: 20,
+                                              color: Colors.yellow),
+                                          SizedBox(width: 2),    
+                                          Text(
+                                            service.formattedPrice,
+                                            style: TextStyle(
+                                              color: const Color.fromARGB(255, 32, 32, 32),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+
+                SizedBox(height: 10),
+                if (services.isNotEmpty)
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ClinicScreen(
+                            iconBack: true,
+                          ),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(16), 
+                        side: BorderSide(
+                          
+                          color: const Color.fromARGB(255, 6, 27, 73), 
+                          width: 1.3, 
+                        ),
+                      ),
+                      minimumSize:
+                          Size(double.minPositive, 50), 
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.calendar_today,
+                          color: const Color.fromARGB(255, 58, 98, 184),
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'ĐẶT LỊCH NGAY',
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 58, 98, 184),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ClinicScreen(
-                          iconBack: true,
-                        ),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.calendar_today, color: Colors.white),
-                      SizedBox(width: 10),
-                      Text(
-                        'ĐẶT LỊCH NGAY',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Primary Color
-  static const Color primary = Color(0xFFE8F5E9);
+  static const Color primary = Color.fromARGB(255, 153, 212, 228);
 
   // Secondary Colors
-  static const Color secondary1 = Color(0xFF8FBEA2);
-  static const Color secondary2 = Color(0xFFB9FBC0);
+  static const Color secondary1 = Color.fromARGB(255, 130, 168, 186);
+  static const Color secondary2 = Color.fromARGB(255, 153, 193, 220);
 
   // Accent Color
-  static const Color accent = Color(0xFF43A047);
+  static const Color accent =  Color.fromARGB(255, 21, 91, 110);
 
   // Neutral Colors
   static const Color neutralWhite = Color(0xFFFFFFFF);
@@ -19,11 +19,11 @@ class AppColors {
   static const Color neutralGrey2 = Color(0xFFC4C4C4);
   static const Color neutralGrey3 = Color(0xFF9F9E9E);
   static const Color neutralDark = Color(0xFF616161);
-  static const Color neutralGreen = Color(0xFF2E7D32);
-  static const Color neutralDarkGreen1 = Color(0xFF1B401C);
+  static const Color neutralGreen = Color.fromARGB(255, 94, 127, 177);
+  static const Color neutralDarkGreen1 = Color.fromARGB(255, 9, 21, 9);
   static const Color neutralDarkGreen2 = Color.fromRGBO(40, 96, 43, 0.498);
-  static const Color neutralGreen3 = Color(0xFF368039);
-  static const Color neutralGreen4 = Color(0xFF43A047);
+  static const Color neutralGreen3 = Color.fromARGB(255, 47, 64, 124);
+  static const Color neutralGreen4 = Color.fromARGB(255, 62, 124, 153);
   static const Color neutralBlack = Color(0xFF0D200E);
   static const Color grey4 = Color(0xFFE1E1E1);
   static const Color neutralYellow = Color(0xFFFEC400);

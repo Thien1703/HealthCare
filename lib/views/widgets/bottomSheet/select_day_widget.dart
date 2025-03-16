@@ -47,46 +47,45 @@ class _SelectDayWidget extends State<SelectDayWidget> {
                 },
                 calendarStyle: CalendarStyle(
                   todayDecoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 213, 234, 213),
+                    color: const Color.fromARGB(255, 11, 11, 11),
                     border: Border.all(
-                        color: const Color.fromARGB(255, 95, 130, 91),
+                        color: const Color.fromARGB(255, 22, 109, 133),
                         width: 1.5),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   todayTextStyle: TextStyle(color: Colors.black),
                   selectedDecoration: BoxDecoration(
-                    color: const Color.fromARGB(
-                        255, 179, 178, 180), // Change to "kín lịch" color
+                    color: const Color.fromARGB(255, 79, 106, 171), // Change to "kín lịch" color
                     borderRadius: BorderRadius.circular(8),
                   ),
                   defaultDecoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 213, 234, 213),
+                    color: const Color.fromARGB(255, 125, 203, 215),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   weekendDecoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 213, 234, 213),
+                    color: const Color.fromARGB(255, 125, 203, 215),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   disabledDecoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 213, 234, 213),
+                    color:const Color.fromARGB(255, 125, 203, 215),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   markerDecoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 179, 178, 180),
+                    color: const Color.fromARGB(255, 10, 2, 18),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   outsideDecoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 213, 234, 213),
+                    color: const Color.fromARGB(255, 125, 203, 215),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   disabledTextStyle: TextStyle(
-                      color: const Color.fromARGB(255, 206, 205, 205)),
+                      color: const Color.fromARGB(255, 0, 0, 0)),
                   defaultTextStyle: TextStyle(color: Colors.black),
                   weekendTextStyle: TextStyle(color: Colors.black),
                   cellMargin: EdgeInsets.all(2),
                   // CHỌN NGÀY
                   rangeEndDecoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 179, 178, 180),
+                    color: const Color.fromARGB(255, 79, 106, 171),
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
@@ -98,7 +97,7 @@ class _SelectDayWidget extends State<SelectDayWidget> {
                   },
                   titleTextStyle: TextStyle(
                     color: Colors.white,
-                    fontSize: 17,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                   //ngaythang
@@ -109,7 +108,7 @@ class _SelectDayWidget extends State<SelectDayWidget> {
                   rightChevronIcon:
                       Icon(Icons.chevron_right, color: Colors.white),
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: const Color.fromARGB(255, 76, 96, 175),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(16),
                       topRight: Radius.circular(16),
@@ -125,49 +124,49 @@ class _SelectDayWidget extends State<SelectDayWidget> {
                 ),
               ),
               SizedBox(height: 6),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 16,
-                        height: 16,
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 213, 234, 213),
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 95, 130, 91),
-                              width: 1.5),
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Text('Hôm nay'),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 16,
-                        height: 16,
-                        color: const Color.fromARGB(255, 213, 234, 213),
-                      ),
-                      SizedBox(width: 8),
-                      Text('Còn trống'),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 16,
-                        height: 16,
-                        color: const Color.fromARGB(255, 179, 178, 180),
-                      ),
-                      SizedBox(width: 8),
-                      Text('Kín lịch'),
-                    ],
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: [
+              //     Row(
+              //       children: [
+              //         Container(
+              //           width: 16,
+              //           height: 16,
+              //           decoration: BoxDecoration(
+              //             color: const Color.fromARGB(255, 79, 106, 171),
+              //             border: Border.all(
+              //                 color: const Color.fromARGB(255, 79, 106, 171),
+              //                 width: 1.5),
+              //           ),
+              //         ),
+              //         SizedBox(width: 8),
+              //         Text('Hôm nay'),
+              //       ],
+              //     ),
+              //     Row(
+              //       children: [
+              //         Container(
+              //           width: 16,
+              //           height: 16,
+              //           color: const Color.fromARGB(255, 125, 203, 215),
+              //         ),
+              //         SizedBox(width: 8),
+              //         Text('Còn trống'),
+              //       ],
+              //     ),
+                  // Row(
+                  //   children: [
+                  //     Container(
+                  //       width: 16,
+                  //       height: 16,
+                  //       color: const Color.fromARGB(255, 179, 178, 180),
+                  //     ),
+                  //     SizedBox(width: 8),
+                  //     Text('Kín lịch'),
+                  //   ],
+                  // ),
+            //     ],
+            //   ),
             ],
           ),
         ),

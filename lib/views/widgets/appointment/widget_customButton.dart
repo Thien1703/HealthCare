@@ -18,12 +18,12 @@ class WidgetCustombutton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 45,
+      height: 55,
       margin: const EdgeInsets.only(bottom: 10),
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          backgroundColor: AppColors.accent,
-          side: BorderSide(color: AppColors.accent),
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          side: BorderSide(color: const Color.fromARGB(255, 37, 135, 162),),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
@@ -41,9 +41,10 @@ class WidgetCustombutton extends StatelessWidget {
             : Text(
                 text,
                 style: const TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
+                  fontSize: 18,
+                  
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromARGB(255, 37, 135, 162),
                 ),
               ),
       ),

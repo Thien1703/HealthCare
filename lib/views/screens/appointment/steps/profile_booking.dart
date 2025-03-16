@@ -25,7 +25,7 @@ class ProfileBooking extends StatefulWidget {
     required this.clinicId,
     required this.selectedServiceId,
     required this.date,
-    required this.time,
+    required this.time, 
     this.paymentId = 1,
   });
 
