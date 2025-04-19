@@ -23,6 +23,7 @@ class _CreateMedicalProfileState extends State<CreateMedicalProfile> {
   final TextEditingController _addressController = TextEditingController();
 
   Province? selectedProvince;
+  String? selectedGender;
   bool isButtonEnabled = false;
 
   @override
@@ -47,7 +48,9 @@ class _CreateMedicalProfileState extends State<CreateMedicalProfile> {
           _phoneController.text.isNotEmpty &&
           _emailController.text.isNotEmpty &&
           _cityController.text.isNotEmpty &&
-          _addressController.text.isNotEmpty;
+          _addressController.text.isNotEmpty &&
+          selectedProvince != null && // Kiểm tra tỉnh/thành phố đã được chọn
+          selectedGender != null; // Kiểm tra giới tính
     });
   }
 
@@ -88,7 +91,15 @@ class _CreateMedicalProfileState extends State<CreateMedicalProfile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _customTitle(title: 'Giới tính'),
-                        WidgetSelectgender(),
+                        WidgetSelectGender(
+                          initialGender: selectedGender,
+                          onChanged: (String gender) {
+                            setState(() {
+                              selectedGender = gender;
+                            });
+                            _updateButtonState();
+                          },
+                        ),
                       ],
                     ),
                   ],
@@ -123,10 +134,13 @@ class _CreateMedicalProfileState extends State<CreateMedicalProfile> {
                 WidgetSelectProvince(
                   initialProvince: selectedProvince,
                   onChanged: (Province province) {
-                    selectedProvince = province;
-                    _updateButtonState();
+                    setState(() {
+                      selectedProvince = province;
+                    });
+                    _updateButtonState(); // Cập nhật trạng thái nút
                   },
                 ),
+
                 _customTitle(title: 'Địa chỉ'),
                 _customTextField(
                     controller: _addressController,

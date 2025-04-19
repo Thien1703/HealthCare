@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_care/common/app_colors.dart';
 import 'package:health_care/common/app_icons.dart';
 import 'dart:async';
 import 'package:health_care/views/widgets/widget_header_body.dart';
@@ -230,16 +229,16 @@ class _UnPaidDetailScreen extends State<UnPaidDetailScreen> {
   }
 }
 
-Widget _customDashedLine() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: List.generate(23, (index) {
-      return Container(
-        margin: EdgeInsets.symmetric(vertical: 15),
-        width: 7,
-        height: 1.5,
-        color: AppColors.grey4,
-      );
-    }),
-  );
-}
+// Widget _customDashedLine() {
+//   return Row(
+//     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//     children: List.generate(23, (index) {
+//       return Container(
+//         margin: EdgeInsets.symmetric(vertical: 15),
+//         width: 7,
+//         height: 1.5,
+//         color: AppColors.grey4,
+//       );
+//     }),
+//   );
+// }

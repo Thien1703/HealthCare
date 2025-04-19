@@ -14,7 +14,7 @@ class WidgetHeaderBody extends StatelessWidget {
     required this.iconBack,
     required this.title,
     required this.body,
-    this.headerHeight = 0.13,
+    this.headerHeight = 0.145,
     this.onBackPressed,
     this.selectedIcon,
   });
@@ -28,8 +28,9 @@ class WidgetHeaderBody extends StatelessWidget {
         body: Column(children: [
       Container(
         width: double.infinity,
+
         height: header,
-        color: AppColors.accent,
+        color: const Color.fromARGB(255, 37, 135, 162),
         child: SafeArea(
             child: Column(children: [
           SizedBox(height: 15),
@@ -42,7 +43,11 @@ class WidgetHeaderBody extends StatelessWidget {
           Container(child: selectedIcon)
         ])),
       ),
-      Expanded(child: body)
+      Expanded(
+          child: Container(
+        color: Colors.white,
+        child: body,
+      ))
     ]));
   }
 }

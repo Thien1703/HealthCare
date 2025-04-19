@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:health_care/views/screens/HealthCheckForm/health_check.dart';
+import "package:health_care/views/screens/HealthCheckForm/health_check.dart";
 import 'package:qr_flutter/qr_flutter.dart';
 
 class DetailHealthCheckScreen extends StatelessWidget {
   final HealthCheck healthCheck;
   const DetailHealthCheckScreen({super.key, required this.healthCheck});
+
 
   @override
   Widget build(BuildContext context) {

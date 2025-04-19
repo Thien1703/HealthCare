@@ -72,7 +72,8 @@ class WidgetUserCard extends StatelessWidget {
                     // Xử lý sự kiện chọn
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
+                    backgroundColor:   Color.fromARGB(255, 21, 91, 110),
+
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),

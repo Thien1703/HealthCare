@@ -1,127 +1,146 @@
 import 'package:flutter/material.dart';
 import 'package:health_care/common/app_colors.dart';
+import 'package:health_care/viewmodels/api/api_service.dart';
 import 'package:health_care/views/screens/profile/editProfile_screen.dart';
+import 'package:intl/intl.dart';
 
-class InforProfileScreen extends StatelessWidget {
+class InforProfileScreen extends StatefulWidget {
   const InforProfileScreen({super.key});
 
   @override
+  _InforProfileScreenState createState() => _InforProfileScreenState();
+}
+
+class _InforProfileScreenState extends State<InforProfileScreen> {
+  Map<String, dynamic>? userData;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    final data = await ApiService.getUserProfile();
+    if (mounted) {
+      setState(() {
+        userData = data;
+        isLoading = false;
+      });
+    }
+  }
+
+  String formatBirthDate(String? birthDate) {
+    if (birthDate == null || birthDate.isEmpty) return 'Chưa cập nhật';
+    try {
+      DateTime dateTime = DateTime.parse(birthDate);
+      return DateFormat('dd/MM/yyyy').format(dateTime);
+    } catch (e) {
+      return 'Sai định dạng';
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // Lấy chiều cao màn hình
     final screenHeight = MediaQuery.of(context).size.height;
-    // Tính chiều cao header theo tỷ lệ, ví dụ 12% chiều cao màn hình
     final headerHeight = screenHeight * 0.12;
 
     return Scaffold(
-      // SafeArea để tránh bị che khuất bởi notch/thanh trạng thái
-      body: Column(
-        children: [
-          // Header tuỳ chỉnh, chiều cao thích nghi theo kích thước màn hình
-          Container(
-            width: double.infinity,
-            height: headerHeight,
-            color: AppColors.accent,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Nút Back (bên trái)
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-
-                  // Tiêu đề (ở giữa)
-                  const Text(
-                    'Xác nhận thông tin',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-
-                  // Icon delete (bên phải)
-                  IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.white),
-                    onPressed: () {
-                      // Xử lý khi nhấn nút xóa
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          // Nội dung bên dưới
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Thông tin tài khoản',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  _buildInfoRow('Họ và tên', 'NGUYỄN HỮU THIỆN'),
-                  _buildInfoRow('Số điện thoại', '0901492845'),
-                  _buildInfoRow('Mật khẩu', '**********'),
-                  _buildInfoRow('Email', 'Chưa cập nhật'),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Mở bản đồ hoặc tính năng khác
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            backgroundColor: Colors.green,
-                            foregroundColor: Colors.white,
-                          ),
-                          child: const Text('Bản đồ'),
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator()) // Hiển thị loading
+          : Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: headerHeight,
+                  color: AppColors.accent,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon:
+                              const Icon(Icons.arrow_back, color: Colors.white),
+                          onPressed: () => Navigator.of(context).pop(),
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: ElevatedButton(
+                        const Text(
+                          'Xác nhận thông tin',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.white),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const EditProfileScreen(),
+                            // Xử lý xóa
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Nội dung hiển thị thông tin người dùng
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Thông tin tài khoản',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 10),
+                        _buildInfoRow('Họ và tên',
+                            userData?['fullName'] ?? 'Chưa cập nhật'),
+                        _buildInfoRow(
+                            'Ngày sinh',
+                            formatBirthDate(userData?['birthDate'])),
+                        _buildInfoRow('Giới tính',
+                            userData?['gender'] ?? 'Chưa cập nhật'),
+                        _buildInfoRow(
+                            'Email', userData?['email'] ?? 'Chưa cập nhật'),
+                        _buildInfoRow('Số điện thoại',
+                            userData?['phoneNumber'] ?? 'Chưa cập nhật'),
+                        _buildInfoRow(
+                            'Địa chỉ', userData?['address'] ?? 'Chưa cập nhật'),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const EditProfileScreen(),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                              backgroundColor: Color.fromARGB(255, 21, 91, 110),
+
+                              foregroundColor: Colors.white,
                             ),
-                            backgroundColor: Colors.green,
-                            foregroundColor: Colors.white,
+                            child: const Text('Chỉnh sửa',style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                           ),
-                          child: const Text('Chỉnh sửa'),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -131,10 +150,7 @@ class InforProfileScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: TextStyle(color: AppColors.neutralDarkGreen2),
-          ),
+          Text(label, style: TextStyle(color: AppColors.neutralDarkGreen2)),
           Text(
             value,
             style: TextStyle(
